@@ -1,0 +1,18 @@
+{
+  "name": "jjgym",
+  "version": "0.0.0",
+  "authors": [
+    "Adam Haley <adam.haley@gmail.com>"
+  ],
+  "description": "JJGym Calendar",
+  "main": "index.html",
+  "license": "MIT",
+  "homepage": "jjgym.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
