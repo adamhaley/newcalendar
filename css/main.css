@@ -1,0 +1,28 @@
+body {
+  font-family: verdana, arial, helvetica, sans-serif;
+}
+.fc-header-title h2 {
+  font-size: .9em;
+  white-space: normal !important;
+}
+.fc-view-month .fc-event,
+.fc-view-agendaWeek .fc-event {
+  font-size: 10px;
+  overflow: hidden;
+  height: 20px;
+}
+.fc-view-agendaWeek .fc-event-vert {
+  font-size: 0;
+  width: 2px !important;
+}
+.fc-agenda-axis {
+  width: 20px !important;
+  font-size: .7em;
+}
+.fc-button-content {
+  padding: 0;
+}
+.dateSelectors {
+  float: left;
+  margin-top: 20px;
+}

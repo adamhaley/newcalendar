@@ -29,3 +29,22 @@ frisby.create('GET users')
     */
   })
 .toss();
+
+frisby.create('GET events')
+  .get(URL + '/events')
+  .expectStatus(200)
+  .expectJSONTypes('?',{
+    id: Number,
+    title: String,
+    start: String,
+    end: String,
+    allDay: Boolean
+  })
+  // .inspectJSON()
+  // 'afterJSON' automatically parses response body as JSON and passes it as an argument
+  .afterJSON(function(json) {
+  	var row = json[0];
+  	// console.log(json[0]);
+    expect(row.allDay).toEqual(false);
+  })
+.toss();
