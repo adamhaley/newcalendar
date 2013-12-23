@@ -31,7 +31,7 @@ frisby.create('GET users')
 .toss();
 
 frisby.create('GET events')
-  .get(URL + '/events')
+  .get(URL + '/events?start=1385884800&end=1389513600&_=1387779451078')
   .expectStatus(200)
   .expectJSONTypes('?',{
     id: Number,
