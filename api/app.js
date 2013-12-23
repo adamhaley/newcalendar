@@ -6,13 +6,20 @@ var _ = require('underscore');
 
 var app = express();
 
+/*
 var db = mysql.createConnection({
 	host     : 'jjgym.com',
 	database : 'jjgym_calendar_new',
 	user     : 'jjgym_root',
 	password : 'slinkyjuggler',
 });
-
+*/
+var db = mysql.createConnection({
+  host     : 'localhost',
+  database : 'jjgym_calendar',
+  user     : 'root',
+  password : 'root',
+});
 
 db.connect();
 
@@ -55,7 +62,7 @@ app.get('/events', function(req, res){
 	res.writeHead(200, {"Content-Type": "text/json"});
 
 	var q = "SELECT e.id as id,"
-	q += "CONCAT(e.date, 'T', e.time_start, '-08') as start, CONCAT(e.date, 'T', e.time_end, 'Z') as end,";
+	q += "CONCAT(e.date, 'T', e.time_start, '-08') as start, CONCAT(e.date, 'T', e.time_end, '-08') as end,";
 	q += "CONCAT(u.name_first, ' ', u.name_last) as title, e.usage ";
 	q += "FROM events as e, users as u WHERE e.user_id = u.id";
 
