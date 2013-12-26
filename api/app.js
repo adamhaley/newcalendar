@@ -19,7 +19,7 @@ var db = mysql.createConnection({
   host     : 'localhost',
   database : 'jjgym_calendar',
   user     : 'root',
-  password : 'root',
+  password : 'root'
 });
 
 db.connect();
@@ -64,7 +64,7 @@ app.get('/events', function(req, res){
 
 	var q = "SELECT e.id as id,"
 	q += "CONCAT(e.date, 'T', e.time_start, '-08') as start, CONCAT(e.date, 'T', e.time_end, '-08') as end,";
-	q += "CONCAT(u.name_first, ' ', u.name_last) as title, e.usage ";
+	q += "CONCAT(u.name_first, ' ', u.name_last) as title, e.usage, e.comments as description ";
 	q += "FROM events as e, users as u WHERE e.user_id = u.id and e.date >= FROM_UNIXTIME(" + req.query.start + ")";
   q += " and e.date <= FROM_UNIXTIME(" + req.query.end + ")";
 
