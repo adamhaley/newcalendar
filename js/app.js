@@ -8,9 +8,10 @@ app = angular.module("app", ['ngRoute','ui.calendar']).config(function($routePro
 
 
 
-app.controller('CalendarController', function($scope){
+app.controller('CalendarController', function($scope,$location){
 
-    var server = 'http://jjgym.com';
+    var server = $location.protocol() + '://' + $location.host();
+    var apiPort = 2000;
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -18,7 +19,7 @@ app.controller('CalendarController', function($scope){
    
     $scope.eventSource = {
             // url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
-            url: server + ":2000/events",
+            url: server + ":" + apiPort + "/events",
             className: 'gcal-event',           // an option!
             currentTimezone: 'America/Los Angeles' // an option!
     };

@@ -6,27 +6,28 @@ var _ = require('underscore');
 
 var app = express();
 
+/*
 var db = mysql.createConnection({
 	host     : 'jjgym.com',
 	database : 'jjgym_calendar_new',
 	user     : 'jjgym_root',
 	password : 'sl1nkyjuggl3r',
 });
+*/
 
-/*
 var db = mysql.createConnection({
   host     : 'localhost',
   database : 'jjgym_calendar',
   user     : 'root',
   password : 'root',
 });
-*/
+
 db.connect();
 
 // Add headers
 app.use(function (req, res, next) {
 
-    res.setHeader('Access-Control-Allow-Origin', 'http://jjgym.com');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     res.setHeader('Access-Control-Allow-Credentials', true);
@@ -67,7 +68,7 @@ app.get('/events', function(req, res){
 	q += "FROM events as e, users as u WHERE e.user_id = u.id and e.date >= FROM_UNIXTIME(" + req.query.start + ")";
   q += " and e.date <= FROM_UNIXTIME(" + req.query.end + ")";
 
-  console.log(q);
+
 
 	db.query(q, function(err,rows){
 
