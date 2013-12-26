@@ -12,6 +12,7 @@ var db = mysql.createConnection({
 	user     : 'jjgym_root',
 	password : 'sl1nkyjuggl3r',
 });
+
 /*
 var db = mysql.createConnection({
   host     : 'localhost',
