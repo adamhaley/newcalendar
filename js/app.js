@@ -30,13 +30,13 @@ app.controller('CalendarController', function($scope,$location){
   $scope.eventRender = function(){
     console.log('Hi from event render');
   }
-
+  $scope.showLoader = function(isLoading){
+    console.log('loading: ' + isLoading);
+  }
 
 	$scope.uiConfig = {
       calendar:{
-        // weekMode: 'variable',
-        // height: 450,
-        // width:1000,
+        weekMode: 'variable',
         editable: false,
         firstDay: 0,
         header:{
@@ -45,7 +45,7 @@ app.controller('CalendarController', function($scope,$location){
           right: 'today prev,next'
         },
         theme:true,
-        ignoreTimezone: false,
+        ignoreTimezone: true,
         allDaySlot: false,
         axisFormat: 'h:mmtt',
         minTime: "5:30",
@@ -53,7 +53,8 @@ app.controller('CalendarController', function($scope,$location){
         dayClick: $scope.eventOnClick,
         eventDrop: $scope.alertOnDrop,
         eventResize: $scope.alertOnResize,
-        eventRender: $scope.eventRender
+        eventRender: $scope.eventRender,
+        loading: $scope.showLoader
       }
     };
 

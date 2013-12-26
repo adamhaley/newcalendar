@@ -1,6 +1,7 @@
 var http 	= require('http');
 var mysql 	= require('mysql');
 var express = require('express');
+var moment = require('moment');
 var _ = require('underscore');
 
 
@@ -63,7 +64,7 @@ app.get('/events', function(req, res){
 	res.writeHead(200, {"Content-Type": "text/json"});
 
 	var q = "SELECT e.id as id,"
-	q += "CONCAT(e.date, 'T', e.time_start, '-08') as start, CONCAT(e.date, 'T', e.time_end, '-08') as end,";
+	q += "CONCAT(e.date, 'T', LPAD(e.time_start,5,'0')) as start, CONCAT(e.date, 'T', LPAD(e.time_end,5,'0')) as end,";
 	q += "CONCAT(u.name_first, ' ', u.name_last) as title, e.usage, e.comments as description ";
 	q += "FROM events as e, users as u WHERE e.user_id = u.id and e.date >= FROM_UNIXTIME(" + req.query.start + ")";
   q += " and e.date <= FROM_UNIXTIME(" + req.query.end + ")";
@@ -77,7 +78,7 @@ app.get('/events', function(req, res){
   		}else{
   			rows = _.map(rows, function(row,i){
   				row.allDay = false;
-  				return row;
+          return row;
   			});
   			console.log(rows);	
   			res.write(JSON.stringify(rows));
