@@ -1,9 +1,0 @@
-dependencies: {
-	"angular" : "latest",
-	"angular-route" : "latest",
-	"bootstrap" : "latest",
-	"jasmine" : "latest",
-	"jquery" : "latest",
-	"moment" : "latest",
-	"angular-ui-calendar" : "latest"
-}

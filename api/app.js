@@ -6,27 +6,26 @@ var _ = require('underscore');
 
 var app = express();
 
-/*
 var db = mysql.createConnection({
 	host     : 'jjgym.com',
 	database : 'jjgym_calendar_new',
 	user     : 'jjgym_root',
-	password : 'slinkyjuggler',
+	password : 'sl1nkyjuggl3r',
 });
-*/
+/*
 var db = mysql.createConnection({
   host     : 'localhost',
   database : 'jjgym_calendar',
   user     : 'root',
   password : 'root',
 });
-
+*/
 db.connect();
 
 // Add headers
 app.use(function (req, res, next) {
 
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost');
+    res.setHeader('Access-Control-Allow-Origin', 'http://jjgym.com');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     res.setHeader('Access-Control-Allow-Credentials', true);

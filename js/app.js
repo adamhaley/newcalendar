@@ -10,7 +10,7 @@ app = angular.module("app", ['ngRoute','ui.calendar']).config(function($routePro
 
 app.controller('CalendarController', function($scope){
 
-
+    var server = 'http://jjgym.com';
     var date = new Date();
     var d = date.getDate();
     var m = date.getMonth();
@@ -18,17 +18,10 @@ app.controller('CalendarController', function($scope){
    
     $scope.eventSource = {
             // url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
-            url: "http://localhost:2000/events",
+            url: server + ":2000/events",
             className: 'gcal-event',           // an option!
             currentTimezone: 'America/Los Angeles' // an option!
     };
-    /*
-    $scope.eventSource = {
-            url: "http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic",
-            className: 'gcal-event',           // an option!
-            currentTimezone: 'America/Los Angeles' // an option!
-    };
-    */
     /*
    	$scope.events = [
    		{title: 'All Day Event',start: new Date(y, m, 1)},
