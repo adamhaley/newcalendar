@@ -4,36 +4,19 @@ var express = require('express');
 var moment = require('moment');
 var _ = require('underscore');
 
+//config - set 'false' for live
+var local = true;
 
-// this code is run twice
-// see implementation notes below
-console.log(process.pid);
+var dbConfig = {};
+dbConfig.host = local? 'localhost' : 'jjgym.com';
+dbConfig.database = local? 'jjgym_calendar' : 'jjgym_calendar_new';
+dbConfig.user = local?  'root' : 'jjgym_root';
+dbConfig.password = local? 'root' : 'sl1nkyjuggl3r';
 
-// after this point, we are a daemon
-require('daemon')();
-
-// different pid because we are now forked
-// original parent has exited
-console.log(process.pid);
-
+var db = mysql.createConnection(dbConfig);
+db.connect();
 
 var app = express();
-
-var db = mysql.createConnection({
-	host     : 'jjgym.com',
-	database : 'jjgym_calendar_new',
-	user     : 'jjgym_root',
-	password : 'sl1nkyjuggl3r',
-});
-/*
-var db = mysql.createConnection({
-  host     : 'localhost',
-  database : 'jjgym_calendar',
-  user     : 'root',
-  password : 'root'
-});
-*/
-db.connect();
 
 // Add headers
 app.use(function (req, res, next) {
@@ -98,4 +81,6 @@ app.get('/events', function(req, res){
 
 });
 
-app.listen(2000);
+var port = process.env.PORT || 2000;
+
+app.listen(port);
