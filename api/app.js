@@ -5,24 +5,34 @@ var moment = require('moment');
 var _ = require('underscore');
 
 
+// this code is run twice
+// see implementation notes below
+console.log(process.pid);
+
+// after this point, we are a daemon
+require('daemon')();
+
+// different pid because we are now forked
+// original parent has exited
+console.log(process.pid);
+
+
 var app = express();
 
-/*
 var db = mysql.createConnection({
 	host     : 'jjgym.com',
 	database : 'jjgym_calendar_new',
 	user     : 'jjgym_root',
 	password : 'sl1nkyjuggl3r',
 });
-*/
-
+/*
 var db = mysql.createConnection({
   host     : 'localhost',
   database : 'jjgym_calendar',
   user     : 'root',
   password : 'root'
 });
-
+*/
 db.connect();
 
 // Add headers
