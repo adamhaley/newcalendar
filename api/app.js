@@ -5,7 +5,7 @@ var moment = require('moment');
 var _ = require('underscore');
 
 //config - set 'false' for live
-var local = true;
+var local = false;
 
 var dbConfig = {};
 dbConfig.host = local? 'localhost' : 'jjgym.com';
