@@ -29,6 +29,12 @@ app.controller('CalendarController', function($scope,$location){
     console.log('Hi from event render');
   }
   $scope.showLoader = function(isLoading){
+
+    if(isLoading){
+      $('#loader-screen').show();
+    }else{
+      $('#loader-screen').hide();
+    }
     console.log('loading: ' + isLoading);
   }
 

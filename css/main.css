@@ -1,5 +1,41 @@
+/* begin less functions */
+/* end less functions */
 body {
   font-family: verdana, arial, helvetica, sans-serif;
+}
+#loader-screen {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: #000;
+  /* IE 8 */
+
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=@value)";
+  /* IE 5-7 */
+
+  filter: alpha(opacity=50);
+  /* Netscape */
+
+  -moz-opacity: 0.5;
+  /* Safari 1.x */
+
+  -khtml-opacity: 0.5;
+  /* Good browsers */
+
+  opacity: 0.5;
+  width: 100%;
+  height: 100%;
+  z-index: 100000;
+  display: none;
+}
+#loader-screen #loader {
+  width: 50px;
+  height: 50px;
+  background-image: url(images/loader-med.gif);
+  background-repeat: no-repeat;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 25%;
 }
 .fc-header-title h2 {
   font-size: .9em;

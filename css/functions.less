@@ -1,0 +1,81 @@
+/* begin less functions */
+.gradients(@from: #ccc, @to: #000){
+	/* GRADIENTS */
+  background: -webkit-gradient(linear, left top, left bottom, from(@from),to(@to));/* Chrome,Safari4+ */
+  background: -moz-linear-gradient(top, @from, @to); /* FF3.6+ */	
+  background: -o-linear-gradient(top,  @from 80%, @to 80%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  @from 80%, @to 80%); /* IE10+ */
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=@from, endColorstr=@to, GradientType=1)"; /* IE8+ */
+	/* END GRADIENTS */
+}
+
+.image-gradients(@from: #ccc, @to: #000){
+	/* IMAGE GRADIENTS */
+	background-image: linear-gradient(bottom, rgb(67,31,82) 21%, rgb(41,18,51) 59%, rgb(66,30,82) 85%);
+	background-image: -o-linear-gradient(bottom, rgb(67,31,82) 21%, rgb(41,18,51) 59%, rgb(66,30,82) 85%);
+	background-image: -moz-linear-gradient(bottom, rgb(67,31,82) 21%, rgb(41,18,51) 59%, rgb(66,30,82) 85%);
+	background-image: -webkit-linear-gradient(bottom, rgb(67,31,82) 21%, rgb(41,18,51) 59%, rgb(66,30,82) 85%);
+	background-image: -ms-linear-gradient(bottom, rgb(67,31,82) 21%, rgb(41,18,51) 59%, rgb(66,30,82) 85%);
+	/* END IMAGE GRADIENTS */
+}
+
+.transitions(@prop: all, @dur: .5s, @ease: ease-in-out){
+        /* TRANSITIONS */
+		-webkit-transition: @prop @dur @ease;
+        -moz-transition: @prop @dur @ease;
+        -o-transition: @prop @dur @ease;
+        -ms-transition: @prop @dur @ease;
+        transition: @prop @dur @ease;
+		/* END TRANSITIONS */
+		
+}
+.height-transitions(@dur: .5s, @ease: ease-in-out){
+	-webkit-transition: height @dur @ease;
+       -moz-transition: height @dur @ease;
+         -o-transition: height @dur @ease;
+        -ms-transition: height @dur @ease;
+            transition: height @dur @ease;
+}
+
+.radius(@radius){
+	/* RADIUS */
+	-webkit-border-radius: @radius;
+	-moz-border-radius: @radius;
+	border-radius: @radius;
+	/* END RADIUS */
+}
+
+.inset-box-shadow(@left: 4px, @top: 4px, @blur: 8px, @color: #222) {
+	/* BOX SHADOW */
+	-moz-box-shadow: inset @left @top @blur @color;
+	-webkit-box-shadow: inset @left @top @blur @color;
+	box-shadow: inset @left @top @blur @color;
+	/* END BOX SHADOW */
+}
+
+.box-shadow(@left: 4px, @top: 4px, @blur: 8px, @color: #222) {
+	/* BOX SHADOW */
+	-moz-box-shadow:@left @top @blur @color;
+	-webkit-box-shadow:@left @top @blur @color;
+	box-shadow: @left @top @blur @color;
+	/* END BOX SHADOW */
+}
+
+.opacity(@value){
+	/* IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=@value)";
+
+  /* IE 5-7 */
+  filter: alpha(opacity=@value);
+
+  /* Netscape */
+  -moz-opacity: @value / 100;
+
+  /* Safari 1.x */
+  -khtml-opacity: @value / 100;
+
+  /* Good browsers */
+  opacity: @value / 100;
+}
+
+/* end less functions */
