@@ -18,7 +18,6 @@ app.controller('CalendarController', function($scope,$location){
   var y = date.getFullYear();
  
   $scope.eventSource = {
-
       url: "http://gymcalendar.herokuapp.com/events",
       currentTimezone: 'America/Los Angeles' // an option!
   };

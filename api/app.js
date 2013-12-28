@@ -13,23 +13,21 @@ var dbConfig = {
   password: process.env.DB_PASSWORD
 };
 
-var db = mysql.createConnection(dbConfig);
-db.connect();
+var db;
 
 /**
 *handle disconnection situations
 */
 function handleDisconnect() {
-  connection = mysql.createConnection(dbConfig);
-
-  connection.connect(function(err) {  
+  db = mysql.createConnection(dbConfig);
+  db.connect(function(err) {  
     if(err) {                                     
       console.log('error when connecting to db:', err);
       setTimeout(handleDisconnect, 2000); 
     }                                     
   });                                     
 
-  connection.on('error', function(err) {
+  db.on('error', function(err) {
     console.log('db error', err);
     if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
       handleDisconnect();                         
