@@ -18,13 +18,8 @@ app.controller('CalendarController', function($scope,$location){
   var y = date.getFullYear();
  
   $scope.eventSource = {
-<<<<<<< HEAD
-      url: "http://gymcalendar.herokuapp.com/events",
-=======
 
-      url: server + ":" + apiPort + "/events",
-      
->>>>>>> parent of 8251080... pointed model url to gymcalendar.herokuapp.com
+      url: "http://gymcalendar.herokuapp.com/events",
       currentTimezone: 'America/Los Angeles' // an option!
   };
     
