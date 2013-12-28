@@ -4,7 +4,6 @@ var express = require('express');
 var moment = require('moment');
 var _ = require('underscore');
 
-//config - set 'false' for live
 var local = true;
 
 var dbConfig = {
@@ -17,6 +16,36 @@ var dbConfig = {
 var db = mysql.createConnection(dbConfig);
 db.connect();
 
+/**
+*handle disconnection situations
+*/
+function handleDisconnect() {
+  connection = mysql.createConnection(db_config);
+
+  connection.connect(function(err) {  
+    if(err) {                                     
+      console.log('error when connecting to db:', err);
+      setTimeout(handleDisconnect, 2000); 
+    }                                     
+  });                                     
+
+  connection.on('error', function(err) {
+    console.log('db error', err);
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') { 
+      handleDisconnect();                         
+    } else {                                      
+      throw err;                                  
+    }
+  });
+}
+/**
+*handle it
+*/
+handleDisconnect();
+
+/**
+*instantiate app
+*/
 var app = express();
 
 // Add headers
@@ -39,14 +68,11 @@ app.get('/', function(req, res){
 app.get('/users', function(req, res){
 	res.writeHead(200, {"Content-Type": "text/json"});
 
-
 	db.query('select id, name_first, name_last, username, email from users', function(err,rows){
-
 
 		if(err){
   			res.end('Query Error: ' . err);
   		}else{
-
   			res.write(JSON.stringify(rows));
   		}
   		res.end();
@@ -62,8 +88,6 @@ app.get('/events', function(req, res){
 	q += "CONCAT(u.name_first, ' ', u.name_last) as title, e.usage, e.comments as description ";
 	q += "FROM events as e, users as u WHERE e.user_id = u.id and e.date >= FROM_UNIXTIME(" + req.query.start + ")";
   q += " and e.date <= FROM_UNIXTIME(" + req.query.end + ")";
-
-
 
 	db.query(q, function(err,rows){
 
