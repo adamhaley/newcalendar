@@ -6,6 +6,8 @@ app = angular.module("app", ['ngRoute','ui.calendar']).config(function($routePro
 	$routeProvider.otherwise({ redirectTo: '/calendar'})
 });
 
+
+
 app.controller('CalendarController', function($scope,$location){
 
   var server = $location.protocol() + '://' + $location.host();
@@ -16,10 +18,17 @@ app.controller('CalendarController', function($scope,$location){
   var y = date.getFullYear();
  
   $scope.eventSource = {
+<<<<<<< HEAD
       url: "http://gymcalendar.herokuapp.com/events",
+=======
+
+      url: server + ":" + apiPort + "/events",
+      
+>>>>>>> parent of 8251080... pointed model url to gymcalendar.herokuapp.com
       currentTimezone: 'America/Los Angeles' // an option!
   };
     
+
   $scope.events = [];
   
   $scope.eventRender = function(){
@@ -54,4 +63,6 @@ app.controller('CalendarController', function($scope,$location){
     };
 
    	$scope.eventSources = [$scope.events, $scope.eventSource];
+ 
+
 });

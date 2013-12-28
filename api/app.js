@@ -59,10 +59,6 @@ app.use(function (req, res, next) {
 
 });
 
-app.use(function(){
-  app.use(allowCrossDomain);
-});
-
 app.get('/', function(req, res){
 	res.send('Hi');
 });

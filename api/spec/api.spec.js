@@ -2,7 +2,7 @@ var request = require('request');
 var frisby = require('frisby');
 
 
-var URL = 'http://gymcalendar.herokuapp.com';
+var URL = 'http://localhost:2000';
 
 frisby.create('GET users')
   .get(URL + '/users')
