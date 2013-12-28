@@ -5,13 +5,14 @@ var moment = require('moment');
 var _ = require('underscore');
 
 //config - set 'false' for live
-var local = false;
+var local = true;
 
-var dbConfig = {};
-dbConfig.host = local? 'localhost' : 'jjgym.com';
-dbConfig.database = local? 'jjgym_calendar' : 'jjgym_calendar_new';
-dbConfig.user = local?  'root' : 'jjgym_root';
-dbConfig.password = local? 'root' : 'sl1nkyjuggl3r';
+var dbConfig = {
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD
+};
 
 var db = mysql.createConnection(dbConfig);
 db.connect();
