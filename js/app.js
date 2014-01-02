@@ -3,41 +3,51 @@ app = angular.module("app", ['ngRoute','ui.calendar']).config(function($routePro
 		templateUrl: 'calendar.html',
 		controller: 'CalendarController'
 	});	
-	$routeProvider.otherwise({ redirectTo: '/calendar'})
+  $routeProvider.when('/tests', {
+    templateUrl: 'tests.html',
+    controller: 'TestController'
+  });
+	$routeProvider.otherwise({ redirectTo: '/calendar'});
 });
 
+app.controller('TestController', function($scope){
 
+});
 
 app.controller('CalendarController', function($scope,$location){
 
-  var server = $location.protocol() + '://' + $location.host();
-  var apiPort = 2000;
-  var date = new Date();
-  var d = date.getDate();
-  var m = date.getMonth();
-  var y = date.getFullYear();
+  var server = $location.protocol() + '://' + $location.host()
+  , apiPort = 2000
+  , date = new Date()
+  , d = date.getDate()
+  , m = date.getMonth()
+  , y = date.getFullYear()
+  ;
  
   $scope.eventSource = {
       url: "http://gymcalendar.herokuapp.com/events",
-      currentTimezone: 'America/Los Angeles' // an option!
+      currentTimezone: 'America/Los Angeles'
   };
     
-
   $scope.events = [];
   
+  /**
+  *scope functions
+  */
   $scope.eventRender = function(){
     console.log('Hi from event render');
   }
   $scope.showLoader = function(isLoading){
-
     if(isLoading){
       $('#loader-screen').show();
     }else{
       $('#loader-screen').hide();
     }
-    console.log('loading: ' + isLoading);
   }
 
+  /**
+  *Calendar Config
+  */
 	$scope.uiConfig = {
       calendar:{
         weekMode: 'variable',
@@ -64,5 +74,4 @@ app.controller('CalendarController', function($scope,$location){
 
    	$scope.eventSources = [$scope.events, $scope.eventSource];
  
-
 });
