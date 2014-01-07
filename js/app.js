@@ -34,9 +34,38 @@ app.controller('CalendarController', function($scope,$location){
   /**
   *scope functions
   */
-  $scope.eventRender = function(){
-    console.log('Hi from event render');
+  $scope.eventRender = function(event, element){
+    // $(element).css('margin-left', '40px');
+
+    var percDiv = $('<div />');
+    percDiv.addClass('fc-event-percentage');
+    percDiv.text( event.usage + '%');
+    $('.fc-event-title',element).append(percDiv);
   }
+
+  $scope.eventAfterRender = function(event, element){
+ 
+    /*
+    var parentWidth = element.parent().parent().width(),
+    // $(element.parent()).css('width','100%');
+
+   
+    // $(element).append(percDiv);
+
+    perc = event.usage * .01,
+    childWidth = parentWidth * perc;
+    console.log('width is ' + childWidth);
+
+    $(element).css('margin-left', '50px');
+    $(element).css('width', childWidth + 'px');
+    // return $(element);
+
+    $(element).addClass('percent' + event.usage);
+    */
+  }
+
+
+
   $scope.showLoader = function(isLoading){
     if(isLoading){
       $('#loader-screen').show();
@@ -50,15 +79,15 @@ app.controller('CalendarController', function($scope,$location){
   */
 	$scope.uiConfig = {
       calendar:{
-        weekMode: 'variable',
+        // weekMode: 'variable',
         editable: false,
-        firstDay: 0,
+        // firstDay: 0,
         header:{
           left: 'month agendaWeek agendaDay',
           center: 'title',
           right: 'today prev,next'
         },
-        theme:true,
+        // theme:true,
         ignoreTimezone: true,
         allDaySlot: false,
         axisFormat: 'h:mmtt',
@@ -68,6 +97,7 @@ app.controller('CalendarController', function($scope,$location){
         eventDrop: $scope.alertOnDrop,
         eventResize: $scope.alertOnResize,
         eventRender: $scope.eventRender,
+        eventAfterRender: $scope.eventAfterRender,
         loading: $scope.showLoader
       }
     };

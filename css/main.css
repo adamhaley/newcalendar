@@ -37,28 +37,22 @@ body {
   margin-right: auto;
   margin-top: 25%;
 }
-.fc-header-title h2 {
-  font-size: .9em;
-  white-space: normal !important;
+.fc-event-percentage {
+  font-size: .8em;
+  font-style: italic;
+  color: #ddd;
 }
-.fc-view-month .fc-event,
-.fc-view-agendaWeek .fc-event {
-  font-size: 10px;
-  overflow: hidden;
-  height: 20px;
+/*
+.fc-event.percent25{
+    width:25% !important;
 }
-.fc-view-agendaWeek .fc-event-vert {
-  font-size: 0;
-  width: 2px !important;
+.fc-event.percent50{
+    width:50% !important;
 }
-.fc-agenda-axis {
-  width: 20px !important;
-  font-size: .7em;
+.fc-event.percent75{
+    width:75% !important;
 }
-.fc-button-content {
-  padding: 0;
+.fc-event.percent100{
+    width:100% !important;
 }
-.dateSelectors {
-  float: left;
-  margin-top: 20px;
-}
+*/

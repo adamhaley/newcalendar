@@ -9,19 +9,23 @@
   "license": "MIT",
   "homepage": "jjgym.com",
   "dependencies": {
-        "angular" : "latest",
-        "angular-route" : "latest",
-        "bootstrap" : "latest",
-        "jasmine" : "latest",
-        "jquery" : "latest",
-        "moment" : "latest",
-        "angular-ui-calendar" : "latest"
-  }, 
+    "angular": "latest",
+    "angular-route": "latest",
+    "bootstrap": "latest",
+    "jasmine": "latest",
+    "jquery": "latest",
+    "moment": "latest",
+    "angular-ui-calendar": "latest"
+  },
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "resolutions": {
+    "jquery": "2.0.3",
+    "angular": "~1.2.x"
+  }
 }
