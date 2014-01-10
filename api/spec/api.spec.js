@@ -14,7 +14,7 @@ frisby.create('GET users')
     username: String,
     email: String
   })
-  // .inspectJSON()
+  .inspectJSON()
   // 'afterJSON' automatically parses response body as JSON and passes it as an argument
   .afterJSON(function(user) {
     // You can use any normal jasmine-style assertions here
