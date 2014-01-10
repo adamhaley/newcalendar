@@ -35,12 +35,10 @@ app.controller('CalendarController', function($scope,$location){
   *scope functions
   */
   $scope.eventRender = function(event, element){
-    // $(element).css('margin-left', '40px');
-
-    var percDiv = $('<div />');
-    percDiv.addClass('fc-event-percentage');
-    percDiv.text( event.usage + '%');
-    $('.fc-event-title',element).append(percDiv);
+    var percContainer = $('<span />');
+    percContainer.addClass('fc-event-percentage');
+    percContainer.text( event.usage + '%');
+    $('.fc-event-title',element).append(percContainer);
   }
 
   $scope.eventAfterRender = function(event, element){
@@ -87,7 +85,7 @@ app.controller('CalendarController', function($scope,$location){
           center: 'title',
           right: 'today prev,next'
         },
-        // theme:true,
+        theme:true,
         ignoreTimezone: true,
         allDaySlot: false,
         axisFormat: 'h:mmtt',
