@@ -11,7 +11,8 @@ ctrls.controller('CalendarController', function($scope,$location){
   ;
  
   $scope.eventSource = {
-      url: "http://gymcalendar.herokuapp.com/events",
+      // url: "http://gymcalendar.herokuapp.com/events",
+      url: "api/events",
       currentTimezone: 'America/Los Angeles'
   };
     
@@ -21,6 +22,7 @@ ctrls.controller('CalendarController', function($scope,$location){
   *scope functions
   */
   $scope.eventRender = function(event, element){
+    event.allDay = false;
     var percContainer = $('<span />');
     percContainer.addClass('fc-event-percentage');
     percContainer.text( event.usage + '%');
