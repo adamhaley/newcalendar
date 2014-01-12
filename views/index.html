@@ -34,8 +34,21 @@ JJGym Calendar
 <body>
 
 
-<div class="header jumbotron">
-<h2>Welcome to JJ's!!</h2>
+<div class="header">
+
+<form action="/login" method="post">
+ 
+ <input type="hidden" name="username" value="jjgym"/>
+    <div>
+        <label>Password:</label>
+        <input type="password" name="password"/>
+    </div>
+    <div>
+        <input type="submit" value="Log In"/>
+    </div>
+</form>
+
+<!-- <h2>Welcome to JJ's!!</h2> -->
 
 </div>
 

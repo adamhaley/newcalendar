@@ -9,6 +9,9 @@
     "express": "3.4.7",
     "jade": "*",
     "mysql":"*",
-    "underscore":"*"
+    "underscore":"*",
+    "passport":"*",
+    "passport-local":"*",
+    "connect-flash":"*"
   }
 }

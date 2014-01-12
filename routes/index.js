@@ -4,8 +4,48 @@
  */
 
 exports.index = function(req, res){
-  res.render('index.html', { title: 'Express' });
+	console.log(req.session);
+  	res.render('index.html', { title: 'Express' });
 };
+
+/**
+*Passport login stuff
+*/
+passport = require('passport')
+, LocalStrategy = require('passport-local').Strategy;
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+  	var q = "SELECT * from users where password = '" + password + "';";
+  	db.query(q, function(err, user){
+  		console.log(user);
+		if(err){
+			console.log('ERROR');
+			return done(err);
+  		}
+  		if (user.length === 0) {
+  			console.log('USER NOT FOUND');
+        	return done(null, false, { message: 'Incorrect password.' });
+      	}
+  		console.log('SUCCESS');
+  		return done(null, user.id, { message: 'Welcome, ' + user[0].name_first + '!'});
+  	});
+  }
+));
+
+exports.login = passport.authenticate('local', { successRedirect: '/',
+                                   failureRedirect: '/',
+                                   successFlash: true,
+                                   failureFlash: true
+                                });
+exports.loginCallback = function(req, res){
+	console.log('in login callback...');
+	console.log(req.user);
+}
+/**
+*end passport login stuff
+*/
+
 
 exports.events = function(req, res){
 	res.writeHead(200, {"Content-Type": "text/json"});
@@ -21,13 +61,6 @@ exports.events = function(req, res){
 		if(err){
   			res.end('Query Error: ' . err);
   		}else{
-  			/*
-  			rows = _.map(rows, function(row,i){
-  				row.allDay = false;
-          return row;
-  			});
-  			console.log(rows);	
-  			*/
   			res.write(JSON.stringify(rows));
   		}
   		res.end();
