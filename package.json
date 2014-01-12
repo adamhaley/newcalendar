@@ -1,22 +1,12 @@
 {
-  "name": "newcalendar",
-  "version": "0.0.0",
-  "description": "The new calendar for JJgym",
-  "main": "app.js",
+  "name": "application-name",
+  "version": "0.0.1",
+  "private": true,
   "scripts": {
-    "test": "calendar"
+    "start": "node app.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/adamhaley/newcalendar.git"
-  },
-  "keywords": [
-    "calendar",
-    "jjgym",
-    "circus"
-  ],
-  "author": "Adam Haley",
-  "license": "BSD",
-  "readmeFilename": "README",
-  "gitHead": "74253ea30d60e348675cf461b7c0b92455111702"
+  "dependencies": {
+    "express": "3.4.7",
+    "jade": "*"
+  }
 }
