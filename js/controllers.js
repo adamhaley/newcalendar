@@ -1,4 +1,6 @@
-app.controller('CalendarController', function($scope,$location){
+var ctrls = angular.module('jjgym.controllers',[]);
+
+ctrls.controller('CalendarController', function($scope,$location){
 
   var server = $location.protocol() + '://' + $location.host()
   , apiPort = 2000

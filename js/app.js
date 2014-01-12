@@ -1,4 +1,4 @@
-app = angular.module("app", ['ngRoute','ui.calendar']).config(function($routeProvider){
+var app = angular.module("jjgym", ['ngRoute','ui.calendar','jjgym.controllers']).config(function($routeProvider){
 	$routeProvider.when('/calendar', {
 		templateUrl: 'calendar.html',
 		controller: 'CalendarController'
