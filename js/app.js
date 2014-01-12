@@ -2,12 +2,9 @@ app = angular.module("app", ['ngRoute','ui.calendar']).config(function($routePro
 	$routeProvider.when('/calendar', {
 		templateUrl: 'calendar.html',
 		controller: 'CalendarController'
-	});	
-  $routeProvider.when('/tests', {
-    templateUrl: 'tests.html',
-    controller: 'TestController'
-  });
-	$routeProvider.otherwise({ redirectTo: '/calendar'});
+	})
+  .otherwise({ redirectTo: '/calendar'});	
+	
 });
 
 app.controller('TestController', function($scope){
