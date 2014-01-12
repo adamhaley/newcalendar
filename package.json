@@ -7,11 +7,10 @@
   },
   "dependencies": {
     "express": "3.4.7",
-    "jade": "*",
     "mysql":"*",
-    "underscore":"*",
     "passport":"*",
     "passport-local":"*",
-    "connect-flash":"*"
+    "connect-flash":"*",
+    "hogan-express":"*"
   }
 }

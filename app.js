@@ -4,7 +4,6 @@
  */
 
 var express = require('express');
-var _ = require('underscore');
 var db = require('./db');
 
 var routes = require('./routes');
