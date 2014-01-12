@@ -1,0 +1,63 @@
+<html ng-app="jjgym">
+<head>
+<title>
+JJGym Calendar
+</title>
+
+
+
+<link rel="stylesheet" href="js/bower_components/bootstrap/less/bootstrap.css" />
+<link rel="stylesheet" href="js/bower_components/jquery-ui/themes/base/jquery-ui.css" /> 
+<link rel="stylesheet" href="js/bower_components/angular/angular-csp.css" /> 
+<link rel="stylesheet" href="js/bower_components/fullcalendar/fullcalendar.css" />
+<link rel="stylesheet" href="css/main.css" />
+
+<!--VENDOR DEPENDENCIES-->
+<script type="text/javascript" src="js/bower_components/jquery/jquery.js"></script>
+<script type="text/javascript" src="js/bower_components/jquery-ui/ui/jquery-ui.js"></script>
+<script type="text/javascript" src="js/bower_components/angular/angular.js"></script>
+<script type="text/javascript" src="js/bower_components/angular-route/angular-route.js"></script>
+<script type="text/javascript" src="js/bower_components/fullcalendar/fullcalendar.js"></script>
+<script type="text/javascript" src="js/bower_components/angular-ui-calendar/src/calendar.js"></script>
+<script type="text/javascript" src="js/bower_components/sugar/release/sugar.min.js"></script>
+<!--END VENDOR DEPENDENCIES-->
+
+<!--JASMINE-->
+<link rel="stylesheet" type="text/css" href="js/bower_components/jasmine/lib/jasmine-core/jasmine.css">
+<script type="text/javascript" src="js/bower_components/jasmine/lib/jasmine-core/jasmine.js"></script>
+<script type="text/javascript" src="js/bower_components/jasmine/lib/jasmine-core/jasmine-html.js"></script>
+<!--END JASMINE-->
+
+
+
+</head>
+<body>
+
+
+<div class="header jumbotron">
+<h2>Welcome to JJ's!!</h2>
+
+</div>
+
+
+
+
+
+<div id="container" ng-view>
+</div>
+<div id="loader-screen">
+	<div id="loader">
+	</div>
+</div>
+
+<!--APP FILES-->
+<script type="text/javascript" src="js/controllers.js"></script>
+<!--
+<script type="text/javascript" src="js/directives.js"></script>
+<script type="text/javascript" src="js/filters.js"></script>
+<script type="text/javascript" src="js/services"></script>
+-->
+<script type="text/javascript" src="js/app.js"></script>
+<!--END APP FILES-->
+</body>
+</html>
