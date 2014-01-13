@@ -36,6 +36,7 @@ ctrls.controller('CalendarController', function($scope,$location){
       animation: true,
       trigger: 'hover',
       container: 'body',
+      placement: 'auto right',
       html: true,
       title: eventTitle,
       content: event.description,

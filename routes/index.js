@@ -5,12 +5,48 @@
 
 exports.index = function(req, res){
 	console.log(req.session);
-  	res.render('index.html', { title: 'Express' });
+  	res.render('index.html', {flash: req.flash(), session: req.session});
 };
 
+exports.login = function(req, res){
+  console.log(req.body);
+  var password = req.body.password;
+  if(!password){
+    req.flash('error','No password given');
+    res.redirect('/');
+  }
+  var q = "SELECT * from users where password = '" + password + "';";
+  db.query(q, function(err, user){
+    console.log(user);
+    if(err){
+      console.log('ERROR');
+      console.log(err);
+      req.flash('error',err);
+      return res.redirect('/');
+
+    }
+    if (user.length === 0) {
+      console.log('USER NOT FOUND');
+      req.flash('error','Incorrect password');
+      return res.redirect('/');
+    }
+
+    console.log('SUCCESS');
+    req.flash('info','Login successful!');
+    req.session.user = user[0];
+    res.redirect('/');
+    return;
+  });  
+}
+
+exports.logout = function(req, res){
+  delete req.session.user;
+  res.redirect('/');
+}
 /**
 *Passport login stuff
 */
+/*
 passport = require('passport')
 , LocalStrategy = require('passport-local').Strategy;
 
@@ -43,6 +79,7 @@ exports.loginCallback = function(req, res){
 	console.log('in login callback...');
 	console.log(req.user);
 }
+*/
 /**
 *end passport login stuff
 */

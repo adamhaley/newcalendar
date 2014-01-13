@@ -23,8 +23,6 @@ app.configure(function() {
 	app.use(express.cookieSession());
 	app.use(express.bodyParser());
 	app.use(express.session({ secret: '4n0th3r',cookie: { maxAge: 60000 }}));
-	app.use(passport.initialize());
-	app.use(passport.session());
 	app.use(app.router);
  
 });
@@ -32,8 +30,9 @@ app.configure(function() {
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'html');
+
 app.engine('html', require('hogan-express'));
+app.set('view engine', 'html');
 
 app.use(express.favicon());
 app.use(express.logger('dev'));
@@ -49,6 +48,7 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/users', user.list);
+app.get('/logout',routes.logout);
 app.get('/api/users',routes.users);
 app.get('/api/events',routes.events);
 
