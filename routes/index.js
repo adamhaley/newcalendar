@@ -28,6 +28,7 @@ passport.use(new LocalStrategy(
         	return done(null, false, { message: 'Incorrect password.' });
       	}
   		console.log('SUCCESS');
+  		req.flash
   		return done(null, user.id, { message: 'Welcome, ' + user[0].name_first + '!'});
   	});
   }

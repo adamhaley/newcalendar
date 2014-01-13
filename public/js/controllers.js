@@ -23,9 +23,23 @@ ctrls.controller('CalendarController', function($scope,$location){
   */
   $scope.eventRender = function(event, element){
     event.allDay = false;
+    //add percentage indicator
     var percContainer = $('<span />');
     percContainer.addClass('fc-event-percentage');
     percContainer.text( event.usage + '%');
+
+    // console.log(event);
+    //add popver with event details
+    var options = {
+      animation: true,
+      trigger: 'hover',
+      container: 'body',
+      title: event.title + ' ' + moment(event.start).format('h:mma') + ' - ' + moment(event.end).format('h:mma'),
+      content: event.description,
+      delay:{ show: 300, hide:100}
+    }
+    $(element).popover(options);
+
     $('.fc-event-title',element).append(percContainer);
   }
 
@@ -65,7 +79,8 @@ ctrls.controller('CalendarController', function($scope,$location){
         eventResize: $scope.alertOnResize,
         eventRender: $scope.eventRender,
         eventAfterRender: $scope.eventAfterRender,
-        loading: $scope.showLoader
+        loading: $scope.showLoader,
+        allDayDefault: false
       }
     };
 
