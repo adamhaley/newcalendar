@@ -1,6 +1,6 @@
 var ctrls = angular.module('jjgym.controllers',[]);
 
-ctrls.controller('CalendarController', function($scope,$location,$modal,$log){
+ctrls.controller('CalendarController', function($scope,$location,$modal,$log,$cookies,$cookieStore){
 
   var date = new Date(),
   d = date.getDate(),
@@ -15,9 +15,6 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$log){
     
   $scope.events = [];
   
-  /**
-  *scope functions
-  */
   /**
   *Before event is rendered
   */
@@ -36,7 +33,7 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$log){
       animation: true,
       trigger: 'hover',
       container: 'body',
-      placement: 'auto right',
+      placement: 'auto top',
       html: true,
       title: eventTitle,
       content: event.description,
@@ -69,21 +66,17 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$log){
   *When user clicks on a day
   */
   $scope.dayClick = function(date,allDay,evt,view){
+    $scope.date = moment(date).format('dddd MMMM Do, YYYY');
+    
+    $scope.hour = moment(date).format('h:mma');
+
     console.log(date);
-    // $modal.modal();
 
-    $scope.items = ['item1', 'item2', 'item3'];
-
-
-    var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
-
-      $scope.items = items;
-      $scope.selected = {
-        item: $scope.items[0]
-      };
-
+    var ModalInstanceCtrl = function ($scope, $modalInstance, date, hour) {
+      $scope.date = date;
+      $scope.hour = hour;
       $scope.ok = function () {
-        $modalInstance.close($scope.selected.item);
+        $modalInstance.close();
       };
 
       $scope.cancel = function () {
@@ -95,16 +88,19 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$log){
       templateUrl: 'templates/booktime.html',
       controller: ModalInstanceCtrl,
       resolve: {
-        items: function () {
-          return $scope.items;
+        date: function() {
+          return $scope.date;
+        },
+        hour: function() {
+          return $scope.hour;
         }
       }
     });
 
-    modalInstance.result.then(function (selectedItem) {
-      $scope.selected = selectedItem;
+    modalInstance.result.then(function () {
+      // $scope.selected = selectedItem;
     }, function () {
-      $log.info('Modal dismissed at: ' + new Date());
+      $log.info('Modal dismissed');
     });
 
   

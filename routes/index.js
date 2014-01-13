@@ -1,8 +1,6 @@
-
 /*
  * GET home page.
  */
-
 exports.index = function(req, res){
 	console.log(req.session);
   	res.render('index.html', {flash: req.flash(), session: req.session});
@@ -33,6 +31,8 @@ exports.login = function(req, res){
 
     console.log('SUCCESS');
     req.flash('info','Login successful!');
+    res.cookie('uid', user[0].id, { maxAge: 600000, httpOnly: false});
+
     req.session.user = user[0];
     res.redirect('/');
     return;
@@ -40,6 +40,7 @@ exports.login = function(req, res){
 }
 
 exports.logout = function(req, res){
+  res.clearCookie('uid');
   delete req.session.user;
   res.redirect('/');
 }

@@ -22,7 +22,7 @@ app.configure(function() {
 	app.use(express.cookieParser('4n0th3r'));
 	app.use(express.cookieSession());
 	app.use(express.bodyParser());
-	app.use(express.session({ secret: '4n0th3r',cookie: { maxAge: 60000 }}));
+	app.use(express.session({ secret: '4n0th3r',cookie: { maxAge: 60000, httpOnly: false }}));
 	app.use(app.router);
  
 });
