@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.2.8-build.2087+sha.affcbad
+ * @license AngularJS v1.2.8
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -68,7 +68,7 @@ function minErr(module) {
       return match;
     });
 
-    message = message + '\nhttp://errors.angularjs.org/1.2.8-build.2087+sha.affcbad/' +
+    message = message + '\nhttp://errors.angularjs.org/1.2.8/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i-2) + '=' +
@@ -1833,7 +1833,7 @@ function setupModuleLoader(window) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.2.8-build.2087+sha.affcbad',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.2.8',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 2,
   dot: 8,
@@ -6786,8 +6786,7 @@ function $ControllerProvider() {
  * @requires $window
  *
  * @description
- * A {@link angular.element jQuery (lite)}-wrapped reference to the browser's `window.document`
- * element.
+ * A {@link angular.element jQuery or jqLite} wrapper for the browser's `window.document` object.
  */
 function $DocumentProvider(){
   this.$get = ['$window', function(window){
@@ -7938,7 +7937,7 @@ function createHttpBackend($browser, createXhr, $browserDefer, callbacks, rawDoc
         } else {
           completeRequest(callback, status || -2);
         }
-        delete callbacks[callbackId];
+        callbacks[callbackId] = angular.noop;
       });
     } else {
 
@@ -7968,11 +7967,12 @@ function createHttpBackend($browser, createXhr, $browserDefer, callbacks, rawDoc
 
           if(status !== ABORTED) {
             responseHeaders = xhr.getAllResponseHeaders();
-            response = xhr.responseType ? xhr.response : xhr.responseText;
+
+            // responseText is the old-school way of retrieving response (supported by IE8 & 9)
+            // response/responseType properties were introduced in XHR Level2 spec (supported by IE10)
+            response = ('response' in xhr) ? xhr.response : xhr.responseText;
           }
 
-          // responseText is the old-school way of retrieving response (supported by IE8 & 9)
-          // response/responseType properties were introduced in XHR Level2 spec (supported by IE10)
           completeRequest(callback,
               status || xhr.status,
               response,
@@ -8005,14 +8005,14 @@ function createHttpBackend($browser, createXhr, $browserDefer, callbacks, rawDoc
     }
 
     function completeRequest(callback, status, response, headersString) {
-      var protocol = urlResolve(url).protocol;
-
       // cancel timeout and subsequent timeout promise resolution
       timeoutId && $browserDefer.cancel(timeoutId);
       jsonpDone = xhr = null;
 
-      // fix status code for file protocol (it's always 0)
-      status = (protocol == 'file' && status === 0) ? (response ? 200 : 404) : status;
+      // fix status code when it is 0 (0 status is undocumented).
+      // Occurs when accessing file resources.
+      // On Android 4.1 stock browser it occurs while retrieving files from application cache.
+      status = (status === 0) ? (response ? 200 : 404) : status;
 
       // normalize IE bug (http://bugs.jquery.com/ticket/1450)
       status = status == 1223 ? 204 : status;
@@ -9126,7 +9126,7 @@ function $LocationProvider(){
    * Broadcasted before a URL will change. This change can be prevented by calling
    * `preventDefault` method of the event. See {@link ng.$rootScope.Scope#$on} for more
    * details about event object. Upon successful change
-   * {@link ng.$location#$locationChangeSuccess $locationChangeSuccess} is fired.
+   * {@link ng.$location#events_$locationChangeSuccess $locationChangeSuccess} is fired.
    *
    * @param {Object} angularEvent Synthetic event object.
    * @param {string} newUrl New URL
@@ -15199,12 +15199,10 @@ forEach(BOOLEAN_ATTR, function(propName, attrName) {
   ngAttributeAliasDirectives[normalized] = function() {
     return {
       priority: 100,
-      compile: function() {
-        return function(scope, element, attr) {
-          scope.$watch(attr[normalized], function ngBooleanAttrWatchAction(value) {
-            attr.$set(attrName, !!value);
-          });
-        };
+      link: function(scope, element, attr) {
+        scope.$watch(attr[normalized], function ngBooleanAttrWatchAction(value) {
+          attr.$set(attrName, !!value);
+        });
       }
     };
   };
@@ -17806,13 +17804,13 @@ var ngControllerDirective = [function() {
       </button>
       count: {{count}}
      </doc:source>
-     <doc:scenario>
+     <doc:protractor>
        it('should check ng-click', function() {
-         expect(binding('count')).toBe('0');
-         element('.doc-example-live :button').click();
-         expect(binding('count')).toBe('1');
+         expect(element(by.binding('count')).getText()).toMatch('0');
+         element(by.css('.doc-example-live button')).click();
+         expect(element(by.binding('count')).getText()).toMatch('1');
        });
-     </doc:scenario>
+     </doc:protractor>
    </doc:example>
  */
 /*
@@ -19775,11 +19773,9 @@ var ngSwitchWhenDirective = ngDirective({
   transclude: 'element',
   priority: 800,
   require: '^ngSwitch',
-  compile: function(element, attrs) {
-    return function(scope, element, attr, ctrl, $transclude) {
-      ctrl.cases['!' + attrs.ngSwitchWhen] = (ctrl.cases['!' + attrs.ngSwitchWhen] || []);
-      ctrl.cases['!' + attrs.ngSwitchWhen].push({ transclude: $transclude, element: element });
-    };
+  link: function(scope, element, attrs, ctrl, $transclude) {
+    ctrl.cases['!' + attrs.ngSwitchWhen] = (ctrl.cases['!' + attrs.ngSwitchWhen] || []);
+    ctrl.cases['!' + attrs.ngSwitchWhen].push({ transclude: $transclude, element: element });
   }
 });
 
@@ -19874,10 +19870,14 @@ var ngTranscludeDirective = ngDirective({
  * @restrict E
  *
  * @description
- * Load content of a script tag, with type `text/ng-template`, into `$templateCache`, so that the
- * template can be used by `ngInclude`, `ngView` or directive templates.
+ * Load the content of a `<script>` element into {@link api/ng.$templateCache `$templateCache`}, so that the
+ * template can be used by {@link api/ng.directive:ngInclude `ngInclude`},
+ * {@link api/ngRoute.directive:ngView `ngView`}, or {@link guide/directive directives}. The type of the
+ * `<script>` element must be specified as `text/ng-template`, and a cache name for the template must be
+ * assigned through the element's `id`, which can then be used as a directive's `templateUrl`.
  *
- * @param {'text/ng-template'} type must be set to `'text/ng-template'`
+ * @param {'text/ng-template'} type Must be set to `'text/ng-template'`.
+ * @param {string} id Cache name of the template.
  *
  * @example
   <doc:example>
@@ -20041,8 +20041,8 @@ var ngOptionsMinErr = minErr('ngOptions');
 var ngOptionsDirective = valueFn({ terminal: true });
 // jshint maxlen: false
 var selectDirective = ['$compile', '$parse', function($compile,   $parse) {
-                         //0000111110000000000022220000000000000000000000333300000000000000444444444444444000000000555555555555555000000066666666666666600000000000000007777000000000000000000088888
-  var NG_OPTIONS_REGEXP = /^\s*(.*?)(?:\s+as\s+(.*?))?(?:\s+group\s+by\s+(.*))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+(.*?)(?:\s+track\s+by\s+(.*?))?$/,
+                         //000011111111110000000000022222222220000000000000000000003333333333000000000000004444444444444440000000005555555555555550000000666666666666666000000000000000777777777700000000000000000008888888888
+  var NG_OPTIONS_REGEXP = /^\s*([\s\S]+?)(?:\s+as\s+([\s\S]+?))?(?:\s+group\s+by\s+([\s\S]+?))?\s+for\s+(?:([\$\w][\$\w]*)|(?:\(\s*([\$\w][\$\w]*)\s*,\s*([\$\w][\$\w]*)\s*\)))\s+in\s+([\s\S]+?)(?:\s+track\s+by\s+([\s\S]+?))?$/,
       nullModelCtrl = {$setViewValue: noop};
 // jshint maxlen: 100
 

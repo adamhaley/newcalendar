@@ -2,13 +2,11 @@ var ctrls = angular.module('jjgym.controllers',[]);
 
 ctrls.controller('CalendarController', function($scope,$location){
 
-  var server = $location.protocol() + '://' + $location.host()
-  , apiPort = 2000
-  , date = new Date()
-  , d = date.getDate()
-  , m = date.getMonth()
-  , y = date.getFullYear()
-  ;
+  var date = new Date(),
+  d = date.getDate(),
+  m = date.getMonth(),
+  y = date.getFullYear();
+  
  
   $scope.eventSource = {
       // url: "http://gymcalendar.herokuapp.com/events",

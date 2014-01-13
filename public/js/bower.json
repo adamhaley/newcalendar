@@ -26,6 +26,6 @@
   ],
   "resolutions": {
     "jquery": "2.0.3",
-    "angular": "~1.2.x"
+    "angular": "1.2.8"
   }
 }
