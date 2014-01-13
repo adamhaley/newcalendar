@@ -111,14 +111,13 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$log,$co
   */
 	$scope.uiConfig = {
       calendar:{
-        // weekMode: 'variable',
         editable: false,
-        // firstDay: 0,
         header:{
           left: 'month agendaWeek agendaDay',
           center: 'title',
           right: 'today prev,next'
         },
+        defaultView:'agendaDay',
         theme:true,
         ignoreTimezone: true,
         allDaySlot: false,
