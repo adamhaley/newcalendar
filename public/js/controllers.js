@@ -30,11 +30,14 @@ ctrls.controller('CalendarController', function($scope,$location){
 
     // console.log(event);
     //add popver with event details
+    var eventTitle = ' <b>' +  event.title + '</b> ' + moment(event.start).format('h:mma') + ' - ' + moment(event.end).format('h:mma') + ' ' + event.usage + '%';
+
     var options = {
       animation: true,
       trigger: 'hover',
       container: 'body',
-      title: event.title + ' ' + moment(event.start).format('h:mma') + ' - ' + moment(event.end).format('h:mma'),
+      html: true,
+      title: eventTitle,
       content: event.description,
       delay:{ show: 300, hide:100}
     }
