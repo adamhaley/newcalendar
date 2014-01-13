@@ -38,6 +38,11 @@ JJGym Calendar
 
 {{#session.user}}
 	Welcome, {{session.user.name_first}} {{session.user.name_last}}! [<a href="logout">Logout</a>]
+	<br /><br />
+	<div ui-quick-book="" class="">
+		<div class="col-md-8">When do you want to train? <input type="text" class="human-date-input" placeholder="ie: 'Tomorrow at 5pm', or 'Next Saturday'"> </div>
+		
+	</div>
 {{/session.user}}
 {{^session.user}}
 <form action="/login" method="post">
@@ -54,7 +59,7 @@ JJGym Calendar
 {{/session.user}}
 
 </div>
-
+ 
 <div id="container" ng-view>
 </div>
 <div id="loader-screen">
