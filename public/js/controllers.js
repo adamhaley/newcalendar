@@ -1,6 +1,6 @@
 var ctrls = angular.module('jjgym.controllers',[]);
 
-ctrls.controller('CalendarController', function($scope,$location){
+ctrls.controller('CalendarController', function($scope,$location,$modal,$log){
 
   var date = new Date(),
   d = date.getDate(),
@@ -9,7 +9,6 @@ ctrls.controller('CalendarController', function($scope,$location){
   
  
   $scope.eventSource = {
-      // url: "http://gymcalendar.herokuapp.com/events",
       url: "api/events",
       currentTimezone: 'America/Los Angeles'
   };
@@ -18,6 +17,9 @@ ctrls.controller('CalendarController', function($scope,$location){
   
   /**
   *scope functions
+  */
+  /**
+  *Before event is rendered
   */
   $scope.eventRender = function(event, element){
     event.allDay = false;
@@ -45,16 +47,67 @@ ctrls.controller('CalendarController', function($scope,$location){
     $('.fc-event-title',element).append(percContainer);
   }
 
+  /**
+  *Things to do after event is rendered go here
+  */
   $scope.eventAfterRender = function(event, element){
  
   }
 
+  /**
+  *Show spinner when loading data
+  */
   $scope.showLoader = function(isLoading){
     if(isLoading){
       $('#loader-screen').show();
     }else{
       $('#loader-screen').hide();
     }
+  }
+
+  /**
+  *When user clicks on a day
+  */
+  $scope.dayClick = function(date,allDay,evt,view){
+    console.log(date);
+    // $modal.modal();
+
+    $scope.items = ['item1', 'item2', 'item3'];
+
+
+    var ModalInstanceCtrl = function ($scope, $modalInstance, items) {
+
+      $scope.items = items;
+      $scope.selected = {
+        item: $scope.items[0]
+      };
+
+      $scope.ok = function () {
+        $modalInstance.close($scope.selected.item);
+      };
+
+      $scope.cancel = function () {
+        $modalInstance.dismiss('cancel');
+      };
+    };
+
+    var modalInstance = $modal.open({
+      templateUrl: 'templates/booktime.html',
+      controller: ModalInstanceCtrl,
+      resolve: {
+        items: function () {
+          return $scope.items;
+        }
+      }
+    });
+
+    modalInstance.result.then(function (selectedItem) {
+      $scope.selected = selectedItem;
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+
+  
   }
 
   /**
@@ -81,6 +134,7 @@ ctrls.controller('CalendarController', function($scope,$location){
         eventResize: $scope.alertOnResize,
         eventRender: $scope.eventRender,
         eventAfterRender: $scope.eventAfterRender,
+        dayClick: $scope.dayClick,
         loading: $scope.showLoader,
         allDayDefault: false
       }
