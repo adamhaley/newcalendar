@@ -1,5 +1,11 @@
 var ctrls = angular.module('jjgym.controllers',[]);
 
+ctrls.controller('QuickBookController', function($scope){
+  $scope.checkDate = function(event, element){
+    $log.info(event);
+  };
+});
+
 ctrls.controller('CalendarController', function($scope,$location,$modal,$log,$cookies,$cookieStore){
 
   var date = new Date(),
@@ -117,7 +123,7 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$log,$co
           right: 'today prev,next'
         },
         defaultView:'agendaDay',
-        theme:true,
+        theme:false,
         ignoreTimezone: true,
         allDaySlot: false,
         axisFormat: 'h:mmtt',

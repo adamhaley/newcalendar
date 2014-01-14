@@ -6,8 +6,9 @@ JJGym Calendar
 
 
 
-<link rel="stylesheet" href="js/bower_components/bootstrap/less/bootstrap.css" />
+
 <link rel="stylesheet" href="js/bower_components/jquery-ui/themes/base/jquery-ui.css" /> 
+<link rel="stylesheet" href="js/bower_components/bootstrap/dist/css/bootstrap.css" />
 <link rel="stylesheet" href="js/bower_components/angular/angular-csp.css" /> 
 <link rel="stylesheet" href="js/bower_components/fullcalendar/fullcalendar.css" />
 <link rel="stylesheet" href="css/main.css" />
@@ -20,6 +21,7 @@ JJGym Calendar
 <script type="text/javascript" src="js/bower_components/angular-route/angular-route.js"></script>
 <script type="text/javascript" src="js/bower_components/angular-cookies/angular-cookies.js"></script>
 <script type="text/javascript" src="js/bower_components/angular-ui-bootstrap/src/modal/modal.js"></script>
+<script type="text/javascript" src="js/bower_components/angular-ui-bootstrap/src/timepicker/timepicker.js"></script>
 <script type="text/javascript" src="js/bower_components/fullcalendar/fullcalendar.js"></script>
 <script type="text/javascript" src="js/bower_components/angular-ui-calendar/src/calendar.js"></script>
 <script type="text/javascript" src="js/bower_components/sugar/release/sugar.min.js"></script>
@@ -34,33 +36,41 @@ JJGym Calendar
 
 </head>
 <body>
-<div class="header">
+
+ <i class="icon-ok"></i> 
+<header class="col-md-12">
 
 {{#session.user}}
-	Welcome, {{session.user.name_first}} {{session.user.name_last}}! [<a href="logout">Logout</a>]
-	<br /><br />
-	<div ui-quick-book="" class="">
-		<div class="col-md-8">When do you want to train? <input type="text" class="human-date-input" placeholder="ie: 'Tomorrow at 5pm', or 'Next Saturday'"> </div>
+  <div class="row">
+	<div class="alert alert-success col-xs-6 col-sm-4 col-md-6">
+  Welcome, {{session.user.name_first}} {{session.user.name_last}}! 
+  </div>
+  <div id="logout" class="btn btn-default" ng-click="logout()"> <span class="glyphicon glyphicon-logout"></span>Logout</div>
+ </div>
+	<div class="row">
+	<div ng-book-it class="">
+		<div class="col-xs-12 col-sm-4 col-md-4">When do you want to train? </div><input ui-event="{keyup: 'checkDate($event)'}" type="text" class="human-date-input col-xs-12 col-sm-6 col-md-6" placeholder="ie: 'Tomorrow at 5pm', or 'Next Saturday'">
 		
 	</div>
+
+  </div>
 {{/session.user}}
 {{^session.user}}
+
+
 <form action="/login" method="post">
 
  <input type="hidden" name="username" value="jjgym"/>
     <div>
         <label>Password:</label>
-        <input type="password" name="password"/>
-    </div>
-    <div>
-        <input type="submit" value="Log In"/>
+        <input type="password" name="password"/><input type="submit" value="Log In"/>
     </div>
 </form>
 {{/session.user}}
 
-</div>
- 
-<div id="container" ng-view>
+</header>
+ <br />
+<div id="container" class="text-center" ng-view>
 </div>
 <div id="loader-screen">
 	<div id="loader">
