@@ -67,20 +67,25 @@ input[type='submit'] {
 .fc-event {
   cursor: pointer;
 }
-.fc-event:hover {
-  background-color: #51b5e7;
-}
-.popover-content {
-  font-size: .8em;
-  font-style: italic;
-}
-.fc-event-percentage {
+.fc-event .fc-event-percentage {
   float: right;
   font-size: .8em;
   font-style: italic;
   color: #ddd;
   margin: 0px;
   padding: 0px;
+}
+.fc-event .fc-event-details {
+  color: #ddd;
+  font-style: italic;
+  font-size: .8em;
+}
+.fc-event:hover {
+  background-color: #51b5e7;
+}
+.popover-content {
+  font-size: .8em;
+  font-style: italic;
 }
 .bookit {
   z-index: 10000;

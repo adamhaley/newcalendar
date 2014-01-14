@@ -38,22 +38,29 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$log,$co
     percContainer.addClass('fc-event-percentage');
     percContainer.text( event.usage + '%');
 
+    var detailsContainer = $('<div />');
+    detailsContainer.addClass('fc-event-details').addClass('text-center');
+    detailsContainer.text(event.description);
+
     // console.log(event);
     //add popver with event details
     var eventTitle = ' <b>' +  event.title + '</b> ' + moment(event.start).format('h:mma') + ' - ' + moment(event.end).format('h:mma') + ' ' + event.usage + '%';
 
-    var options = {
-      animation: true,
-      trigger: 'hover',
-      container: 'body',
-      placement: 'auto top',
-      html: true,
-      title: eventTitle,
-      content: event.description,
-      delay:{ show: 300, hide:100}
+    if(event.description.length > 0){
+      var options = {
+        animation: true,
+        trigger: 'hover',
+        container: 'body',
+        placement: 'auto top',
+        html: true,
+        title: eventTitle,
+        content: event.description,
+        delay:{ show: 600, hide:100}
+      }
+      $(element).popover(options);
     }
-    $(element).popover(options);
-
+    
+    $('.fc-event-inner',element).append(detailsContainer);
     $('.fc-event-title',element).append(percContainer);
   }
 
