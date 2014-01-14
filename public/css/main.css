@@ -52,9 +52,6 @@ input[type='submit'] {
   top: 0px;
   border: 1px solid #ddd;
 }
-#logout {
-  float: right;
-}
 #container {
   /*position:absolute;
     top:100px;

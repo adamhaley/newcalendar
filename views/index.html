@@ -4,9 +4,6 @@
 JJGym Calendar
 </title>
 
-
-
-
 <link rel="stylesheet" href="js/bower_components/jquery-ui/themes/base/jquery-ui.css" /> 
 <link rel="stylesheet" href="js/bower_components/bootstrap/dist/css/bootstrap.css" />
 <link rel="stylesheet" href="js/bower_components/angular/angular-csp.css" /> 
@@ -37,32 +34,35 @@ JJGym Calendar
 </head>
 <body>
 
- <i class="icon-ok"></i> 
 <header class="col-md-12" ng-controller="HeaderController">
-{{flash.error}}
+
+<div class="login-area pull-right col-md-4">
+{{#flash.error}}
+  <div class="alert-danger">{{flash.error}}</div>
+{{/flash.error}}
+
 {{#session.user}}
-  <div class="row">
-	<div class="alert alert-success col-xs-6 col-sm-4 col-md-6">
-  Welcome, {{session.user.name_first}} {{session.user.name_last}}! 
-  </div>
-  <div id="logout" class="btn btn-default" ng-click="logout()"> <span class="glyphicon glyphicon-logout"></span>Logout</div>
- </div>
 
-
+  <div class="alert-success">
+    Welcome, {{session.user.name_first}} {{session.user.name_last}}! 
   </div>
+  <div id="logout" class="row pull-right"> 
+    <input type="button" value="Logout" ng-click="logout()" />
+    
+  </div>
+
 {{/session.user}}
 {{^session.user}}
+  <form action="/login" method="post">
 
-
-<form action="/login" method="post">
-
- <input type="hidden" name="username" value="jjgym"/>
-    <div>
-        <label>Password:</label>
-        <input type="password" name="password"/><input type="submit" value="Log In"/>
-    </div>
-</form>
+    <input type="hidden" name="username" value="jjgym"/>
+      <div>
+          <label>Password:</label>
+          <input type="password" name="password"/><input type="submit" value="Log In" class="pull-right" />
+      </div>
+  </form>
 {{/session.user}}
+</div>
 
 </header>
  <br />
