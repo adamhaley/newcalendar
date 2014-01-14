@@ -6,6 +6,13 @@ ctrls.controller('QuickBookController', function($scope){
   };
 });
 
+ctrls.controller('HeaderController', function($scope,$log){
+  $scope.logout = function(){
+    window.location="/logout";
+  }
+
+});
+
 ctrls.controller('CalendarController', function($scope,$location,$modal,$log,$cookies,$cookieStore){
 
   var date = new Date(),

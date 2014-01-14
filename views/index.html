@@ -38,8 +38,8 @@ JJGym Calendar
 <body>
 
  <i class="icon-ok"></i> 
-<header class="col-md-12">
-
+<header class="col-md-12" ng-controller="HeaderController">
+{{flash.error}}
 {{#session.user}}
   <div class="row">
 	<div class="alert alert-success col-xs-6 col-sm-4 col-md-6">
@@ -47,7 +47,7 @@ JJGym Calendar
   </div>
   <div id="logout" class="btn btn-default" ng-click="logout()"> <span class="glyphicon glyphicon-logout"></span>Logout</div>
  </div>
-	
+
 
   </div>
 {{/session.user}}
