@@ -65,7 +65,7 @@ input[type='submit'] {
   margin-right: auto;
 }
 .fc-agenda-slots tr:hover {
-  background-color: #ddd;
+  background-color: #d7f2ff;
   cursor: copy;
 }
 .fc-day-content {
