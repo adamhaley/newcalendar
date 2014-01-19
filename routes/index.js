@@ -85,23 +85,13 @@ exports.users = function(req, res){
 
 exports.checkAvailability = function(req, res){
   res.writeHead(200, {"Content-Type": "text/json"});
-  // console.log('in checkAvailability');
 
-  //pull all events greater than timeStart and less than timeEnd
-  /*
-  var q = "SELECT e.id as id,"
-  q += "CONCAT(e.date, 'T', LPAD(e.time_start,5,'0')) as start, CONCAT(e.date, 'T', LPAD(e.time_end,5,'0')) as end,";
-  q += "CONCAT(u.name_first, ' ', u.name_last) as title, e.usage, e.comments as description ";
-  q += "FROM events as e, users as u WHERE e.user_id = u.id and e.date >= FROM_UNIXTIME(" + req.query.start + ")";
-  q += " and e.date <= FROM_UNIXTIME(" + req.query.end + ")";
-  */
   var date = moment(req.query.start).format("YYYY-MM-DD");
   var timeStart = moment(req.query.start).format("HH:mm");
   var timeEnd = moment(req.query.end).format("HH:mm");
 
   q = "SELECT * from events as e where e.date = '" + date + "' ";
-  // q += "and (e.time_start <='" + timeEnd + "' or e.time_end >= '" + timeStart + "')";
-
+ 
   console.log(q);
 
   db.query(q, function(err,rows){

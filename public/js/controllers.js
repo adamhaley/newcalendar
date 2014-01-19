@@ -19,8 +19,7 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
   d = date.getDate(),
   m = date.getMonth(),
   y = date.getFullYear();
-  
- 
+   
   $scope.eventSource = {
       url: "api/events",
       currentTimezone: 'America/Los Angeles'
@@ -105,11 +104,12 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
 
       /*calculate timeStart based on x position of click if month view
       */
-      $scope.checkGymAvailability = function(){
+      $scope.checkGymAvailability = function(timeStart,timeEnd){
 
         var url = "/api/check-availability";
-        url += "?start=" + $scope.timeStart + "&end=" + $scope.timeEnd;
-        // console.log(url);
+        url += "?start=" + timeStart + "&end=" + timeEnd;
+
+        console.log(url);
 
         var app = this;
         $http.get(url)
@@ -118,18 +118,18 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
           })
           .error(function(res){
             console.log(res);
-          });
-         
+          });  
       }
      
-      $scope.checkGymAvailability();
+      $scope.checkGymAvailability($scope.timeStart,$scope.timeEnd);
 
       $scope.TimepickerCtrl = function ($scope) {
         $scope.date = date;
         $scope.timeStart = moment(hour).format();
 
         $scope.changed = function () {
-          $scope.checkGymAvailability();
+       
+          $scope.checkGymAvailability($scope.timeStart,$scope.timeEnd);
         }
         
         $scope.clear = function() {
@@ -161,7 +161,6 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
         timeEnd: function(){
           return $scope.timeEnd;
         }
-
       }
     });
 
@@ -169,9 +168,7 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
       // $scope.selected = selectedItem;
     }, function () {
       $log.info('Modal dismissed');
-    });
-
-  
+    }); 
   }
 
   /**

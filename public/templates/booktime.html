@@ -7,13 +7,13 @@
 <div class="row" ng-controller="TimepickerCtrl">
   <div class="col-md-4">
   <div ng-model="timeStart" ng-change="changed()" style="display:inline-block;">
-        <timepicker hour-step="1" minute-step="15" show-meridian="true" value="hour"></timepicker>
+        <timepicker hour-step="1" minute-step="15" show-meridian="true" value="timeStart"></timepicker>
   </div>
   </div>
   <div class="col-md-2 text-center"><br /><h4>to</h4> </div>
   <div class="col-md-4">
     <div ng-model="timeEnd" ng-change="changed()" style="display:inline-block;">
-          <timepicker hour-step="1" minute-step="15" show-meridian="true" value="hour"></timepicker>
+          <timepicker hour-step="1" minute-step="15" show-meridian="true" value="timeEnd"></timepicker>
     </div>
   </div>
 
