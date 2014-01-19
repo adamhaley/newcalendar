@@ -12,6 +12,8 @@
     "passport-local":"*",
     "connect-flash":"*",
     "hogan-express":"*",
-    "moment":"*"
+    "moment":"*",
+    "twix": "*",
+    "underscore": "*"
   }
 }
