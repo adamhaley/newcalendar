@@ -13,7 +13,7 @@
     "connect-flash":"*",
     "hogan-express":"*",
     "moment":"*",
-    "twix": "*",
+    "twix": "0.2.2",
     "underscore": "*"
   }
 }
