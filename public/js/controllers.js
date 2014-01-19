@@ -90,25 +90,45 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$log,$co
     
     // $scope.hour = moment(date).format('h:mma');
 
+    
+
+
+
     $scope.hour = date;
 
 
     var ModalInstanceCtrl = function ($scope, $modalInstance, date, hour) {
       $scope.date = date;
-      $scope.timeStart = moment(hour).format();
-      $scope.timeEnd = moment(hour).add(1,'hours').format();
 
-      var TimepickerDemoCtrl = function ($scope) {
+      // console.log(hour);
+      if(view.name == "month"){
+        $scope.timeStart = moment(hour).add(13,'hours').format();
+        $scope.timeEnd = moment(hour).add(14,'hours').format();
+      }else{
+        $scope.timeStart = moment(hour).format();
+        $scope.timeEnd = moment(hour).add(1,'hours').format();
+      }
+
+      /*calculate timeStart based on x position of click if month view
+      */
+      $scope.checkGymAvailability = function(timeStart,timeEnd){
+        console.log($scope.timeStart);
+        console.log($scope.timeEnd);
+
+      }
+     
+      $scope.checkGymAvailability();
+
+      $scope.TimepickerCtrl = function ($scope) {
         $scope.date = date;
         $scope.timeStart = moment(hour).format();
         // $scope.timeEnd = moment(hour).format();
         // $scope.mytime = moment(date).format();
 
-        
         $scope.changed = function () {
-          // console.log('Time changed to: ' + $scope.hour);
-        };
-
+          $scope.checkGymAvailability();
+        }
+        
         $scope.clear = function() {
           $scope.hour = null;
         };
