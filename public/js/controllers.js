@@ -95,23 +95,24 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$log,$co
 
     var ModalInstanceCtrl = function ($scope, $modalInstance, date, hour) {
       $scope.date = date;
-      $scope.hour = moment(hour).format();
+      $scope.timeStart = moment(hour).format();
+      $scope.timeEnd = moment(hour).add(1,'hours').format();
 
       var TimepickerDemoCtrl = function ($scope) {
         $scope.date = date;
-        $scope.hour = moment(hour).format();
+        $scope.timeStart = moment(hour).format();
+        // $scope.timeEnd = moment(hour).format();
         // $scope.mytime = moment(date).format();
 
         
         $scope.changed = function () {
-          console.log('Time changed to: ' + $scope.hour);
+          // console.log('Time changed to: ' + $scope.hour);
         };
 
         $scope.clear = function() {
           $scope.hour = null;
         };
       };
-
 
       $scope.ok = function () {
         $modalInstance.close();
@@ -130,7 +131,14 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$log,$co
         },
         hour: function() {
           return $scope.hour;
+        },
+        timeStart: function(){
+          return $scope.timeStart;
+        },
+        timeEnd: function(){
+          return $scope.timeEnd;
         }
+
       }
     });
 
