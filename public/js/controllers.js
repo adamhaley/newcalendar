@@ -55,7 +55,7 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
         html: true,
         title: eventTitle,
         content: event.description,
-        delay:{ show: 600, hide:100}
+        delay:{ show: 300, hide:100}
       }
       $(element).popover(options);
     }
@@ -86,12 +86,10 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
   *When user clicks on a day
   */
   $scope.dayClick = function(date,allDay,evt,view){
-    $scope.date = moment(date).format('dddd MMMM Do, YYYY');
     
+    $scope.date = moment(date).format('dddd MMMM Do, YYYY');
     $scope.hour = moment(date).format('h:mma');
-
     $scope.hour = date;
-
 
     var ModalInstanceCtrl = function ($scope, $modalInstance, date, hour) {
       $scope.date = date;
@@ -108,13 +106,9 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
       /*calculate timeStart based on x position of click if month view
       */
       $scope.checkGymAvailability = function(){
-        /*
-        console.log($scope.timeStart);
-        console.log($scope.timeEnd);
-        */
 
         var url = "/api/check-availability";
-        url += "?timeStart=" + $scope.timeStart + "&timeEnd=" + $scope.timeEnd;
+        url += "?start=" + $scope.timeStart + "&end=" + $scope.timeEnd;
         // console.log(url);
 
         var app = this;
