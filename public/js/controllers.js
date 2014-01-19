@@ -184,7 +184,7 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
           center: 'title',
           right: 'today prev,next'
         },
-        defaultView:'month',
+        defaultView:'agendaWeek',
         theme:false,
         ignoreTimezone: true,
         allDaySlot: false,

@@ -1,6 +1,7 @@
 var moment = require('moment');
 var _ = require('underscore');
 var twix = require('twix');
+var intervals = require('interval-query');
 
 /*
  * GET home page.
@@ -91,36 +92,48 @@ exports.checkAvailability = function(req, res){
   var timeEnd = moment(req.query.end).format("HH:mm");
 
   q = "SELECT * from events as e where e.date = '" + date + "' ";
- 
-  console.log(q);
-
+  
   db.query(q, function(err,rows){
-    console.log(rows.length);
     if(err){
         res.end('Query Error: ' . err);
     }else{
-      
-      overlappingEvents = _.filter(rows,function(row){
-        //if the row overlaps our time boundaries
-        var range1 = moment(date + " " + timeStart).twix(date + " " + timeEnd);
-        var range2 = moment(date + " " + row.time_start).twix(date + " " + row.time_end);
-        if(range2.overlaps(range1)){
-          return row;
-        }
-     
-      });
-      //total up percentage
-      var usage = 0;
-      _.each(overlappingEvents, function(row){
-        console.log(row.usage);
-        usage += parseInt(row.usage);
-      });
 
-      // console.log(overlappingEvents.length);
+      overlappingEvents = _.filter(rows,function(row){
+          //if the row overlaps our time boundaries
+          var range1 = moment(date + " " + timeStart).twix(date + " " + timeEnd);
+          var range2 = moment(date + " " + row.time_start).twix(date + " " + row.time_end);
+          if(range2.overlaps(range1)){
+            return row;
+          } 
+      });
+      
+      //total up percentage
+      //loop through every half hour time slot between timeStart and timeEnd
+      var maxUsage = 0;
+      for(i = 0; moment(date + " " + timeStart).add('minutes', i * 30).isBefore(moment(date + " " + timeEnd)); i++){
+        var usage = 0;
+        var rangeStart = moment(date + " " + timeStart).add('minutes', i * 30);
+        var rangeEnd = moment(date + " " + timeStart).add('minutes', (i+1) * 30);
+
+        //filter overlappingEvents by events that occur in this range
+        thisSlotOverlapping = _.filter(rows,function(row){
+          //if the row overlaps our time boundaries
+          var range1 = rangeStart.twix(rangeEnd);
+          var range2 = moment(date + " " + row.time_start).twix(date + " " + row.time_end);
+          if(range2.overlaps(range1)){
+            return row;
+          }
+        });
+        _.each(thisSlotOverlapping,function(row){
+          usage += parseInt(row.usage);
+        });
+        maxUsage = usage > maxUsage? usage : maxUsage;
+      }
+
       var out = {
         overlappingEvents: overlappingEvents,
-        usage: usage,
-        available: 100 - usage
+        usage: maxUsage,
+        available: 100 - maxUsage
       }
 
       res.write(JSON.stringify(out));
