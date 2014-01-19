@@ -115,6 +115,8 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
         $http.get(url)
           .success(function(res){
             console.log(res);
+            $scope.availability = res.available;
+            $scope.overlappingEvents = res.overlappingEvents;
           })
           .error(function(res){
             console.log(res);

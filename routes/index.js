@@ -107,15 +107,23 @@ exports.checkAvailability = function(req, res){
         if(range2.overlaps(range1)){
           return row;
         }
-        /*
-        if((row.time_start >= timeStart && row.time_start < timeEnd) || (row.time_end > timeStart && row.time_start < timeEnd) || (row.time_start < timeEnd && row.time_end > timeStart)){
-          return row;
-        }
-        */
-      });
-      console.log(overlappingEvents.length);
      
-      res.write(JSON.stringify(overlappingEvents));
+      });
+      //total up percentage
+      var usage = 0;
+      _.each(overlappingEvents, function(row){
+        console.log(row.usage);
+        usage += parseInt(row.usage);
+      });
+
+      // console.log(overlappingEvents.length);
+      var out = {
+        overlappingEvents: overlappingEvents,
+        usage: usage,
+        available: 100 - usage
+      }
+
+      res.write(JSON.stringify(out));
     }
     res.end();
   });
