@@ -13,7 +13,7 @@ ctrls.controller('HeaderController', function($scope,$log){
 
 });
 
-ctrls.controller('CalendarController', function($scope,$location,$modal,$log,$cookies,$cookieStore){
+ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$log,$cookies,$cookieStore){
 
   var date = new Date(),
   d = date.getDate(),
@@ -88,11 +88,7 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$log,$co
   $scope.dayClick = function(date,allDay,evt,view){
     $scope.date = moment(date).format('dddd MMMM Do, YYYY');
     
-    // $scope.hour = moment(date).format('h:mma');
-
-    
-
-
+    $scope.hour = moment(date).format('h:mma');
 
     $scope.hour = date;
 
@@ -111,10 +107,25 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$log,$co
 
       /*calculate timeStart based on x position of click if month view
       */
-      $scope.checkGymAvailability = function(timeStart,timeEnd){
+      $scope.checkGymAvailability = function(){
+        /*
         console.log($scope.timeStart);
         console.log($scope.timeEnd);
+        */
 
+        var url = "/api/check-availability";
+        url += "?timeStart=" + $scope.timeStart + "&timeEnd=" + $scope.timeEnd;
+        // console.log(url);
+
+        var app = this;
+        $http.get(url)
+          .success(function(res){
+            console.log(res);
+          })
+          .error(function(res){
+            console.log(res);
+          });
+         
       }
      
       $scope.checkGymAvailability();
@@ -122,8 +133,6 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$log,$co
       $scope.TimepickerCtrl = function ($scope) {
         $scope.date = date;
         $scope.timeStart = moment(hour).format();
-        // $scope.timeEnd = moment(hour).format();
-        // $scope.mytime = moment(date).format();
 
         $scope.changed = function () {
           $scope.checkGymAvailability();
@@ -182,7 +191,7 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$log,$co
           center: 'title',
           right: 'today prev,next'
         },
-        defaultView:'agendaDay',
+        defaultView:'month',
         theme:false,
         ignoreTimezone: true,
         allDaySlot: false,

@@ -51,12 +51,12 @@ app.get('/users', user.list);
 app.get('/logout',routes.logout);
 app.get('/api/users',routes.users);
 app.get('/api/events',routes.events);
+app.get('/api/check-availability',routes.checkAvailability);
 
 app.post('/login', routes.login, function(req, res){
 	console.log('in login callback...');
 	console.log(req.user);
 });
-
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

@@ -78,5 +78,11 @@ exports.users = function(req, res){
   		}
   		res.end();
   	});
+};
 
+exports.checkAvailability = function(req, res){
+  res.writeHead(200, {"Content-Type": "text/json"});
+  console.log('in checkAvailability');
+  res.write("yes!");
+  res.end();
 };
