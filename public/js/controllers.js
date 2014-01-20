@@ -41,6 +41,8 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
     detailsContainer.addClass('fc-event-details').addClass('text-center');
     detailsContainer.text(event.description);
 
+    // $(element).addClass('percent' + event.usage);
+
     // console.log(event);
     //add popver with event details
     var eventTitle = ' <b>' +  event.title + '</b> ' + moment(event.start).format('h:mma') + ' - ' + moment(event.end).format('h:mma') + ' ' + event.usage + '%';
@@ -66,8 +68,13 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
   /**
   *Things to do after event is rendered go here
   */
-  $scope.eventAfterRender = function(event, element){
- 
+  $scope.eventAfterRender = function(event, element, view){
+    // $(element).addClass('percent' + event.usage);
+    if(view.name=="agendaDay"){
+      var newWidth = element.width() * (event.usage / 100);
+      $(element).css('width',newWidth + 'px');
+    }
+    
   }
 
   /**

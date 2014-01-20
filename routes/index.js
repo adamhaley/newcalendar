@@ -92,12 +92,11 @@ exports.checkAvailability = function(req, res){
   var timeEnd = moment(req.query.end).format("HH:mm");
 
   q = "SELECT * from events as e where e.date = '" + date + "' ";
-  
+
   db.query(q, function(err,rows){
     if(err){
         res.end('Query Error: ' . err);
     }else{
-
       overlappingEvents = _.filter(rows,function(row){
           //if the row overlaps our time boundaries
           var range1 = moment(date + " " + timeStart).twix(date + " " + timeEnd);
@@ -124,6 +123,7 @@ exports.checkAvailability = function(req, res){
             return row;
           }
         });
+        //add up usage percentage
         _.each(thisSlotOverlapping,function(row){
           usage += parseInt(row.usage);
         });
