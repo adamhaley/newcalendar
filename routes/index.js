@@ -56,8 +56,10 @@ exports.events = function(req, res){
 	var q = "SELECT e.id as id,"
 	q += "CONCAT(e.date, 'T', LPAD(e.time_start,5,'0')) as start, CONCAT(e.date, 'T', LPAD(e.time_end,5,'0')) as end,";
 	q += "CONCAT(u.name_first, ' ', u.name_last) as title, e.usage, e.comments as description ";
-	q += "FROM events as e, users as u WHERE e.user_id = u.id and e.date >= FROM_UNIXTIME(" + req.query.start + ")";
-    q += " and e.date <= FROM_UNIXTIME(" + req.query.end + ")";
+	q += "FROM events as e, users as u WHERE e.user_id = u.id and e.date >= FROM_UNIXTIME(" + (req.query.start-86400) + ")";
+  q += " and e.date <= FROM_UNIXTIME(" + req.query.end + ")";
+
+  console.log(q);
 
 	db.query(q, function(err,rows){
 
