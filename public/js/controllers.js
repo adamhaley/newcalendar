@@ -49,7 +49,7 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
     //add popver with event details
     var eventTitle = ' <b>' +  event.title + '</b> ' + moment(event.start).format('h:mma') + ' - ' + moment(event.end).format('h:mma') + ' ' + event.usage + '%';
 
-    if(event.description.length > 0){
+    // if(event.description.length > 0){
       var options = {
         animation: true,
         trigger: 'hover',
@@ -61,7 +61,7 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
         delay:{ show: 300, hide:100}
       }
       $(element).popover(options);
-    }
+    // }
     
     $('.fc-event-inner',element).append(detailsContainer);
     $('.fc-event-title',element).append(percContainer);
@@ -77,13 +77,14 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
       var parentWidth = element.parent().parent().width();
       var newWidth = parentWidth * (event.usage / 100);
       $(element).css('width',newWidth + 'px');
-
-
+    }
+    /*  
     }else if(view.name=="agendaWeek"){
       var parentWidth = element.parent().parent().width() / 7
       var newWidth = parentWidth * (event.usage / 100);
       $(element).css('width',newWidth + 'px');
     }
+    */
     // $(element).css('left',0); 
   }
 
@@ -207,7 +208,12 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
         allDaySlot: false,
         axisFormat: 'h:mmtt',
         minTime: "5:30",
-        slotEventOverlap: true,
+        timeFormat:  {
+          day: '',
+          week:'',
+          month: 'h:mmtt { - h:mmtt}'
+        },
+        slotEventOverlap: false,
         dayClick: $scope.eventOnClick,
         eventDrop: $scope.alertOnDrop,
         eventResize: $scope.alertOnResize,
