@@ -204,7 +204,7 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
         },
         defaultView:'agendaWeek',
         theme:false,
-        ignoreTimezone: true,
+        ignoreTimezone: false,
         allDaySlot: false,
         axisFormat: 'h:mmtt',
         minTime: "5:30",
