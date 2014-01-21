@@ -41,6 +41,8 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
     detailsContainer.addClass('fc-event-details').addClass('text-center');
     detailsContainer.text(event.description);
 
+    // var nextEventLeft = element.offset().left + element.width() + 5;
+    // element.parent().children().eq(element.index()+1).css('left',)
     // $(element).addClass('percent' + event.usage);
 
     // console.log(event);
@@ -63,6 +65,7 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
     
     $('.fc-event-inner',element).append(detailsContainer);
     $('.fc-event-title',element).append(percContainer);
+
   }
 
   /**
@@ -71,10 +74,17 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
   $scope.eventAfterRender = function(event, element, view){
     // $(element).addClass('percent' + event.usage);
     if(view.name=="agendaDay"){
-      var newWidth = element.width() * (event.usage / 100);
+      var parentWidth = element.parent().parent().width();
+      var newWidth = parentWidth * (event.usage / 100);
+      $(element).css('width',newWidth + 'px');
+
+
+    }else if(view.name=="agendaWeek"){
+      var parentWidth = element.parent().parent().width() / 7
+      var newWidth = parentWidth * (event.usage / 100);
       $(element).css('width',newWidth + 'px');
     }
-    
+    // $(element).css('left',0); 
   }
 
   /**
@@ -197,7 +207,7 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
         allDaySlot: false,
         axisFormat: 'h:mmtt',
         minTime: "5:30",
-        slotEventOverlap: false,
+        slotEventOverlap: true,
         dayClick: $scope.eventOnClick,
         eventDrop: $scope.alertOnDrop,
         eventResize: $scope.alertOnResize,
@@ -205,7 +215,12 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
         eventAfterRender: $scope.eventAfterRender,
         dayClick: $scope.dayClick,
         loading: $scope.showLoader,
-        allDayDefault: false
+        allDayDefault: false,
+        titleFormat: {
+            month: 'MMMM yyyy',                             // September 2009
+            week: "MMM d[ yyyy]{ '&#8212;'[ MMM] d, yyyy}", // Sep 7 - 13 2009
+            day: 'dddd, MMM d, yyyy'                  // Tuesday, Sep 8, 2009
+        }
       }
     };
 
