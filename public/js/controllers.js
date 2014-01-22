@@ -41,11 +41,6 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
     detailsContainer.addClass('fc-event-details').addClass('text-center');
     detailsContainer.text(event.description);
 
-    // var nextEventLeft = element.offset().left + element.width() + 5;
-    // element.parent().children().eq(element.index()+1).css('left',)
-    // $(element).addClass('percent' + event.usage);
-
-    // console.log(event);
     //add popver with event details
     var eventTitle = ' <b>' +  event.title + '</b> ' + moment(event.start).format('h:mma') + ' - ' + moment(event.end).format('h:mma') + ' ' + event.usage + '%';
 
@@ -78,14 +73,6 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
       var newWidth = parentWidth * (event.usage / 100);
       $(element).css('width',newWidth + 'px');
     }
-    /*  
-    }else if(view.name=="agendaWeek"){
-      var parentWidth = element.parent().parent().width() / 7
-      var newWidth = parentWidth * (event.usage / 100);
-      $(element).css('width',newWidth + 'px');
-    }
-    */
-    // $(element).css('left',0); 
   }
 
   /**
@@ -100,7 +87,7 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
   }
 
   /**
-  *When user clicks on a day
+  *When user clicks on a day  
   */
   $scope.dayClick = function(date,allDay,evt,view){
     
@@ -111,7 +98,6 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
     var ModalInstanceCtrl = function ($scope, $modalInstance, date, hour) {
       $scope.date = date;
 
-      // console.log(hour);
       if(view.name == "month"){
         $scope.timeStart = moment(hour).add(13,'hours').format();
         $scope.timeEnd = moment(hour).add(14,'hours').format();
@@ -127,12 +113,9 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
         var url = "/api/check-availability";
         url += "?start=" + timeStart + "&end=" + timeEnd;
 
-        console.log(url);
-
         var app = this;
         $http.get(url)
           .success(function(res){
-            console.log(res);
             $scope.availability = res.available;
             $scope.overlappingEvents = res.overlappingEvents;
           })
@@ -148,7 +131,6 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
         $scope.timeStart = moment(hour).format();
 
         $scope.changed = function () {
-       
           $scope.checkGymAvailability($scope.timeStart,$scope.timeEnd);
         }
         
