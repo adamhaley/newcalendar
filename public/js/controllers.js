@@ -112,10 +112,12 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
 
         var url = "/api/check-availability";
         url += "?start=" + timeStart + "&end=" + timeEnd;
+        console.log(url);
 
         var app = this;
         $http.get(url)
           .success(function(res){
+            console.log(res);
             $scope.availability = res.available;
             $scope.overlappingEvents = res.overlappingEvents;
           })
@@ -128,11 +130,9 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
 
       $scope.TimepickerCtrl = function ($scope) {
         $scope.date = date;
-        // $scope.timeStart = moment(hour).format();
-
         $scope.changeTime = function(){
           if(!moment($scope.timeEnd).isAfter($scope.timeStart)){
-            $scope.timeEnd = moment($scope.timeStart).add('minutes',30);
+            $scope.timeEnd = moment($scope.timeStart).add('minutes',30).format();
           }  
           $scope.checkGymAvailability($scope.timeStart,$scope.timeEnd); 
         }
