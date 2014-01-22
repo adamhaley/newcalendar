@@ -97,7 +97,7 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
 
     var ModalInstanceCtrl = function ($scope, $modalInstance, date, hour) {
       $scope.date = date;
-
+      $scope.availability = "waiting..";
       if(view.name == "month"){
         $scope.timeStart = moment(hour).add(13,'hours').format();
         $scope.timeEnd = moment(hour).add(14,'hours').format();
