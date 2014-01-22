@@ -18,8 +18,11 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-4">Gym Availability: </div>
-    <div class="col-md-3">{{availability}}%</div>
+    <div class="alert alert-block {{availability > 0 && 'alert-success' || 'alert-danger'}}">
+      <div class="col-md-4">Gym Availability: </div>
+      <div class="col-md-3">{{availability}}%</div>
+      <br />
+    </div>
   </div>
   <div class="row">
     <div class="col-md-4"></div>
