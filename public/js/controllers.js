@@ -13,7 +13,7 @@ ctrls.controller('HeaderController', function($scope,$log){
 
 });
 
-ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$log,$cookies,$cookieStore){
+ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$log,$cookies,$cookieStore,$timeout){
 
   var date = new Date(),
   d = date.getDate(),
@@ -128,12 +128,15 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
 
       $scope.TimepickerCtrl = function ($scope) {
         $scope.date = date;
-        $scope.timeStart = moment(hour).format();
+        // $scope.timeStart = moment(hour).format();
 
-        $scope.changed = function () {
-          $scope.checkGymAvailability($scope.timeStart,$scope.timeEnd);
+        $scope.changeTime = function(){
+          if(!moment($scope.timeEnd).isAfter($scope.timeStart)){
+            $scope.timeEnd = moment($scope.timeStart).add('minutes',30);
+          }  
+          $scope.checkGymAvailability($scope.timeStart,$scope.timeEnd); 
         }
-        
+
         $scope.clear = function() {
           $scope.hour = null;
         };

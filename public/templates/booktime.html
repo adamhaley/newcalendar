@@ -6,14 +6,14 @@
   <br />
   <div class="row" ng-controller="TimepickerCtrl">
     <div class="col-md-4">
-    <div ng-model="timeStart" ng-change="changed()" style="display:inline-block;">
-          <timepicker hour-step="1" minute-step="15" show-meridian="true" value="timeStart"></timepicker>
+    <div ng-model="timeStart" ng-change="changeTime()" style="display:inline-block;">
+          <timepicker hour-step="1" minute-step="30" show-meridian="true" value="timeStart"></timepicker>
     </div>
     </div>
     <div class="col-md-2 text-center"><br /><h4>to</h4> </div>
     <div class="col-md-4">
-      <div ng-model="timeEnd" ng-change="changed()" style="display:inline-block;">
-            <timepicker hour-step="1" minute-step="15" show-meridian="true" value="timeEnd"></timepicker>
+      <div ng-model="timeEnd" ng-change="changeTime()" style="display:inline-block;">
+            <timepicker hour-step="1" minute-step="30" show-meridian="true" value="timeEnd"></timepicker>
       </div>
     </div>
   </div>
@@ -30,6 +30,6 @@
   </div>
 </div>
 <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-primary {{availability <= 0 && 'disabled'}}" ng-click="ok()">OK</button>
     <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
 </div>
