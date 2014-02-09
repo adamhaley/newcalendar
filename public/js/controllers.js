@@ -87,19 +87,11 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
     }
   }
 
-
-  /**
-  *When a user submits the form to book time
-  */
-  $scope.bookTimeSubmit = function(id){
-    
-  }
-
   /**
   *When user clicks on a day  
   */
   $scope.dayClick = function(date,allDay,evt,view){
-    
+    var rawDate = date;
     $scope.date = moment(date).format('dddd MMMM Do, YYYY');
     $scope.hour = moment(date).format('h:mma');
     $scope.hour = date;
@@ -157,12 +149,16 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
 
       $scope.ok = function (id) {
         console.log('form submitted');
+
         var data = {
           time_start: $scope.timeStart,
           time_end: $scope.timeEnd,
-          usage: $scope.usage,
-          date: $scope.date
+          usage: $('#usage').val(),
+          date: rawDate,
+          note: $('#note').val()
         }
+
+        console.log(data);
         var url = '/api/events/';
 
         if(id != undefined){
