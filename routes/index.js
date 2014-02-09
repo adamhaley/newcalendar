@@ -81,9 +81,6 @@ exports.putEvents = function(req, res){
 };
 
 exports.postEvents = function(req, res){
-  console.log('in putEvents');
-  console.log(req.session);
-
   var userId = req.session.user.id;
   var timeStart = moment(req.body.time_start).format('HH:mm');
   var timeEnd = moment(req.body.time_end).format('HH:mm');
@@ -91,23 +88,28 @@ exports.postEvents = function(req, res){
 
   var usage = req.body.usage;
   usage = usage.substring(0, usage.length - 1);//strip off % from end
-  console.log(req.body);
 
   var date = moment(req.body.date).format("YYYY-MM-DD");
-
-  // var q = "INSERT into events (user_id, date, time_start, time_end, comments, usage) values (" +userId+ ",`" +date+ "`,`"+timeStart+"`,`"+timeEnd+"`,`" + comments + "`,`"+usage+"`);";
-
 
   var q = "INSERT INTO `jjgym_calendar`.`events` (`id`, `user_id`, `date`, `time_start`, `time_end`, `comments`, `usage`, `created_at`) VALUES (NULL, '"+userId+"', '"+date+"', '"+timeStart+"', '"+timeEnd+"', '"+comments+"','"+usage+"', CURRENT_TIMESTAMP);";
   console.log(q);
 
-  db.query(q, function(err,rows){
+  db.query(q, function(err,result){
       if(err){
         console.log('QUERY ERROR' + err);
         res.end('Query Error: ' . err);
       }else{
         console.log('QUERY SUCCESS');
-        res.write(JSON.stringify({message: 'ok'}));
+        var eventData = {
+          id: result.insertId,
+          title: req.session.user.name_first + ' ' + req.session.user.name_last,
+          description: comments, //<----- description,comments, note are all the same thing depending on where you are. i know, i know. bad bad.
+          time_start: req.body.time_start,
+          time_end: req.body.time_end,
+          usage: usage
+        }
+
+        res.write(JSON.stringify(eventData));
       }
       res.end();
   });

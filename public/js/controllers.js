@@ -13,7 +13,7 @@ ctrls.controller('HeaderController', function($scope,$log){
 
 });
 
-ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$log,$cookies,$cookieStore,$timeout){
+ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$log,$cookies,$cookieStore,$timeout,$rootScope){
 
 
   var date = new Date(),
@@ -27,6 +27,15 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
   };
     
   $scope.events = [];
+
+  $scope.$on('event:add',function(){
+    console.log('in event:add handler');
+    console.log(arguments);
+    /*
+    $scope.events.push(eventObj);
+    $scope.$digest();
+    */
+  });
   
   /**
   *Before event is rendered
@@ -109,8 +118,7 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
 
       //percentages
       $scope.percentages = [25,50,75,100];
-      /*calculate timeStart based on x position of click if month view
-      */
+     
       $scope.checkGymAvailability = function(timeStart,timeEnd){
 
         var url = "/api/check-availability";
@@ -175,7 +183,19 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
           $http.post('/api/events/', data)
             .success(function(res){
               console.log(res);
-              $modalInstance.close();
+
+              var eventObj = {
+                id: res.insertId,
+                title: res.title,
+                description: res.description,
+                start: res.time_start,
+                end: res.time_end,
+                usage: res.usage
+              }
+            
+              //add to events sources model and digest so calendar is updated
+             
+              $modalInstance.close(eventObj);
             })
             .error(function(res){
               console.log(res);
@@ -203,11 +223,16 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
         },
         timeEnd: function(){
           return $scope.timeEnd;
+        },
+        events: function() {
+          return  $scope.events;
         }
       }
     });
 
-    modalInstance.result.then(function () {
+    modalInstance.result.then(function (data) {
+      //add data to calendar
+      $scope.events.push(data);
       // $scope.selected = selectedItem;
     }, function () {
       $log.info('Modal dismissed');
