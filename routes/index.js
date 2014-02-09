@@ -76,7 +76,14 @@ exports.getEvents = function(req, res){
 exports.putEvents = function(req, res){
   console.log('in putEvents');
   console.log(req);
-  res.write(JSON.stringify({message:'ok'}));
+  res.write(JSON.stringify({message:'ok: PUT events'}));
+  res.end();
+};
+
+exports.postEvents = function(req, res){
+  console.log('in putEvents');
+  console.log(req);
+  res.write(JSON.stringify({message:'ok: POSTed events'}));
   res.end();
 };
 

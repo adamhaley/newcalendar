@@ -157,16 +157,35 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
 
       $scope.ok = function (id) {
         console.log('form submitted');
-        $http.put('/api/events/')
-          .success(function(res){
-            console.log(res);
-            $modalInstance.close();
-          })
-          .error(function(res){
-            console.log(res);
-            $modalInstance.close();
-          });
-        
+        var data = {
+          time_start: $scope.timeStart,
+          time_end: $scope.timeEnd,
+          usage: $scope.usage,
+          date: $scope.date
+        }
+        var url = '/api/events/';
+
+        if(id != undefined){
+          $http.put(url + id, data)
+            .success(function(res){
+              console.log(res);
+              $modalInstance.close();
+            })
+            .error(function(res){
+              console.log(res);
+              $modalInstance.close();
+            });    
+        }else{
+          $http.post('/api/events/', data)
+            .success(function(res){
+              console.log(res);
+              $modalInstance.close();
+            })
+            .error(function(res){
+              console.log(res);
+              $modalInstance.close();
+            });
+        }  
       };
       $scope.cancel = function () {
         $modalInstance.dismiss('cancel');
