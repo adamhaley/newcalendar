@@ -19,6 +19,7 @@ JJGym Calendar
 <script type="text/javascript" src="js/bower_components/angular-cookies/angular-cookies.js"></script>
 <script type="text/javascript" src="js/bower_components/angular-ui-bootstrap/src/modal/modal.js"></script>
 <script type="text/javascript" src="js/bower_components/angular-ui-bootstrap/src/timepicker/timepicker.js"></script>
+<script type="text/javascript" src="js/bower_components/angular-ui-bootstrap/src/dropdownToggle/dropdownToggle.js"></script>
 <script type="text/javascript" src="js/bower_components/fullcalendar/fullcalendar.js"></script>
 <script type="text/javascript" src="js/bower_components/angular-ui-calendar/src/calendar.js"></script>
 <script type="text/javascript" src="js/bower_components/sugar/release/sugar.min.js"></script>
@@ -26,9 +27,11 @@ JJGym Calendar
 <!--END VENDOR DEPENDENCIES-->
 
 <!--JASMINE-->
+<!--
 <link rel="stylesheet" type="text/css" href="js/bower_components/jasmine/lib/jasmine-core/jasmine.css">
 <script type="text/javascript" src="js/bower_components/jasmine/lib/jasmine-core/jasmine.js"></script>
 <script type="text/javascript" src="js/bower_components/jasmine/lib/jasmine-core/jasmine-html.js"></script>
+-->
 <!--END JASMINE-->
 
 </head>
@@ -72,31 +75,21 @@ JJGym Calendar
 	<div id="loader">
 	</div>
 </div>
-<div id="myModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div>
+
 <!--APP FILES-->
+
+
 <script type="text/javascript" src="js/controllers.js"></script>
+
+<script type="text/javascript" src="js/app.js"></script>
+
 <!--
 <script type="text/javascript" src="js/directives.js"></script>
 <script type="text/javascript" src="js/filters.js"></script>
 <script type="text/javascript" src="js/services"></script>
 -->
-<script type="text/javascript" src="js/app.js"></script>
+
+
 <!--END APP FILES-->
 </body>
 </html>

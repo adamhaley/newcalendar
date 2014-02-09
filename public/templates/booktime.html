@@ -21,12 +21,20 @@
     <div class="alert alert-block {{availability > 0 && 'alert-success' || 'alert-danger'}}">
       <div class="col-md-4">Gym Availability: </div>
       <div class="col-md-3">{{availability}}%</div>
+      <!-- <div class="col-md-5">{{timeStart | date: 'shortTime'}} - {{timeEnd | date: 'shortTime'}}</div> -->
       <br />
     </div>
   </div>
   <div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-3"></div>
+
+      Percentage: 
+        <select class="form-control" id="usage">
+        <option ng-disabled="percentage > availability" ng-repeat="percentage in percentages">{{percentage}}%</option></select>
+ 
+      
+  </div>
+  <div class="row">
+    Note: <input type="text" class="form-control" name="note" id="note"></input>
   </div>
 </div>
 <div class="modal-footer">

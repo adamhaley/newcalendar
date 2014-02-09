@@ -48,7 +48,8 @@ app.get('/', routes.index);
 app.get('/users', user.list);
 app.get('/logout',routes.logout);
 app.get('/api/users',routes.users);
-app.get('/api/events',routes.events);
+app.get('/api/events',routes.getEvents);
+app.put('/api/events/', routes.putEvents);
 app.get('/api/check-availability',routes.checkAvailability);
 
 app.post('/login', routes.login, function(req, res){

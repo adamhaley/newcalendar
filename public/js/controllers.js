@@ -15,6 +15,7 @@ ctrls.controller('HeaderController', function($scope,$log){
 
 ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$log,$cookies,$cookieStore,$timeout){
 
+
   var date = new Date(),
   d = date.getDate(),
   m = date.getMonth(),
@@ -86,6 +87,14 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
     }
   }
 
+
+  /**
+  *When a user submits the form to book time
+  */
+  $scope.bookTimeSubmit = function(id){
+    
+  }
+
   /**
   *When user clicks on a day  
   */
@@ -106,6 +115,8 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
         $scope.timeEnd = moment(hour).add(1,'hours').format();
       }
 
+      //percentages
+      $scope.percentages = [25,50,75,100];
       /*calculate timeStart based on x position of click if month view
       */
       $scope.checkGymAvailability = function(timeStart,timeEnd){
@@ -130,7 +141,9 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
 
       $scope.TimepickerCtrl = function ($scope) {
         $scope.date = date;
+
         $scope.changeTime = function(){
+
           if(!moment($scope.timeEnd).isAfter($scope.timeStart)){
             $scope.timeEnd = moment($scope.timeStart).add('minutes',30).format();
           }  
@@ -142,8 +155,18 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
         };
       };
 
-      $scope.ok = function () {
-        $modalInstance.close();
+      $scope.ok = function (id) {
+        console.log('form submitted');
+        $http.put('/api/events/')
+          .success(function(res){
+            console.log(res);
+            $modalInstance.close();
+          })
+          .error(function(res){
+            console.log(res);
+            $modalInstance.close();
+          });
+        
       };
       $scope.cancel = function () {
         $modalInstance.dismiss('cancel');

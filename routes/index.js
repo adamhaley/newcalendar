@@ -50,7 +50,7 @@ exports.logout = function(req, res){
   res.redirect('/');
 }
 
-exports.events = function(req, res){
+exports.getEvents = function(req, res){
 	res.writeHead(200, {"Content-Type": "text/json"});
 
 	var q = "SELECT e.id as id,"
@@ -71,6 +71,13 @@ exports.events = function(req, res){
   		res.end();
   	});
 
+};
+
+exports.putEvents = function(req, res){
+  console.log('in putEvents');
+  console.log(req);
+  res.write(JSON.stringify({message:'ok'}));
+  res.end();
 };
 
 exports.users = function(req, res){
