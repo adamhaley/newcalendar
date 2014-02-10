@@ -91,7 +91,7 @@ exports.postEvents = function(req, res){
 
   var date = moment(req.body.date).format("YYYY-MM-DD");
 
-  var q = "INSERT INTO `jjgym_calendar`.`events` (`id`, `user_id`, `date`, `time_start`, `time_end`, `comments`, `usage`, `created_at`) VALUES (NULL, '"+userId+"', '"+date+"', '"+timeStart+"', '"+timeEnd+"', '"+comments+"','"+usage+"', CURRENT_TIMESTAMP);";
+  var q = "INSERT INTO `events` (`id`, `user_id`, `date`, `time_start`, `time_end`, `comments`, `usage`, `created_at`) VALUES (NULL, '"+userId+"', '"+date+"', '"+timeStart+"', '"+timeEnd+"', '"+comments+"','"+usage+"', CURRENT_TIMESTAMP);";
   console.log(q);
 
   db.query(q, function(err,result){
