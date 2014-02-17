@@ -53,7 +53,7 @@ exports.logout = function(req, res){
 exports.getEvents = function(req, res){
 	res.writeHead(200, {"Content-Type": "text/json"});
 
-	var q = "SELECT e.id as id,"
+	var q = "SELECT e.id as id, e.user_id as user_id, "
 	q += "CONCAT(e.date, 'T', LPAD(e.time_start,5,'0')) as start, CONCAT(e.date, 'T', LPAD(e.time_end,5,'0')) as end,";
 	q += "CONCAT(u.name_first, ' ', u.name_last) as title, e.usage, e.comments as description ";
 	q += "FROM events as e, users as u WHERE e.user_id = u.id and e.date >= FROM_UNIXTIME(" + (req.query.start) + ")";
@@ -116,15 +116,17 @@ exports.postEvents = function(req, res){
 };
 
 exports.deleteEvent = function(req, res){
-  var q = "DELETE from events where id=" + req.query.id + ";";
+  var q = "DELETE from events where id=" + req.params.id + ";";
+  console.log(q);
   db.query(q, function(err,result){
     if(err){
+      res.writeHead(500, {"Content-Type": "text/json"});
       console.log('QUERY ERROR' + err);
       res.end('Query Error: ' . err);
     }else{
+      res.writeHead(200, {"Content-Type": "text/json"});
       console.log('QUERY SUCCESS');
-      res.write(JSON.stringify(res));
-
+      res.write(JSON.stringify({response: 'ok'}));
     }
     res.end();
   });

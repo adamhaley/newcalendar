@@ -13,7 +13,7 @@ ctrls.controller('HeaderController', function($scope,$log){
 
 });
 
-ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$log,$cookies,$cookieStore,$timeout,$rootScope){
+ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$log,$cookies,$cookieStore,$timeout,$rootScope,$compile){
 
 
   var date = new Date(),
@@ -42,6 +42,7 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
   */
   $scope.eventRender = function(event, element){
     event.allDay = false;
+    
     //add percentage indicator
     var percContainer = $('<span />');
     percContainer.addClass('fc-event-percentage');
@@ -50,6 +51,9 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
     var detailsContainer = $('<div />');
     detailsContainer.addClass('fc-event-details').addClass('text-center');
     detailsContainer.text(event.description);
+
+    //if event belongs to logged in user, create delete button
+  
 
     //add popver with event details
     var eventTitle = ' <b>' +  event.title + '</b> ' + moment(event.start).format('h:mma') + ' - ' + moment(event.end).format('h:mma') + ' ' + event.usage + '%';
@@ -68,9 +72,31 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
       $(element).popover(options);
     // }
     
+    
+    if($scope.userId == event.user_id){
+      var deleteButton = $('<div  />');
+      deleteButton.addClass('glyphicon').addClass('glyphicon-remove').addClass('delete-button');
+      deleteButton.attr('ng-click','deleteEvent(' + event.id + ')');
+      $('.fc-event-inner', element).append(deleteButton);
+    }
     $('.fc-event-inner',element).append(detailsContainer);
     $('.fc-event-title',element).append(percContainer);
+    $compile(element)($scope);
 
+  }
+
+  $scope.deleteEvent = function(id){
+    // console.log('deleting event ' + id);
+    if(confirm('Delete this event?')){
+      $http.delete('/api/events/' + id)
+        .success(function(res){
+          console.log(res);
+          $scope.myCalendar.fullCalendar('refetchEvents')
+        })
+        .error(function(res){
+          console.log(res);
+        });
+    }
   }
 
   /**
@@ -277,6 +303,7 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
         }
       }
     };
+
 
    	$scope.eventSources = [$scope.events, $scope.eventSource];
  
