@@ -51,6 +51,7 @@ app.get('/api/users',routes.users);
 app.get('/api/events',routes.getEvents);
 app.put('/api/events/', routes.putEvents);
 app.post('/api/events/', routes.postEvents);
+app.delete('/api/events/', routes.deleteEvent);
 app.get('/api/check-availability',routes.checkAvailability);
 
 app.post('/login', routes.login, function(req, res){

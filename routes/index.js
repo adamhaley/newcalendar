@@ -115,6 +115,21 @@ exports.postEvents = function(req, res){
   });
 };
 
+exports.deleteEvent = function(req, res){
+  var q = "DELETE from events where id=" + req.query.id + ";";
+  db.query(q, function(err,result){
+    if(err){
+      console.log('QUERY ERROR' + err);
+      res.end('Query Error: ' . err);
+    }else{
+      console.log('QUERY SUCCESS');
+      res.write(JSON.stringify(res));
+
+    }
+    res.end();
+  });
+}
+
 exports.users = function(req, res){
 	res.writeHead(200, {"Content-Type": "text/json"});
 
