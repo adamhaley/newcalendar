@@ -76,7 +76,7 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
     if($scope.userId == event.user_id){
       var deleteButton = $('<div  />');
       deleteButton.addClass('glyphicon').addClass('glyphicon-remove').addClass('delete-button');
-      deleteButton.attr('ng-click','deleteEvent(' + event.id + ')');
+      deleteButton.attr('ng-click','deleteEvent($event, ' + event.id + ')');
       $('.fc-event-inner', element).append(deleteButton);
     }
     $('.fc-event-inner',element).append(detailsContainer);
@@ -84,14 +84,17 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
     $compile(element)($scope);
 
   }
-
-  $scope.deleteEvent = function(id){
-    // console.log('deleting event ' + id);
+  $scope.deleteEvent = function($event, id){
+    var element = $($event.currentTarget);
+    
     if(confirm('Delete this event?')){
       $http.delete('/api/events/' + id)
         .success(function(res){
+          element.parent().parent().popover('hide');
           console.log(res);
-          $scope.myCalendar.fullCalendar('refetchEvents')
+          //gotta delete from events array if it was added that way
+
+          $scope.myCalendar.fullCalendar('refetchEvents');
         })
         .error(function(res){
           console.log(res);
@@ -212,6 +215,7 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
 
               var eventObj = {
                 id: res.insertId,
+                user_id: $scope.userId,
                 title: res.title,
                 description: res.description,
                 start: res.time_start,
@@ -258,7 +262,8 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
 
     modalInstance.result.then(function (data) {
       //add data to calendar
-      $scope.events.push(data);
+      // $scope.events.push(data);
+      $scope.myCalendar.fullCalendar('refetchEvents');
       // $scope.selected = selectedItem;
     }, function () {
       $log.info('Modal dismissed');
