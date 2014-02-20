@@ -129,6 +129,9 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
   *When user clicks on a day  
   */
   $scope.dayClick = function(date,allDay,evt,view){
+    if(!$scope.userId){
+      return;
+    }
     var rawDate = date;
     $scope.date = moment(date).format('dddd MMMM Do, YYYY');
     $scope.hour = moment(date).format('h:mma');
@@ -177,6 +180,8 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
             $scope.timeEnd = moment($scope.timeStart).add('minutes',30).format();
           }  
           $scope.checkGymAvailability($scope.timeStart,$scope.timeEnd); 
+          $scope.$parent.timeStart = $scope.timeStart;
+          $scope.$parent.timeEnd = $scope.timeEnd;
         }
 
         $scope.clear = function() {
