@@ -15,8 +15,9 @@ var flash = require('connect-flash');
 var app = express();
 
 app.configure(function() {
+	console.log(__dirname);
 	app.use(flash());
-	app.use(express.static('public'));
+	app.use(express.static(__dirname + '/public'));
 	app.use(express.cookieParser('4n0th3r'));
 	app.use(express.cookieSession());
 	app.use(express.bodyParser());
