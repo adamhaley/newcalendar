@@ -15,12 +15,12 @@ ctrls.controller('HeaderController', function($scope,$log){
 
 ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$log,$cookies,$cookieStore,$timeout,$rootScope,$compile){
 
-
+/*
   var date = new Date(),
   d = date.getDate(),
   m = date.getMonth(),
   y = date.getFullYear();
-   
+  */ 
   $scope.eventSource = {
       url: "api/events",
       currentTimezone: 'America/Los Angeles'
@@ -31,10 +31,6 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
   $scope.$on('event:add',function(){
     console.log('in event:add handler');
     console.log(arguments);
-    /*
-    $scope.events.push(eventObj);
-    $scope.$digest();
-    */
   });
   
   /**
