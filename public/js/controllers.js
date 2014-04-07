@@ -54,19 +54,19 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
     //add popver with event details
     var eventTitle = ' <b>' +  event.title + '</b> ' + moment(event.start).format('h:mma') + ' - ' + moment(event.end).format('h:mma') + ' ' + event.usage + '%';
 
-    // if(event.description.length > 0){
-      var options = {
-        animation: true,
-        trigger: 'hover',
-        container: 'body',
-        placement: 'auto top',
-        html: true,
-        title: eventTitle,
-        content: event.description,
-        delay:{ show: 300, hide:100}
-      }
-      $(element).popover(options);
-    // }
+
+    var options = {
+      animation: true,
+      trigger: 'hover',
+      container: 'body',
+      placement: 'auto top',
+      html: true,
+      title: eventTitle,
+      content: event.description,
+      delay:{ show: 300, hide:100}
+    }
+    $(element).popover(options);
+
     
     
     if($scope.userId == event.user_id){
@@ -103,10 +103,12 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
   */
   $scope.eventAfterRender = function(event, element, view){
     // $(element).addClass('percent' + event.usage);
+    
     if(view.name=="agendaDay"){
-      var parentWidth = element.parent().parent().width();
-      var newWidth = parentWidth * (event.usage / 100);
-      $(element).css('width',newWidth + 'px');
+      // var parentWidth = element.parent().parent().width();
+      // var newWidth = parentWidth * (event.usage / 100);
+      // $(element).css('width',newWidth + 'px');
+    
     }
   }
 
@@ -278,11 +280,11 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
       calendar:{
         editable: false,
         header:{
-          left: 'month agendaWeek agendaDay',
+          left: 'agendaWeek agendaDay',
           center: 'title',
           right: 'today prev,next'
         },
-        defaultView:'agendaWeek',
+        defaultView:'agendaDay',
         theme:false,
         ignoreTimezone: false,
         allDaySlot: false,
