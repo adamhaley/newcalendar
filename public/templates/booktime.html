@@ -4,16 +4,16 @@
 <div class="modal-body">
 	Book me <b>{{ date }}</b> from:
   <br />
-  <div class="row" ng-controller="TimepickerCtrl">
+  <div class="row" ng-controller="TimepickerCtrl as timePicker">
     <div class="col-md-4">
-    <div ng-model="timeStart" ng-change="changeTime()" style="display:inline-block;">
-          <timepicker hour-step="1" minute-step="30" show-meridian="true" value="timeStart"></timepicker>
+    <div style="display:inline-block;">
+          <timepicker ng-model="timeStart" ng-change="timePicker.changeTime()" hour-step="1" minute-step="30" show-meridian="true" value="timeStart"></timepicker>
     </div>
     </div>
     <div class="col-md-2 text-center"><br /><h4>to</h4> </div>
     <div class="col-md-4">
-      <div ng-model="timeEnd" ng-change="changeTime()" style="display:inline-block;">
-            <timepicker hour-step="1" minute-step="30" show-meridian="true" value="timeEnd"></timepicker>
+      <div  style="display:inline-block;">
+            <timepicker ng-model="timeEnd" ng-change="timePicker.changeTime()" hour-step="1" minute-step="30" show-meridian="true" value="timeEnd"></timepicker>
       </div>
     </div>
   </div>
