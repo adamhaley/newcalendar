@@ -13,7 +13,7 @@ ctrls.controller('HeaderController', function($scope,$log){
 
 });
 
-ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$log,$cookies,$cookieStore,$timeout,$rootScope,$compile){
+ctrls.controller('CalendarController', function($scope,$rootScope,$location,$modal,$http,$log,$cookies,$cookieStore,$timeout,$rootScope,$compile){
 
 /*
   var date = new Date(),
@@ -167,17 +167,17 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
      
       $scope.checkGymAvailability($scope.timeStart,$scope.timeEnd);
 
-      $scope.TimepickerCtrl = function ($scope) {
+      $scope.TimepickerCtrl = function ($scope, $rootScope) {
         $scope.date = date;
 
-        $scope.changeTime = function(){
+        this.changeTime = function(){
 
           if(!moment($scope.timeEnd).isAfter($scope.timeStart)){
             $scope.timeEnd = moment($scope.timeStart).add('minutes',30).format();
           }  
           $scope.checkGymAvailability($scope.timeStart,$scope.timeEnd); 
-          $scope.$parent.timeStart = $scope.timeStart;
-          $scope.$parent.timeEnd = $scope.timeEnd;
+          $rootScope.timeStart = $scope.timeStart;
+          $rootScope.timeEnd = $scope.timeEnd;
         }
 
         $scope.clear = function() {
@@ -189,8 +189,8 @@ ctrls.controller('CalendarController', function($scope,$location,$modal,$http,$l
         console.log('form submitted');
 
         var data = {
-          time_start: $scope.timeStart,
-          time_end: $scope.timeEnd,
+          time_start: $rootScope.timeStart,
+          time_end: $rootScope.timeEnd,
           usage: $('#usage').val(),
           date: rawDate,
           note: $('#note').val()

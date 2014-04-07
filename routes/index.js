@@ -59,7 +59,7 @@ exports.getEvents = function(req, res){
 	q += "FROM events as e, users as u WHERE e.user_id = u.id and e.date >= FROM_UNIXTIME(" + (req.query.start) + ")";
   q += " and e.date <= FROM_UNIXTIME(" + req.query.end + ")";
 
-  console.log(q);
+  // console.log(q);
 
 	db.query(q, function(err,rows){
 
@@ -81,6 +81,9 @@ exports.putEvents = function(req, res){
 };
 
 exports.postEvents = function(req, res){
+  console.log('time_start: ' + req.body.time_start + ' time_end: ' + req.body.time_end);
+
+
   var userId = req.session.user.id;
   var timeStart = moment(req.body.time_start).format('HH:mm');
   var timeEnd = moment(req.body.time_end).format('HH:mm');
@@ -92,7 +95,7 @@ exports.postEvents = function(req, res){
   var date = moment(req.body.date).format("YYYY-MM-DD");
 
   var q = "INSERT INTO `events` (`id`, `user_id`, `date`, `time_start`, `time_end`, `comments`, `usage`, `created_at`) VALUES (NULL, '"+userId+"', '"+date+"', '"+timeStart+"', '"+timeEnd+"', '"+comments+"','"+usage+"', CURRENT_TIMESTAMP);";
-  console.log(q);
+  // console.log(q);
 
   db.query(q, function(err,result){
       if(err){
