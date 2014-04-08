@@ -102,14 +102,7 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
   *Things to do after event is rendered go here
   */
   $scope.eventAfterRender = function(event, element, view){
-    // $(element).addClass('percent' + event.usage);
-    
-    if(view.name=="agendaDay"){
-      // var parentWidth = element.parent().parent().width();
-      // var newWidth = parentWidth * (event.usage / 100);
-      // $(element).css('width',newWidth + 'px');
-    
-    }
+    $(element).addClass('percent' + event.usage);
   }
 
   /**
@@ -280,7 +273,7 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
       calendar:{
         editable: false,
         header:{
-          left: 'agendaWeek agendaDay',
+          left: 'month agendaWeek agendaDay',
           center: 'title',
           right: 'today prev,next'
         },

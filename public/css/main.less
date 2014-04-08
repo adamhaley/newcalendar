@@ -16,6 +16,15 @@ body{
     
 }
 
+//colors
+@perc25: #36da82;
+@perc50: #009999;
+@perc75: #216477;
+@perc100: #a62a58;
+@textcolor: #fff;
+@subtextcolor: #ddd;
+
+
 ::selection {
     background:none;
     color:#fff;
@@ -87,6 +96,7 @@ input[type='submit']{
 }
 
 .fc-event{
+    color:@textcolor;
     cursor:pointer;
     .fc-event-time{
         width:100%;
@@ -100,13 +110,13 @@ input[type='submit']{
         float:right;
         font-size:.8em;
         font-style:italic;
-        color:#ddd;
+        color:@subtextcolor;
         // display:none;
         margin:0px;
         padding:0px;
     }
     .fc-event-details{
-        color:#ddd;
+        color:@subtextcolor;
         font-style: italic;
         font-size:.8em;
     }
@@ -114,11 +124,9 @@ input[type='submit']{
         width:50px;
         height:50px;
         float:left;
-        color:purple;
+        // color:purple;
     }
-    &:hover{
-        background-color:#51b5e7;
-    }
+    border:1px solid #777;
 }
 .popover-content{
     font-size: .8em;
@@ -133,14 +141,26 @@ input[type='submit']{
 }
 
 .fc-event.percent25{
-    width:25% !important;
+    background-color: @perc25;
+    &:hover{
+        background-color: @perc25 + #111;
+    }
 }
 .fc-event.percent50{
-    width:50% !important;
+    background-color:@perc50;
+    &:hover{
+        background-color: @perc50 + #111;
+    }
 }
 .fc-event.percent75{
-    width:75% !important;
+    background-color:@perc75;
+    &:hover{
+        background-color: @perc75 + #111;
+    }
 }
 .fc-event.percent100{
-    width:100% !important;
+    background-color:@perc100;
+    &:hover{
+        background-color: @perc100 + #111;
+    }
 }

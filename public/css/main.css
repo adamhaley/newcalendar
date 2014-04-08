@@ -75,7 +75,9 @@ input[type='submit'] {
   cursor: copy;
 }
 .fc-event {
+  color: #ffffff;
   cursor: pointer;
+  border: 1px solid #777;
 }
 .fc-event .fc-event-time {
   width: 100%;
@@ -89,12 +91,12 @@ input[type='submit'] {
   float: right;
   font-size: .8em;
   font-style: italic;
-  color: #ddd;
+  color: #dddddd;
   margin: 0px;
   padding: 0px;
 }
 .fc-event .fc-event-details {
-  color: #ddd;
+  color: #dddddd;
   font-style: italic;
   font-size: .8em;
 }
@@ -102,10 +104,6 @@ input[type='submit'] {
   width: 50px;
   height: 50px;
   float: left;
-  color: purple;
-}
-.fc-event:hover {
-  background-color: #51b5e7;
 }
 .popover-content {
   font-size: .8em;
@@ -115,14 +113,26 @@ input[type='submit'] {
   z-index: 10000;
 }
 .fc-event.percent25 {
-  width: 25% !important;
+  background-color: #36da82;
+}
+.fc-event.percent25:hover {
+  background-color: #47eb93;
 }
 .fc-event.percent50 {
-  width: 50% !important;
+  background-color: #009999;
+}
+.fc-event.percent50:hover {
+  background-color: #11aaaa;
 }
 .fc-event.percent75 {
-  width: 75% !important;
+  background-color: #216477;
+}
+.fc-event.percent75:hover {
+  background-color: #327588;
 }
 .fc-event.percent100 {
-  width: 100% !important;
+  background-color: #a62a58;
+}
+.fc-event.percent100:hover {
+  background-color: #b73b69;
 }
