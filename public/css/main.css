@@ -89,6 +89,9 @@ body {
   cursor: pointer;
   border: 1px solid #777;
 }
+.fc-event .fc-event-bg {
+  display: none;
+}
 .fc-event .fc-event-time {
   width: 100%;
   display: block;
