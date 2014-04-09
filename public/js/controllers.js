@@ -273,7 +273,7 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
       calendar:{
         editable: false,
         header:{
-          left: 'month agendaWeek agendaDay',
+          left: 'agendaWeek agendaDay',
           center: 'title',
           right: 'today prev,next'
         },
