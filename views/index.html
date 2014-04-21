@@ -39,27 +39,24 @@ JJGym Calendar
 
 <header class="col-md-12" ng-controller="HeaderController">
 
-<div class="login-area pull-right col-md-4">
+<div class="login-area col-md-12">
 {{#flash.error}}
-  <div class="alert-danger">{{flash.error}}</div>
+  <div class="alert alert-danger row">{{flash.error}}</div>
 {{/flash.error}}
 
 {{#session.user}}
 
-  <div class="alert-success">
-    Welcome, {{session.user.name_first}} {{session.user.name_last}}! 
+  <div class="alert alert-success row">
+    Welcome, {{session.user.name_first}} {{session.user.name_last}}!  <input type="button" value="Logout" ng-click="logout()" class="pull-right"/>
   </div>
-  <div id="logout" class="row pull-right"> 
-    <input type="button" value="Logout" ng-click="logout()" />
-    
-  </div>
+
 
 {{/session.user}}
 {{^session.user}}
   <form action="/login" method="post">
 
     <input type="hidden" name="username" value="jjgym"/>
-      <div>
+      <div class="alert alert-info row">
           <label>Password:</label>
           <input type="password" name="password"/><input type="submit" value="Log In" class="pull-right" />
       </div>
