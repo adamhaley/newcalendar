@@ -73,7 +73,7 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
       var deleteButton = $('<div  />');
       deleteButton.addClass('glyphicon').addClass('glyphicon-remove').addClass('delete-button');
       deleteButton.attr('ng-click','deleteEvent($event, ' + event.id + ')');
-      $('.fc-event-inner', element).append(deleteButton);
+      $('.fc-event-inner', element).prepend(deleteButton);
     }
     $('.fc-event-inner',element).append(detailsContainer);
     $('.fc-event-title',element).append(percContainer);
