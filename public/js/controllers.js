@@ -139,6 +139,9 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
         $scope.timeEnd = moment(hour).add(1,'hours').format();
       }
 
+      $rootScope.timeStart = $scope.timeStart;
+      $rootScope.timeEnd = $scope.timeEnd;
+
       //percentages
       $scope.percentages = [25,50,75,100];
      
