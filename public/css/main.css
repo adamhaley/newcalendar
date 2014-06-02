@@ -123,6 +123,9 @@ body {
   font-size: .8em;
   font-style: italic;
 }
+.alert {
+  color: #fff;
+}
 .bookit {
   z-index: 10000;
 }
