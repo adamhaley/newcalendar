@@ -208,6 +208,11 @@ exports.checkAvailability = function(req, res){
 };
 
 exports.checkAvailabilityRange = function(req, res){
+    var date = moment(req.query.start).format("YYYY-MM-DD");
+    var dateEnd = moment(req.query.endDate).format("YYYY-MM-DD");
+    var timeStart = moment(req.query.start).format("HH:mm");
+    var timeEnd = moment(req.query.end).format("HH:mm");
+ 
     var endDate = moment('Sep 24, 2014');
     console.log('creating dates weekly before Sep 24, 2014');
 
