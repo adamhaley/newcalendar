@@ -42,7 +42,7 @@ exports.login = function(req, res){
     res.redirect('/');
     return;
   });  
-}
+};
 
 exports.logout = function(req, res){
   res.clearCookie('uid');
@@ -204,5 +204,25 @@ exports.checkAvailability = function(req, res){
     }
     res.end();
   });
+  
+};
 
+exports.checkAvailabilityRange = function(req, res){
+    var endDate = moment('Sep 24, 2014');
+    console.log('creating dates weekly before Sep 24, 2014');
+
+    var out = {
+      dates: []
+    }
+    var i=0;
+    var nextDate = moment();
+
+    for(nextDate = moment(); nextDate.isBefore(endDate); nextDate = nextDate.add('days',7)){
+      console.log(nextDate + "\n");
+      out.dates.push(nextDate.format('YYYY-MM-DD'));
+      i++;
+    }
+    res.writeHead(200, {"Content-Type": "text/json"});
+    res.write(JSON.stringify(out));
+    res.end();
 };
