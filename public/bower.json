@@ -15,7 +15,9 @@
     "jasmine": "latest",
     "jquery": "latest",
     "moment": "latest",
-    "angular-ui-calendar": "latest"
+    "angular-ui-calendar": "latest",
+    "angular-cookies": "~1.2.24",
+    "angular-ui-bootstrap": "~0.11.0"
   },
   "ignore": [
     "**/.*",
@@ -25,7 +27,6 @@
     "tests"
   ],
   "resolutions": {
-    "jquery": "2.0.3",
-    "angular": "1.2.8"
+    "jquery": "2.0.3"
   }
 }
