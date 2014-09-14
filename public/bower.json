@@ -1,0 +1,31 @@
+{
+  "name": "jjgym",
+  "version": "0.0.0",
+  "authors": [
+    "Adam Haley <adam.haley@gmail.com>"
+  ],
+  "description": "JJGym Calendar",
+  "main": "index.html",
+  "license": "MIT",
+  "homepage": "jjgym.com",
+  "dependencies": {
+    "angular": "latest",
+    "angular-route": "latest",
+    "bootstrap": "latest",
+    "jasmine": "latest",
+    "jquery": "latest",
+    "moment": "latest",
+    "angular-ui-calendar": "latest"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "vendor",
+    "test",
+    "tests"
+  ],
+  "resolutions": {
+    "jquery": "2.0.3",
+    "angular": "1.2.8"
+  }
+}
