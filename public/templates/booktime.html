@@ -1,10 +1,10 @@
 <div class="modal-header">
     <h3>Book Time: </h3>
 </div>
-<div class="modal-body">
+<div class="modal-body" ng-controller="TimepickerCtrl as timePicker">
 	Book me <b>{{ date }}</b> from:
   <br />
-  <div class="row" ng-controller="TimepickerCtrl as timePicker">
+  <div class="row" >
     <div class="col-md-4">
     <div style="display:inline-block;">
           <timepicker ng-model="timeStart" ng-change="timePicker.changeTime()" hour-step="1" minute-step="30" show-meridian="true" value="timeStart"></timepicker>
@@ -41,9 +41,9 @@
   </div>
   
   <div class="row" data-ng-show="rep">
-   for <select name="numweeks" id="numweeks" data-ng-model="numWeeks" data-ng-options="num for num in [1,2,3,4,5,6,7,8,9,10]">
+   for <select name="numweeks" id="numweeks" data-ng-model="numWeeks" data-ng-options="num for num in optionValues" data-ng-change="timePicker.updateRepeatEndDate()">
      <option value="">--</option>
-   </select> weeks.
+   </select> weeks. <span data-ng-show="repeatEndDate != ''">(Until {{repeatEndDate}})</span>
   </div>
 
 </div>
