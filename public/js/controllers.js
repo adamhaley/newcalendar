@@ -167,6 +167,14 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 
       $scope.TimepickerCtrl = function ($scope, $rootScope) {
         $scope.date = date;
+        $scope.repeatEndDate = "";
+        $scope.optionValues = [];
+        for(i=1;i<=20;i++){
+          $scope.optionValues.push(i);
+        }
+        this.updateRepeatEndDate = function(){
+          $scope.repeatEndDate = moment(rawDate).add($scope.numWeeks,'weeks').format('dddd MMMM Do, YYYY');
+        }
 
         this.changeTime = function(){
 
