@@ -45,6 +45,9 @@ body {
   margin-right: auto;
   margin-top: 25%;
 }
+input {
+  color: #000;
+}
 input[type='submit'] {
   margin-left: 10px;
 }

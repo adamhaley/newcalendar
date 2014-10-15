@@ -160,9 +160,15 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
           })
           .error(function(res){
             console.log(res);
-          });  
+          }); 
+
+         
       }
      
+      $scope.checkGymAvailabilityRange = function(timeStart,timeEnd,endDate){
+
+      }
+
       $scope.checkGymAvailability($scope.timeStart,$scope.timeEnd);
 
       $scope.TimepickerCtrl = function ($scope, $rootScope) {
