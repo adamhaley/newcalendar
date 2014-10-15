@@ -29,9 +29,9 @@
 
       Percentage: 
         <select class="form-control" id="usage">
-        <option ng-disabled="percentage > availability" ng-repeat="percentage in percentages">{{percentage}}%</option></select>
+          <option ng-disabled="percentage > availability" ng-repeat="percentage in percentages">{{percentage}}%</option>
+        </select>
  
-      
   </div>
   <div class="row">
     Note: <input type="text" class="form-control" name="note" id="note"></input>
@@ -43,7 +43,7 @@
   <div class="row" data-ng-show="rep">
    for <select name="numweeks" id="numweeks" data-ng-model="numWeeks" data-ng-options="num for num in optionValues" data-ng-change="timePicker.updateRepeatEndDate()">
      <option value="">--</option>
-   </select> weeks. <span data-ng-show="repeatEndDate != ''">(Until {{repeatEndDate}})</span>
+   </select> weeks. <span class="repeat-end-date" data-ng-show="repeatEndDate != ''">{{repeatEndDate}}</span>
   </div>
 
 </div>
