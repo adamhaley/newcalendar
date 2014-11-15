@@ -37,11 +37,11 @@
     Note: <input type="text" class="form-control" name="note" id="note"></input>
   </div>
   <div class="row">
-    Repeat Weekly: <input type="checkbox" name="rep" id="rep" data-ng-model="rep" />
+    Repeat Weekly: <input type="checkbox" name="rep" id="rep" data-ng-model="rep" data-ng-change="checkGymAvailabilityRange(date, repeatEndDate)" />
   </div>
   
   <div class="row" data-ng-show="rep">
-   for <select name="numweeks" id="numweeks" data-ng-model="numWeeks" data-ng-options="num for num in optionValues" data-ng-change="timePicker.updateRepeatEndDate()">
+   for <select name="numweeks" id="numweeks" data-ng-model="numWeeks" data-ng-options="num for num in optionValues" data-ng-change="timePicker.updateRepeatEndDate();checkGymAvailabilityRange(date, repeatEndDate)">
      <option value="">--</option>
    </select> weeks. <span class="repeat-end-date" data-ng-show="repeatEndDate != ''">{{repeatEndDate}}</span>
   </div>
