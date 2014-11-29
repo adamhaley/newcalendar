@@ -175,7 +175,13 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 			console.log('about to loop');
 			for(nextDate = moment(startDate); nextDate.isBefore(endDate); nextDate = nextDate.add('days',7)){
 	      		console.log(nextDate + "\n");
-	      		out.dates.push(nextDate.format('YYYY-MM-DD'));
+	      		timeStartDate = nextDate.format('YYYY-MM-DD ' + timeStart);
+	      		timeEndDate = nextDate.format('YYYY-MM-DD ' + timeEnd)
+	      		
+	      		out.dates.push({
+	      			timeStart: moment(timeStartDate).format(),
+	      			timeEnd: moment(timeEndDate).format()
+	      		});
 	      
 	      		i++;
 	    	}
