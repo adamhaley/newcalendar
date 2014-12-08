@@ -13,7 +13,7 @@ ctrls.controller('HeaderController', function($scope,$log){
 
 });
 
-ctrls.controller('CalendarController', function($scope,$rootScope,$location,$modal,$http,$log,$cookies,$cookieStore,$timeout,$rootScope,$compile){
+ctrls.controller('CalendarController', function($scope,$rootScope,$location,$modal,$http,$log,$cookies,$cookieStore,$timeout,$rootScope,$compile,$q){
 
 /*
   var date = new Date(),
@@ -129,39 +129,42 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 	$scope.hour = date;
 
 	var ModalInstanceCtrl = function ($scope, $modalInstance, date, hour) {
-	  $scope.date = date;
-	  $scope.availability = "waiting..";
-	  if(view.name == "month"){
-		$scope.timeStart = moment(hour).add(13,'hours').format();
-		$scope.timeEnd = moment(hour).add(14,'hours').format();
-	  }else{
-		$scope.timeStart = moment(hour).format();
-		$scope.timeEnd = moment(hour).add(1,'hours').format();
-	  }
+		$scope.date = date;
+		$scope.availability = "waiting..";
+		if(view.name == "month"){
+			$scope.timeStart = moment(hour).add(13,'hours').format();
+			$scope.timeEnd = moment(hour).add(14,'hours').format();
+		}else{
+			$scope.timeStart = moment(hour).format();
+			$scope.timeEnd = moment(hour).add(1,'hours').format();
+		}
 
-	  $rootScope.timeStart = $scope.timeStart;
-	  $rootScope.timeEnd = $scope.timeEnd;
+		$rootScope.timeStart = $scope.timeStart;
+		$rootScope.timeEnd = $scope.timeEnd;
 
-	  //percentages
-	  $scope.percentages = [25,50,75,100];
-	 
-	  $scope.checkGymAvailability = function(timeStart,timeEnd,rep){
+		//percentages
+		$scope.percentages = [25,50,75,100];
 
-		var url = "/api/check-availability";
-		url += "?start=" + timeStart + "&end=" + timeEnd;
-		console.log(url);
 
-		var app = this;
-		$http.get(url)
-		  .success(function(res){
-			console.log(res);
-			$scope.availability = res.available;
-			$scope.overlappingEvents = res.overlappingEvents;
-		  })
-		  .error(function(res){
-			console.log(res);
-		  }); 
-	  }
+		$scope.checkGymAvailability = function(timeStart,timeEnd,repeatingFlag){
+
+			var url = "/api/check-availability";
+			url += "?start=" + timeStart + "&end=" + timeEnd;
+			console.log(url);
+
+			var app = this;
+			return $http.get(url)
+				.success(function(res){
+					$scope.availability = res.available;
+					$scope.overlappingEvents = res.overlappingEvents;
+			  })
+			  .error(function(res){
+					console.log(res);
+			  }); 
+		}
+
+		//dates
+		$scope.dates = [];
 	 
 		$scope.checkGymAvailabilityRange = function(startDate,endDate){
 			startDate = moment();
@@ -170,23 +173,34 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 				dates:[]
 			};
 
-			var timeStart = moment($scope.timeStart).format("hh:mm");
-			var timeEnd = moment($scope.timeEnd).format("hh:mm");
-			console.log('about to loop');
+			var timeStart = moment($scope.timeStart).format("HH:mm:ss");
+			var timeEnd = moment($scope.timeEnd).format("HH:mm:ss");
+			console.log(timeStart);
+			
+			var reqArray = [];
+
 			for(nextDate = moment(startDate); nextDate.isBefore(endDate); nextDate = nextDate.add('days',7)){
 	      		console.log(nextDate + "\n");
-	      		timeStartDate = nextDate.format('YYYY-MM-DD ' + timeStart);
-	      		timeEndDate = nextDate.format('YYYY-MM-DD ' + timeEnd)
-	      		
+	      		timeStartDate = nextDate.format('YYYY-MM-DDT' + timeStart + 'Z');
+	      		timeEndDate = nextDate.format('YYYY-MM-DDT' + timeEnd + 'Z')
+	      			
 	      		out.dates.push({
 	      			timeStart: moment(timeStartDate).format(),
 	      			timeEnd: moment(timeEndDate).format()
+
 	      		});
-	      
-	      		i++;
+	      		reqArray.push($scope.checkGymAvailability(timeStartDate,timeEndDate));
 	    	}
-	    	console.log(out);
-	    	return out;
+	    	i = 0;
+	    	$q.all(reqArray)
+	    		.then(function(res){
+	    			// console.log(res);
+	    			$scope.dates = res;
+	    		})
+	    		.then(function(res){
+	    			console.log(out);
+	    			return out;
+	    		});
 
 		}
 

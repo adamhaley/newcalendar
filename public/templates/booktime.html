@@ -43,7 +43,11 @@
   <div class="row" data-ng-show="rep">
    for <select name="numweeks" id="numweeks" data-ng-model="numWeeks" data-ng-options="num for num in optionValues" data-ng-change="timePicker.updateRepeatEndDate();checkGymAvailabilityRange(date, repeatEndDate)">
      <option value="">--</option>
-   </select> weeks. <span class="repeat-end-date" data-ng-show="repeatEndDate != ''">{{repeatEndDate}}</span>
+   </select> weeks. <span class="repeat-end-date" data-ng-show="repeatEndDate != ''">{{repeatEndDate | date : 'medium'}}</span>
+   <div class="row text-center" data-ng-repeat="obj in dates">
+    
+    {{obj.data.usage}}%
+  </div>
   </div>
 
 </div>
