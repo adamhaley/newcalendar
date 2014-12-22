@@ -15,13 +15,13 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
      
-      'js/bower_components/angular/angular.js',
-      'js/bower_components/angular-route/angular-route.js',
-      'js/bower_components/angular-mocks/angular-mocks.js',
-      'js/bower_components/jquery/jquery.js',
-      'js/bower_components/moment/moment.js',
-      'js/bower_components/fullcalendar/fullcalendar.js',
-      'js/bower_components/angular-ui-calendar/src/calendar.js',
+      'js/vendor/angular/angular.js',
+      'js/vendor/angular-route/angular-route.js',
+      'js/vendor/angular-mocks/angular-mocks.js',
+      'js/vendor/jquery/dist/jquery.js',
+      'js/vendor/moment/moment.js',
+      'js/vendor/fullcalendar/fullcalendar.js',
+      'js/vendor/angular-ui-calendar/src/calendar.js',
       'js/*.js',
        'tests/*.js'
     ],
