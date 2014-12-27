@@ -63,7 +63,7 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 	  html: true,
 	  title: eventTitle,
 	  content: event.description,
-	  delay:{ show: 300, hide:100}
+	  delay:{ show: 300, hide:0}
 	}
 	$(element).popover(options);
 
