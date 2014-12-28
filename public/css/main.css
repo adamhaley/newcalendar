@@ -148,6 +148,32 @@ body {
 .btn-warning:hover {
   background-color: #840836;
 }
+.dateslice {
+  float: left;
+  height: 20px;
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+.dateslice.perc0 {
+  background-color: #a62a58;
+}
+.dateslice.perc25 {
+  background-color: #216477;
+}
+.dateslice.perc50 {
+  background-color: #009999;
+}
+.dateslice.perc75 {
+  background-color: #36da82;
+}
+.dateslice.perc100 {
+  background-color: #ffffff;
+}
+.availability-matrix {
+  margin-top: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 580px;
+}
 .fc-event.percent25 {
   background-color: #36da82;
 }

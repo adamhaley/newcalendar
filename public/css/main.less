@@ -15,6 +15,7 @@ body{
 }
 
 //colors
+@perc0: #fff;
 @perc25: #36da82;
 @perc50: #009999;
 @perc75: #216477;
@@ -178,6 +179,34 @@ body{
         background-color:@perc100 - #222;
     }
     border:none;
+}
+
+.dateslice{
+    float: left;
+    height: 20px;
+    border-right: 1px solid rgba(0, 0, 0, .2);
+    &.perc0{
+        background-color: @perc100;
+    }
+    &.perc25{
+        background-color: @perc75;
+    }
+    &.perc50{
+        background-color: @perc50;
+    }
+    &.perc75{
+        background-color: @perc25;
+    }
+    &.perc100{
+        background-color: @perc0;
+    }
+}
+
+.availability-matrix{
+    margin-top:1em;
+    margin-left: auto;
+    margin-right:auto;
+    width:580px;
 }
 
 .fc-event.percent25{
