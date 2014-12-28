@@ -163,7 +163,6 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 			  }); 
 		}
 
-		//dates
 		$scope.dates = [];
 	 
 		$scope.checkGymAvailabilityRange = function(startDate,endDate){
@@ -175,7 +174,6 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 
 			var timeStart = moment($scope.timeStart).format("HH:mm:ss");
 			var timeEnd = moment($scope.timeEnd).format("HH:mm:ss");
-			console.log(timeStart);
 			
 			var reqArray = [];
 
@@ -193,12 +191,14 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 	    	}
 	    	i = 0;
 	    	$q.all(reqArray)
-	    		.then(function(res){
-	    			// console.log(res);
-	    			$scope.dates = res;
+	    		.then(function(resArray){
+	    			$scope.dates = resArray;
+	    			available = _.map(resArray, function(res){
+	    				return (res.data.available > 0)? res.data.available : 0;
+	    			});
+	    			$scope.availability = _.min(available);
 	    		})
 	    		.then(function(res){
-	    			console.log(out);
 	    			return out;
 	    		});
 
