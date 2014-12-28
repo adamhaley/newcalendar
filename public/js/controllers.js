@@ -124,6 +124,7 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 	  return;
 	}
 	var rawDate = date;
+	// $scope.rawDate = rawDate;
 	$scope.date = moment(date).format('dddd MMMM Do, YYYY');
 	$scope.hour = moment(date).format('h:mma');
 	$scope.hour = date;
@@ -166,7 +167,8 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 		$scope.dates = [];
 	 
 		$scope.checkGymAvailabilityRange = function(startDate,endDate){
-			startDate = moment();
+			// startDate = moment();
+			console.log(startDate);
 
 			var out = {
 				dates:[]
@@ -208,6 +210,7 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 
 	  $scope.TimepickerCtrl = function ($scope, $rootScope) {
 		$scope.date = date;
+		$scope.rawDate = rawDate;
 		$scope.repeatEndDate = "";
 		$scope.optionValues = [];
 		for(i=1;i<=20;i++){
