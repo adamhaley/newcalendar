@@ -44,10 +44,13 @@
    for <select name="numweeks" id="numweeks" data-ng-model="numWeeks" data-ng-options="num for num in optionValues" data-ng-change="timePicker.updateRepeatEndDate();checkGymAvailabilityRange(date, repeatEndDate)">
      <option value="">--</option>
    </select> weeks. <span class="repeat-end-date" data-ng-show="repeatEndDate != ''">{{repeatEndDate | date : 'medium'}}</span>
-   <div class="row text-center" data-ng-repeat="obj in dates">
+   <div class="row availability-matrix">
+     <div class="dateslice perc{{100 - obj.data.usage}}" style="width: {{580 / dates.length}}px" data-ng-repeat="obj in dates">
     
-    {{obj.data.usage}}%
-  </div>
+      <!-- {{100 - obj.data.usage}}% -->
+    </div>
+   </div>
+    
   </div>
 
 </div>
