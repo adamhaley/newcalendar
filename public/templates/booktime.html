@@ -37,7 +37,7 @@
     Note: <input type="text" class="form-control" name="note" id="note"></input>
   </div>
   <div class="row">
-    Repeat Weekly: <input type="checkbox" name="rep" id="rep" data-ng-model="rep" data-ng-change="checkGymAvailabilityRange(date, repeatEndDate)" />
+    Repeat Weekly: <input type="checkbox" name="rep" id="rep" data-ng-model="rep" />
   </div>
   
   <div class="row" data-ng-show="rep">
@@ -45,13 +45,11 @@
      <option value="">--</option>
    </select> weeks. 
     <span class="repeat-end-date" data-ng-show="repeatEndDate != ''">
-      <!-- {{repeatEndDate}} --> (from now to {{repeatEndDate | date: 'MMMM d, yyyy'}})
-      
+    (from now to {{repeatEndDate | date: 'MMMM d, yyyy'}})
     </span>
    <div class="row availability-matrix">
      <div class="dateslice perc{{100 - obj.data.usage}}" style="width: {{580 / dates.length}}px" data-ng-repeat="obj in dates">
-    
-      {{obj.data.date | date: 'M-d'}}
+        {{obj.data.date | date: 'M-d'}}
     </div>
    </div>
     
