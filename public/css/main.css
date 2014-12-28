@@ -152,6 +152,10 @@ body {
   float: left;
   height: 20px;
   border-right: 1px solid rgba(0, 0, 0, 0.2);
+  font-size: .6em;
+  text-align: center;
+  color: #dddddd;
+  padding-top: .5em;
 }
 .dateslice.perc0 {
   background-color: #a62a58;

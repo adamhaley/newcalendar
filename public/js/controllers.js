@@ -214,7 +214,7 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 		  $scope.optionValues.push(i);
 		}
 		this.updateRepeatEndDate = function(){
-		  $scope.repeatEndDate = moment(rawDate).add($scope.numWeeks,'weeks');
+		  $scope.repeatEndDate = moment(rawDate).add($scope.numWeeks,'weeks').format();
 		}
 
 		this.changeTime = function(){
