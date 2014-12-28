@@ -197,7 +197,8 @@ exports.checkAvailability = function(req, res){
       var out = {
         overlappingEvents: overlappingEvents,
         usage: maxUsage,
-        available: 100 - maxUsage
+        available: 100 - maxUsage,
+        date: date
       }
 
       res.write(JSON.stringify(out));
