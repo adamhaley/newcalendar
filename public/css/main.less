@@ -162,6 +162,23 @@ body{
 }
 .human-date-input{
 }
+.modal-content{
+    background-color: @background3 + #222;
+
+}
+
+.alert-success{
+    background-color:@perc50;
+    border: none ;
+}
+
+.alert-danger, .btn-warning{
+    background-color:@perc100;
+    &:hover{
+        background-color:@perc100 - #222;
+    }
+    border:none;
+}
 
 .fc-event.percent25{
     background-color: @perc25;
