@@ -132,6 +132,22 @@ body {
 .bookit {
   z-index: 10000;
 }
+.modal-content {
+  background-color: #b3b3b3;
+}
+.alert-success {
+  background-color: #009999;
+  border: none ;
+}
+.alert-danger,
+.btn-warning {
+  background-color: #a62a58;
+  border: none;
+}
+.alert-danger:hover,
+.btn-warning:hover {
+  background-color: #840836;
+}
 .fc-event.percent25 {
   background-color: #36da82;
 }
