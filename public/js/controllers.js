@@ -132,6 +132,7 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 	var ModalInstanceCtrl = function ($scope, $modalInstance, date, hour) {
 		$scope.date = date;
 		$scope.availability = "waiting..";
+
 		if(view.name == "month"){
 			$scope.timeStart = moment(hour).add(13,'hours').format();
 			$scope.timeEnd = moment(hour).add(14,'hours').format();
@@ -142,9 +143,40 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 
 		$rootScope.timeStart = $scope.timeStart;
 		$rootScope.timeEnd = $scope.timeEnd;
+		$rootScope.usage = $scope.usage;
 
 		//percentages
-		$scope.percentages = [25,50,75,100];
+		$scope.percentages = [{
+				value: 25
+			},
+			{
+				value: 50
+			},
+			{
+				value: 75
+			},
+			{
+				value: 100
+		}];
+
+		$scope.$watch(function(){
+				return $scope.availability;
+			},
+			function(newValue, oldValue){
+				if(newValue != oldValue){
+					$scope.percentages = [];
+
+					for(i = 25; i <= newValue; i +=25){
+						$scope.percentages.push({value: i});
+					}
+
+					if(newValue < $scope.usage){
+						$scope.usage = newValue;
+					}
+				}
+			}, 
+			true
+		);
 
 
 		$scope.checkGymAvailability = function(timeStart,timeEnd,repeatingFlag){
@@ -167,8 +199,7 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 		$scope.dates = [];
 	 
 		$scope.checkGymAvailabilityRange = function(startDate,endDate){
-			// startDate = moment();
-			console.log(startDate);
+		
 
 			var out = {
 				dates:[]
