@@ -41,8 +41,6 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 		detailsContainer.addClass('fc-event-details').addClass('text-center');
 		detailsContainer.text(event.description);
 
-		//if event belongs to logged in user, create delete button
-		//add popver with event details
 		var eventTitle = ' <b>' +  event.title + '</b> ' + moment(event.start).format('h:mma') + ' - ' + moment(event.end).format('h:mma') + ' ' + event.usage + '%';
 
 		var options = {
@@ -118,219 +116,231 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 		$scope.hour = moment(date).format('h:mma');
 		$scope.hour = date;
 
-	var ModalInstanceCtrl = function ($scope, $modalInstance, date, hour) {
-		$scope.date = date;
-		$scope.availability = "waiting..";
-
-		if(view.name == "month"){
-			$scope.timeStart = moment(hour).add(13,'hours').format();
-			$scope.timeEnd = moment(hour).add(14,'hours').format();
-		}else{
-			$scope.timeStart = moment(hour).format();
-			$scope.timeEnd = moment(hour).add(1,'hours').format();
-		}
-
-		$rootScope.timeStart = $scope.timeStart;
-		$rootScope.timeEnd = $scope.timeEnd;
-		$rootScope.usage = $scope.usage;
-
-		//percentages
-		$scope.percentages = [{
-				value: 25
-			},
-			{
-				value: 50
-			},
-			{
-				value: 75
-			},
-			{
-				value: 100
-		}];
-
-		$scope.$watch(function(){
-				return $scope.availability;
-			},
-			function(newValue, oldValue){
-				if(newValue != oldValue){
-					$scope.percentages = [];
-
-					for(i = 25; i <= newValue; i +=25){
-						$scope.percentages.push({value: i});
-					}
-
-					if(newValue < $scope.usage){
-						$scope.usage = newValue;
-					}
-				}
-			}, 
-			true
-		);
-
-
-		$scope.checkGymAvailability = function(timeStart,timeEnd,repeatingFlag){
-
-			var url = "/api/check-availability";
-			url += "?start=" + timeStart + "&end=" + timeEnd;
-			console.log(url);
-
-			var app = this;
-			return $http.get(url)
-				.success(function(res){
-					$scope.availability = res.available;
-					$scope.overlappingEvents = res.overlappingEvents;
-			  })
-			  .error(function(res){
-					console.log(res);
-			  }); 
-		}
-
-		$scope.dates = [];
-	 
-		$scope.checkGymAvailabilityRange = function(startDate,endDate){
-		
-
-			var out = {
-				dates:[]
-			};
-
-			var timeStart = moment($scope.timeStart).format("HH:mm:ss");
-			var timeEnd = moment($scope.timeEnd).format("HH:mm:ss");
-			
-			var reqArray = [];
-
-			for(nextDate = moment(startDate); nextDate.isBefore(endDate); nextDate = nextDate.add('days',7)){
-				console.log(nextDate + "\n");
-				timeStartDate = nextDate.format('YYYY-MM-DDT' + timeStart + 'Z');
-				timeEndDate = nextDate.format('YYYY-MM-DDT' + timeEnd + 'Z')
-					
-				out.dates.push({
-					timeStart: moment(timeStartDate).format(),
-					timeEnd: moment(timeEndDate).format()
-
-				});
-				reqArray.push($scope.checkGymAvailability(timeStartDate,timeEndDate));
-			}
-			i = 0;
-			$q.all(reqArray)
-				.then(function(resArray){
-					$scope.dates = resArray;
-					available = _.map(resArray, function(res){
-						return (res.data.available > 0)? res.data.available : 0;
-					});
-					$scope.availability = _.min(available);
-				})
-				.then(function(res){
-					return out;
-				});
-
-		}
-
-		$scope.checkGymAvailability($scope.timeStart,$scope.timeEnd);
-
-		$scope.TimepickerCtrl = function ($scope, $rootScope) {
+		var ModalInstanceCtrl = function ($scope, $modalInstance, date, hour) {
 			$scope.date = date;
-			$scope.rawDate = rawDate;
-			$scope.repeatEndDate = "";
-			$scope.optionValues = [];
-
-			for(i=1;i<=20;i++){
-				$scope.optionValues.push(i);
-			}
-			this.updateRepeatEndDate = function(){
-				$scope.repeatEndDate = moment(rawDate).add($scope.numWeeks,'weeks').format();
-			}
-
-			this.changeTime = function(){
-
-			  	if(!moment($scope.timeEnd).isAfter($scope.timeStart)){
-					$scope.timeEnd = moment($scope.timeStart).add('minutes',30).format();
-			  	}  
-				$scope.checkGymAvailability($scope.timeStart,$scope.timeEnd); 
-				$rootScope.timeStart = $scope.timeStart;
-				$rootScope.timeEnd = $scope.timeEnd;
+			$scope.availability = "waiting..";
+			$scope.usage = 0;
+			
+			if(view.name == "month"){
+				$scope.timeStart = moment(hour).add(13,'hours').format();
+				$scope.timeEnd = moment(hour).add(14,'hours').format();
+			}else{
+				$scope.timeStart = moment(hour).format();
+				$scope.timeEnd = moment(hour).add(1,'hours').format();
 			}
 
-			$scope.clear = function() {
-				$scope.hour = null;
-			};
-	  	};
+		
+			$rootScope.timeStart = $scope.timeStart;
+			$rootScope.timeEnd = $scope.timeEnd;
+			$rootScope.usage = $scope.usage;
 
-		$scope.ok = function (id) {
-			console.log('form submitted');
+			
 
-		var data = {
-			time_start: $rootScope.timeStart,
-			time_end: $rootScope.timeEnd,
-			usage: $('#usage').val(),
-			date: rawDate,
-			note: $('#note').val()
-		}
+			$scope.TimepickerCtrl = function ($scope, $rootScope) {
+				$scope.date = date;
+				$scope.rawDate = rawDate;
+				$scope.repeatEndDate = "";
+				$scope.optionValues = [];
 
-		console.log(data);
-		var url = '/api/events/';
+				for(i=1;i<=20;i++){
+					$scope.optionValues.push(i);
+				}
+				this.updateRepeatEndDate = function(){
+					$scope.repeatEndDate = moment(rawDate).add($scope.numWeeks,'weeks').format();
+				}
+				this.changeTime = function(){
 
-		if(id != undefined){
-			$http.put(url + id, data)
-			.success(function(res){
-				console.log(res);
-				$modalInstance.close();
-			})
-			.error(function(res){
-				console.log(res);
-				$modalInstance.close();
-			});    
-		}else{
-			$http.post('/api/events/', data)
-				.success(function(res){
-					console.log(res);
+				  	if(!moment($scope.timeEnd).isAfter($scope.timeStart)){
+						$scope.timeEnd = moment($scope.timeStart).add('minutes',30).format();
+				  	}  
+					$scope.checkGymAvailability($scope.timeStart,$scope.timeEnd); 
+					$rootScope.timeStart = $scope.timeStart;
+					$rootScope.timeEnd = $scope.timeEnd;
+				}
 
-					var eventObj = {
-						id: res.insertId,
-						user_id: $scope.userId,
-						title: res.title,
-						description: res.description,
-						start: res.time_start,
-						end: res.time_end,
-						usage: res.usage
-					}
+				$scope.clear = function() {
+					$scope.hour = null;
+				};
+
+				//percentages
+				$scope.percentages = {
+						id: 25,
+						value: '25%'
+					},
+					{
+						id: 50,
+						value: '50%'
+					},
+					{
+						id: 75,
+						value: '75%'
+					},
+					{
+						id: 100,
+						value: '100%'
+				};
+
+				$scope.$watch(function(){
+						return $scope.availability;
+					},
+					function(newValue, oldValue){
+
+						if(newValue != oldValue){
+							$scope.percentages = [];
+
+							for(i = 25; i <= newValue; i +=25){
+								$scope.percentages.push({value: i});
+							}
+
+							if(newValue < $scope.usage){
+								$scope.usage = newValue;
+							}
+						}
+					}, 
+					true
+				);
+
+
+
+
+				$scope.checkGymAvailability = function(timeStart,timeEnd,repeatingFlag){
+
+					var url = "/api/check-availability";
+					url += "?start=" + timeStart + "&end=" + timeEnd;
+					console.log(url);
+
+					var app = this;
+					return $http.get(url)
+					.success(function(res){
+						$scope.availability = res.available;
+						$scope.overlappingEvents = res.overlappingEvents;
+				 	})
+				  	.error(function(res){
+						console.log(res);
+				  	}); 
+				}
+
+				$scope.dates = [];
+		 
+				$scope.checkGymAvailabilityRange = function(startDate,endDate){
 				
-				  //add to events sources model and digest so calendar is updated
-				 
-				  $modalInstance.close(eventObj);
-				})
-				.error(function(res){
-					console.log(res);
-					$modalInstance.close();
-				});
-			}  
-		};
-		$scope.cancel = function () {
-			$modalInstance.dismiss('cancel');
-		};
-	};
 
-	var modalInstance = $modal.open({
-		templateUrl: 'templates/booktime.html',
-		controller: ModalInstanceCtrl,
-		resolve: {
-			date: function() {
-				return $scope.date;
-			},
-			hour: function() {
-				return $scope.hour;
-			},
-			timeStart: function(){
-				return $scope.timeStart;
-			},
-			timeEnd: function(){
-				return $scope.timeEnd;
-			},
-			events: function() {
-				return  $scope.events;
+					var out = {
+						dates:[]
+					};
+
+					var timeStart = moment($scope.timeStart).format("HH:mm:ss");
+					var timeEnd = moment($scope.timeEnd).format("HH:mm:ss");
+					
+					var reqArray = [];
+
+					for(nextDate = moment(startDate); nextDate.isBefore(endDate); nextDate = nextDate.add('days',7)){
+						console.log(nextDate + "\n");
+						timeStartDate = nextDate.format('YYYY-MM-DDT' + timeStart + 'Z');
+						timeEndDate = nextDate.format('YYYY-MM-DDT' + timeEnd + 'Z');
+							
+						out.dates.push({
+							timeStart: moment(timeStartDate).format(),
+							timeEnd: moment(timeEndDate).format()
+
+						});
+						reqArray.push($scope.checkGymAvailability(timeStartDate,timeEndDate));
+					}
+					i = 0;
+					$q.all(reqArray)
+						.then(function(resArray){
+							$scope.dates = resArray;
+							available = _.map(resArray, function(res){
+								return (res.data.available > 0)? res.data.available : 0;
+							});
+							$scope.availability = _.min(available);
+						})
+						.then(function(res){
+							return out;
+						});
+
+				};
+
+				$scope.checkGymAvailability($scope.timeStart,$scope.timeEnd);
+
+			};
+			
+			$scope.ok = function (id) {
+				console.log('form submitted');
+
+				debugger;
+				var data = {
+					time_start: $rootScope.timeStart,
+					time_end: $rootScope.timeEnd,
+					usage: $scope.usage,
+					date: rawDate,
+					note: $('#note').val()
+				}
+
+				var url = '/api/events/';
+
+				if(id != undefined){
+					$http.put(url + id, data)
+					.success(function(res){
+						console.log(res);
+						$modalInstance.close();
+					})
+					.error(function(res){
+						console.log(res);
+						$modalInstance.close();
+					});    
+				}else{
+					$http.post('/api/events/', data)
+						.success(function(res){
+							console.log(res);
+
+							var eventObj = {
+								id: res.insertId,
+								user_id: $scope.userId,
+								title: res.title,
+								description: res.description,
+								start: res.time_start,
+								end: res.time_end,
+								usage: res.usage
+							}
+						
+						  	//add to events sources model and digest so calendar is updated
+						 
+							$modalInstance.close(eventObj);
+						})
+						.error(function(res){
+							console.log(res);
+							$modalInstance.close();
+						});
+					}
+				};
+		
+				$scope.cancel = function () {
+					$modalInstance.dismiss('cancel');
+				};
+		};
+
+		var modalInstance = $modal.open({
+			templateUrl: 'templates/booktime.html',
+			controller: ModalInstanceCtrl,
+			resolve: {
+				date: function() {
+					return $scope.date;
+				},
+				hour: function() {
+					return $scope.hour;
+				},
+				timeStart: function(){
+					return $scope.timeStart;
+				},
+				timeEnd: function(){
+					return $scope.timeEnd;
+				},
+				events: function() {
+					return  $scope.events;
+				}
 			}
-		}
-	});
+		});
 
 		modalInstance.result.then(function (data) {
 			$scope.myCalendar.fullCalendar('refetchEvents');

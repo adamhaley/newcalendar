@@ -28,11 +28,10 @@
   <div class="row">
 
       Percentage: 
-        <!-- <select class="form-control" id="usage" data-ng-model="usage">
-          <option ng-disabled="percentage > availability" ng-repeat="percentage in percentages">{{percentage}}%</option>
-        </select> -->
-        <select class="form-control" id="usage" data-ng-model="usage" data-ng-options="item.value as (item.value + '%') for item in percentages" ng-disabled="percentage > availability"/>
-          
+    <select class="form-control" id="usage" data-ng-model="usage" data-ng-options="item.value as item.value for item in percentages" data-ng-change="updateUsage()">
+    </select>{{usage}}%
+  <!--    <select class="form-control" id="usage" data-ng-model="usage" data-ng-options="item.value as item.value for item in percentages">
+    </select> -->
  
   </div>
   <div class="row">
