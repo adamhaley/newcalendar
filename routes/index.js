@@ -81,7 +81,7 @@ exports.putEvents = function(req, res){
 };
 
 exports.postEvents = function(req, res){
-  console.log('time_start: ' + req.body.time_start + ' time_end: ' + req.body.time_end);
+  // console.log('time_start: ' + req.body.time_start + ' time_end: ' + req.body.time_end);
 
 
   var userId = req.session.user.id;
@@ -90,7 +90,7 @@ exports.postEvents = function(req, res){
   var comments = req.body.note;
 
   var usage = req.body.usage;
-  usage = usage.substring(0, usage.length - 1);//strip off % from end
+  // usage = usage.substring(0, usage.length - 1);//strip off % from end
 
   var date = moment(req.body.date).format("YYYY-MM-DD");
 
