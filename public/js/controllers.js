@@ -132,8 +132,6 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 		
 			$rootScope.timeStart = $scope.timeStart;
 			$rootScope.timeEnd = $scope.timeEnd;
-			$rootScope.usage = $scope.usage;
-
 			
 
 			$scope.TimepickerCtrl = function ($scope, $rootScope) {
@@ -200,6 +198,13 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 					true
 				);
 
+				$scope.$watch(function(){
+					return $scope.usage;
+				},
+				function(newValue, oldValue){
+					console.log('scope.usage has changed, ' + newValue + ' was ' + oldValue);
+					$rootScope.usage = $scope.usage;
+				});
 
 
 
@@ -268,11 +273,11 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 			$scope.ok = function (id) {
 				console.log('form submitted');
 
-				debugger;
+
 				var data = {
 					time_start: $rootScope.timeStart,
 					time_end: $rootScope.timeEnd,
-					usage: $scope.usage,
+					usage: $rootScope.usage + "",
 					date: rawDate,
 					note: $('#note').val()
 				}
