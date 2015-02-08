@@ -7,13 +7,15 @@
   },
   "dependencies": {
     "express": "3.4.7",
-    "mysql":"*",
-    "passport":"*",
-    "passport-local":"*",
-    "connect-flash":"*",
-    "hogan-express":"*",
-    "moment":"2.5.0",
+    "mysql": "*",
+    "passport": "*",
+    "passport-local": "*",
+    "connect-flash": "*",
+    "hogan-express": "*",
+    "moment": "2.5.0",
     "twix": "0.2.2",
-    "underscore": "1.5.2"
+    "underscore": "1.5.2",
+    "async": "~0.9.0",
+    "express-crud": "~4.0.0"
   }
 }
