@@ -150,7 +150,13 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 				  	if(!moment($scope.timeEnd).isAfter($scope.timeStart)){
 						$scope.timeEnd = moment($scope.timeStart).add('minutes',30).format();
 				  	}  
-					$scope.checkGymAvailability($scope.timeStart,$scope.timeEnd); 
+				  	
+					$scope.checkGymAvailability($scope.timeStart,$scope.timeEnd)
+					.then(function(res){
+						$scope.availability = res.data.available;
+						$scope.overlappingEvents = res.data.overlappingEvents;
+				 	});
+
 					$rootScope.timeStart = $scope.timeStart;
 					$rootScope.timeEnd = $scope.timeEnd;
 
@@ -218,21 +224,13 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 					url += "?start=" + timeStart + "&end=" + timeEnd;
 
 					var app = this;
-					return $http.get(url)
-					.success(function(res){
-						$scope.availability = res.available;
-						$scope.overlappingEvents = res.overlappingEvents;
-				 	})
-				  	.error(function(res){
-						console.log(res);
-				  	}); 
+					return $http.get(url);
+					
 				}
 
 				$scope.dates = [];
 		 
 				$scope.checkGymAvailabilityRange = function(startDate,endDate){
-				
-
 					var out = {
 						dates:[]
 					};
@@ -261,16 +259,21 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 							available = _.map(resArray, function(res){
 								return (res.data.available > 0)? res.data.available : 0;
 							});
+							
 							$scope.availability = _.min(available);
 						})
 						.then(function(res){
+							
 							return out;
 						});
 
 				};
 
-				$scope.checkGymAvailability($scope.timeStart,$scope.timeEnd);
-
+				$scope.checkGymAvailability($scope.timeStart,$scope.timeEnd)
+					.then(function(res){
+						$scope.availability = res.data.available;
+						$scope.overlappingEvents = res.data.overlappingEvents;
+				 	});
 			};
 			
 			$scope.ok = function (dates) {
