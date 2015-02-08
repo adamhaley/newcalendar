@@ -74,7 +74,6 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 		$http.delete('/api/events/' + id)
 			.success(function(res){
 				element.parent().parent().popover('hide');
-				console.log(res);
 				//gotta delete from events array if it was added that way
 
 				$scope.myCalendar.fullCalendar('refetchEvents');
@@ -183,7 +182,7 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 				};
 
 				$scope.$watch('availability', function(newValue, oldValue){
-						console.log('availability changed, was ' + oldValue + ', now its ' + newValue);
+						// console.log('availability changed, was ' + oldValue + ', now its ' + newValue);
 						
 						if(newValue != oldValue){
 							$scope.percentages = [];
@@ -208,7 +207,6 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 					return $scope.usage;
 				},
 				function(newValue, oldValue){
-					// console.log('scope.usage has changed, ' + newValue + ' was ' + oldValue);
 					$rootScope.usage = $scope.usage;
 				});
 
@@ -218,7 +216,6 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 
 					var url = "/api/check-availability";
 					url += "?start=" + timeStart + "&end=" + timeEnd;
-					// console.log(url);
 
 					var app = this;
 					return $http.get(url)
@@ -246,7 +243,7 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 					var reqArray = [];
 
 					for(nextDate = moment(startDate); nextDate.isBefore(endDate); nextDate = nextDate.add('days',7)){
-						// console.log(nextDate + "\n");
+
 						timeStartDate = nextDate.format('YYYY-MM-DDT' + timeStart + 'Z');
 						timeEndDate = nextDate.format('YYYY-MM-DDT' + timeEnd + 'Z');
 							
@@ -276,9 +273,8 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 
 			};
 			
-			$scope.ok = function (id) {
-				// console.log('form submitted');
-
+			$scope.ok = function (dates) {
+	
 				var data = {
 					time_start: $rootScope.timeStart,
 					time_end: $rootScope.timeEnd,
@@ -289,14 +285,22 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 
 				var url = '/api/events/';
 
-				if(id != undefined){
-					$http.put(url + id, data)
-					.success(function(res){
-						$modalInstance.close();
-					})
-					.error(function(res){
-						$modalInstance.close();
-					});    
+			
+				if(dates.length > 0){
+					var reqArray = [];
+
+					_.each(dates,function(date,i){
+						thisData = angular.copy(data);
+						thisData.date = date.data.date; //weird
+
+						reqArray.push($http.post('/api/events/', thisData ));
+					});
+
+					$q.all(reqArray)
+						.then(function(resArray){
+							$modalInstance.close();
+						});
+
 				}else{
 					$http.post('/api/events/', data)
 						.success(function(res){
@@ -310,16 +314,14 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 								end: res.time_end,
 								usage: res.usage
 							}
-						
-						  	//add to events sources model and digest so calendar is updated
-						 
+					
 							$modalInstance.close(eventObj);
 						})
 						.error(function(res){
 							$modalInstance.close();
 						});
 					}
-				};
+				}
 		
 				$scope.cancel = function () {
 					$modalInstance.dismiss('cancel');
