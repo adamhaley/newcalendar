@@ -82,7 +82,7 @@ exports.putEvents = function(req, res){
 
 exports.postEvents = function(req, res){
   // console.log('time_start: ' + req.body.time_start + ' time_end: ' + req.body.time_end);
-
+  console.log('in postEvents');
 
   var userId = req.session.user.id;
   var timeStart = moment(req.body.time_start).format('HH:mm');
