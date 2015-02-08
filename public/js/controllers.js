@@ -154,6 +154,10 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 					$scope.checkGymAvailability($scope.timeStart,$scope.timeEnd); 
 					$rootScope.timeStart = $scope.timeStart;
 					$rootScope.timeEnd = $scope.timeEnd;
+
+					if($scope.repeatEndDate != ''){
+						$scope.checkGymAvailabilityRange(rawDate, $scope.repeatEndDate);
+					}
 				}
 
 				$scope.clear = function() {
