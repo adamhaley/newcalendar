@@ -22,8 +22,8 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
   	$scope.events = [];
 
 	$scope.$on('event:add',function(){
-		console.log('in event:add handler');
-		console.log(arguments);
+		// console.log('in event:add handler');
+		// console.log(arguments);
 	});
   
 	/**
@@ -118,7 +118,7 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 
 		var ModalInstanceCtrl = function ($scope, $modalInstance, date, hour) {
 			$scope.date = date;
-			$scope.availability = "waiting..";
+			$scope.availability = 0;
 			$scope.usage = 0;
 			
 			if(view.name == "month"){
@@ -178,11 +178,9 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 						value: '100%'
 				};
 
-				$scope.$watch(function(){
-						return $scope.availability;
-					},
-					function(newValue, oldValue){
-
+				$scope.$watch('availability', function(newValue, oldValue){
+						console.log('availability changed, was ' + oldValue + ', now its ' + newValue);
+						
 						if(newValue != oldValue){
 							$scope.percentages = [];
 
@@ -193,6 +191,10 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 							if(newValue < $scope.usage){
 								$scope.usage = newValue;
 							}
+
+							if($scope.usage == 0){
+								$scope.usage = 25;
+							}
 						}
 					}, 
 					true
@@ -202,7 +204,7 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 					return $scope.usage;
 				},
 				function(newValue, oldValue){
-					console.log('scope.usage has changed, ' + newValue + ' was ' + oldValue);
+					// console.log('scope.usage has changed, ' + newValue + ' was ' + oldValue);
 					$rootScope.usage = $scope.usage;
 				});
 
@@ -212,7 +214,7 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 
 					var url = "/api/check-availability";
 					url += "?start=" + timeStart + "&end=" + timeEnd;
-					console.log(url);
+					// console.log(url);
 
 					var app = this;
 					return $http.get(url)
@@ -240,7 +242,7 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 					var reqArray = [];
 
 					for(nextDate = moment(startDate); nextDate.isBefore(endDate); nextDate = nextDate.add('days',7)){
-						console.log(nextDate + "\n");
+						// console.log(nextDate + "\n");
 						timeStartDate = nextDate.format('YYYY-MM-DDT' + timeStart + 'Z');
 						timeEndDate = nextDate.format('YYYY-MM-DDT' + timeEnd + 'Z');
 							
@@ -271,8 +273,7 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 			};
 			
 			$scope.ok = function (id) {
-				console.log('form submitted');
-
+				// console.log('form submitted');
 
 				var data = {
 					time_start: $rootScope.timeStart,
@@ -287,18 +288,15 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 				if(id != undefined){
 					$http.put(url + id, data)
 					.success(function(res){
-						console.log(res);
 						$modalInstance.close();
 					})
 					.error(function(res){
-						console.log(res);
 						$modalInstance.close();
 					});    
 				}else{
 					$http.post('/api/events/', data)
 						.success(function(res){
-							console.log(res);
-
+					
 							var eventObj = {
 								id: res.insertId,
 								user_id: $scope.userId,
@@ -314,7 +312,6 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 							$modalInstance.close(eventObj);
 						})
 						.error(function(res){
-							console.log(res);
 							$modalInstance.close();
 						});
 					}
