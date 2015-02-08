@@ -150,7 +150,7 @@ body {
 }
 .dateslice {
   float: left;
-  height: 20px;
+  height: 100%;
   border-right: 1px solid rgba(0, 0, 0, 0.2);
   font-size: .6em;
   text-align: center;
@@ -177,6 +177,7 @@ body {
   margin-left: auto;
   margin-right: auto;
   width: 580px;
+  height: 40px;
 }
 .fc-event.percent25 {
   background-color: #36da82;
