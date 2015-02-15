@@ -2,31 +2,31 @@ var Event = {};
 
 Event.orm = db.sequelize.define('Event', {
 	name: {
-		type: Sequelize.STRING,
+		type: db.Sequelize.STRING,
 		field: 'name'
 	},
 	date: {
-		type: Sequelize.STRING,
+		type: db.Sequelize.STRING,
 		field: 'date'
 	},
 	timeStart: {
-		type: Sequelize.STRING,
+		type: db.Sequelize.STRING,
 		field: 'time_start'
 	},
 	timeEnd: {
-		type: Sequelize.STRING,
+		type: db.Sequelize.STRING,
 		field: 'time_end'
-	}
+	},
 	comments: {
-		type: Sequelize.STRING,
+		type: db.Sequelize.STRING,
 		field: 'comments'
 	},
 	usage: {
-		type: Sequelize.INT,
+		type: db.Sequelize.INTEGER,
 		field: 'usage'
 	},
 	dateCreated: {
-		type: Sequelize.DATETIME,
+		type: db.Sequelize.DATE,
 		field: 'created_at'
 	}
 
@@ -34,26 +34,25 @@ Event.orm = db.sequelize.define('Event', {
 	tableName: 'events'
 });
 
-Event.orm.belongsTo(User.orm)
 
-Event.prototype.create = function(query, model, cb){
-
+Event.create = function(query, model, cb){
+	console.log('in event.create');
 };
 
-Event.prototype.delete = function(id, query, cb){
-
+Event.delete = function(id, query, cb){
+	console.log('in event.delete');
 };
 
-Event.prototype.read = function(query, cb){
-
+Event.read = function(query, cb){
+	console.log('in event.read');
 };
 
-Event.prototype.readById = function(id, query, cb){
-
+Event.readById = function(id, query, cb){
+	console.log('in event.readById');
 };
 
-Event.prototype.update = function(id, query, model, cb){
-
+Event.update = function(id, query, model, cb){
+	console.log('in event.update');
 };
 
 module.exports = Event;

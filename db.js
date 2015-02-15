@@ -15,9 +15,11 @@ db = {};
 *handle disconnection situations
 */
 function connect() {
-  var sequelize = new Sequelize(config.database, config.user, config.password, config);
-  db.sequelize = sequelize;
+
   db = mysql.createConnection(config);
+  db.sequelize = new Sequelize(config.database, config.user, config.password, config);
+  db.Sequelize = Sequelize;
+
   db.connect(function(err) {  
     if(err) {                                     
       console.log('error when connecting to db:', err);

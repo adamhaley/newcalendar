@@ -2,27 +2,27 @@ var User = {};
 
 User.orm = db.sequelize.define('User', {
 	nameFirst: {
-		type: Sequelize.STRING,
+		type: db.Sequelize.STRING,
 		field: 'name_first' 
 	},
 	nameLast: {
-		type: Sequelize.STRING,
+		type: db.Sequelize.STRING,
 		field: 'name_last'
 	},
 	username: {
-		type: Sequelize.STRING,
+		type: db.Sequelize.STRING,
 		field: 'username'
 	},
 	password: {
-		type: Sequelize.STRING,
+		type: db.Sequelize.STRING,
 		field: 'password'
-	}
+	},
 	email: {
-		type: Sequelize.STRING,
+		type: db.Sequelize.STRING,
 		field: 'email'
 	},
 	phone: {
-		type: Sequelize.STRING,
+		type: db.Sequelize.STRING,
 		field: 'phone'
 	}
 
@@ -30,26 +30,24 @@ User.orm = db.sequelize.define('User', {
 	tableName: 'users' 
 });
 
-User.orm.hasMany(Event.orm, {as: 'Events'})
-
-User.prototype.create = function(query, model, cb){
-
+User.create = function(query, model, cb){
+	console.log('in user.create');
 };
 
-User.prototype.delete = function(id, query, cb){
-
+User.delete = function(id, query, cb){
+	console.log('in user.delete');
 };
 
-User.prototype.read = function(query, cb){
-
+User.read = function(query, cb){
+	console.log('in user.read');
 };
 
-User.prototype.readById = function(id, query, cb){
-
+User.readById = function(id, query, cb){
+	console.log('in user.readById');
 };
 
-User.prototype.update = function(id, query, model, cb){
-
+User.update = function(id, query, model, cb){
+	console.log('in user.update');
 };
 
 module.exports = User;

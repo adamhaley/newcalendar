@@ -1,12 +1,11 @@
 /**
  * Module dependencies.
  */
-
 var express = require('express');
 var db = require('./db');
 
 var routes = require('./routes');
-var user = require('./routes/user');
+// var user = require('./routes/user');
 
 var http = require('http');
 var path = require('path');
@@ -46,7 +45,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/users', user.list);
+// app.get('/users', user.list);
 app.get('/logout',routes.logout);
 app.get('/api/users',routes.users);
 app.get('/api/events',routes.getEvents);
@@ -54,7 +53,19 @@ app.put('/api/events/', routes.putEvents);
 app.post('/api/events/', routes.postEvents);
 app.delete('/api/events/:id', routes.deleteEvent);
 app.get('/api/check-availability',routes.checkAvailability);
-// app.get('/api/check-availability-range',routes.checkAvailabilityRange);
+
+//crud for user/events admin
+var User = require('./models/user');
+var Event = require('./models/event');
+
+Event.orm.belongsTo(User.orm);
+User.orm.hasMany(Event.orm, {as: 'Events'});
+
+require('express-crud')(app);
+
+app.crud('users', User);
+app.crud('events', Event);
+//end crud/REST for user/events admin
 
 app.post('/login', routes.login, function(req, res){
 	console.log('in login callback...');
