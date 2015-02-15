@@ -54,7 +54,7 @@ app.put('/api/events/', routes.putEvents);
 app.post('/api/events/', routes.postEvents);
 app.delete('/api/events/:id', routes.deleteEvent);
 app.get('/api/check-availability',routes.checkAvailability);
-app.get('/api/check-availability-range',routes.checkAvailabilityRange);
+// app.get('/api/check-availability-range',routes.checkAvailabilityRange);
 
 app.post('/login', routes.login, function(req, res){
 	console.log('in login callback...');

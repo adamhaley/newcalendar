@@ -12,7 +12,6 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		// running `grunt watch` will watch for changes
 		watch: {
 			files: "./public/css/*.styl",
 			tasks: ["stylus"]
@@ -20,10 +19,7 @@ module.exports = function(grunt) {
 	});
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-stylus');
-	// grunt.loadNpmTasks('grunt-contrib-uglify');
-	// grunt.loadNpmTasks('grunt-contrib-jshint');
-	// grunt.loadNpmTasks('grunt-contrib-concat');
 
-	 grunt.registerTask('default', ["stylus"]);
+	grunt.registerTask('default', ["stylus"]);
 
 };

@@ -206,30 +206,3 @@ exports.checkAvailability = function(req, res){
   });
   
 };
-
-exports.checkAvailabilityRange = function(req, res){
-
-    var date = moment(req.query.start).format("YYYY-MM-DD");
-    var dateEnd = moment(req.query.endDate).format("YYYY-MM-DD");
-    var timeStart = moment(req.query.start).format("HH:mm");
-    var timeEnd = moment(req.query.end).format("HH:mm");
- 
-    var endDate = moment().add('weeks',4);
-    console.log('creating dates weekly before Sep 24, 2014');
-
-    var out = {
-      dates: []
-    }
-    var i=0;
-    var nextDate = moment();
-
-    for(nextDate = moment(); nextDate.isBefore(endDate); nextDate = nextDate.add('days',7)){
-      console.log(nextDate + "\n");
-      out.dates.push(nextDate.format('YYYY-MM-DD'));
-      
-      i++;
-    }
-    res.writeHead(200, {"Content-Type": "text/json"});
-    res.write(JSON.stringify(out));
-    res.end();
-};
