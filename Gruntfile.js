@@ -8,18 +8,18 @@ module.exports = function(grunt) {
 					yuicompress: true
 				},
 				files: {
-					"./public/css/main.css": "./public/css/main.styl"
+					"./public/css/main.css": "./public/styl/main.styl"
 				}
 			}
 		},
 		watch: {
-			files: "./public/css/*.styl",
+			files: "./public/styl/*.styl",
 			tasks: ["stylus"]
 		}
 	});
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-stylus');
 
-	grunt.registerTask('default', ["stylus"]);
+	grunt.registerTask('default', ["stylus","watch"]);
 
 };
