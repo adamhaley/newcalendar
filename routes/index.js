@@ -12,7 +12,6 @@ exports.index = function(req, res){
 };
 
 exports.login = function(req, res){
-  console.log(req.body);
   var password = req.body.password;
   if(!password){
     req.flash('error','No password given');
@@ -22,7 +21,6 @@ exports.login = function(req, res){
   db.query(q, function(err, user){
     console.log(user);
     if(err){
-      console.log('ERROR');
       console.log(err);
       req.flash('error',err);
       return res.redirect('/');
@@ -94,7 +92,6 @@ exports.postEvents = function(req, res){
   var date = moment(req.body.date).format("YYYY-MM-DD");
 
   var q = "INSERT INTO `events` (`id`, `user_id`, `date`, `time_start`, `time_end`, `comments`, `usage`, `created_at`) VALUES (NULL, '"+userId+"', '"+date+"', '"+timeStart+"', '"+timeEnd+"', '"+comments+"','"+usage+"', CURRENT_TIMESTAMP);";
-  // console.log(q);
 
   db.query(q, function(err,result){
       if(err){
@@ -146,6 +143,16 @@ exports.users = function(req, res){
   		res.end();
   	});
 };
+
+exports.getAnnouncements = function(req,res){
+  db.query('SELECT announcement FROM announcements where ID = 1', function(err,rows){
+    if(err){
+      res.end('Query Error: ' . err);
+    }else{
+      res.write(JSON.stringify(rows));
+    }
+  });
+}
 
 exports.checkAvailability = function(req, res){
   res.writeHead(200, {"Content-Type": "text/json"});
