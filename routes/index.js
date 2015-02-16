@@ -1,7 +1,7 @@
 var moment = require('moment');
 var _ = require('underscore');
 var twix = require('twix');
-var intervals = require('interval-query');
+// var intervals = require('interval-query');
 
 /*
  * GET home page.
