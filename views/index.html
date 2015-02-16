@@ -31,24 +31,28 @@ JJGym Calendar
 {{#session.user}}
 
   <div class="alert row">
-    Welcome, {{session.user.name_first}} {{session.user.name_last}}!  <input type="button" value="Logout" ng-click="logout()" class="pull-right"/>
+    Welcome, {{session.user.name_first}} {{session.user.name_last}}! [<span class="logout" ng-click="logout()">Logout</span>] 
+    <!-- <input type="button" value="Logout" ng-click="logout()" class="pull-right"/> -->
   </div>
 
 
 {{/session.user}}
 {{^session.user}}
-  <form action="/login" method="post">
+  <form ng-submit="login()" action="/login" method="post">
 
     <input type="hidden" name="username" value="jjgym"/>
       <div class="alert row">
           <label>Password:</label>
-          <input type="password" name="password"/><input type="submit" value="Log In" class="pull-right" />
+          <input type="password" name="password"/>
+          <input type="submit" class="login-submit" value="[Login]" />
+          <!-- <input type="submit" value="Log In" class="pull-right" /> -->
       </div>
+
   </form>
 {{/session.user}}
 </div>
 
-<div class="text-slideshow" data="announcements"></div>
+<div class="row text-slideshow col-md-12" data="announcements"></div>
 
 </header>
  <br />
