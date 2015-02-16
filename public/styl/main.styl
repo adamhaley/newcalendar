@@ -1,3 +1,6 @@
+@import 'bootstrap/index.styl'
+
+
 lesscss-percentage(n)
 	(n * 100)%
 
@@ -10,7 +13,7 @@ body
 	-o-user-select none
 	user-select none
   
-perc0 = rgb(255, 255, 255, 1)
+perc0 = rgb(122, 232, 255, 1)
 perc25 = rgb(54, 218, 130, 1)
 perc50 = rgb(0, 153, 153, 1)
 perc75 = rgb(33, 100, 119, 1)
@@ -157,14 +160,20 @@ body
 	color subtextcolor
 	padding-top .5em
 	&.perc0
+		
 		background-color perc100
 	&.perc25
+		
 		background-color perc75
 	&.perc50
+		
 		background-color perc50
 	&.perc75
+		color #333;
 		background-color perc25
 	&.perc100
+		
+		color #333;
 		background-color perc0
 	
 .availability-matrix
