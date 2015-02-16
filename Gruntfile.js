@@ -21,5 +21,5 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-stylus');
 
 	grunt.registerTask('default', ["stylus","watch"]);
-
+	grunt.registerTask('prod', ["stylus"]);
 };
