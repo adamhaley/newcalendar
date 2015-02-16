@@ -5,7 +5,10 @@ module.exports = function(grunt) {
 			development: {
 				options: {
 					paths: ["./css"],
-					yuicompress: true
+					yuicompress: true,
+					define: {
+						import_tree: require('stylus-import-tree')
+					}
 				},
 				files: {
 					"./public/css/main.css": "./public/styl/main.styl"
@@ -13,7 +16,7 @@ module.exports = function(grunt) {
 			}
 		},
 		watch: {
-			files: "./public/styl/*.styl",
+			files: ["./public/styl/main.styl","./public/styl/*.styl", "./public/styl/**/*.styl"],
 			tasks: ["stylus"]
 		}
 	});
