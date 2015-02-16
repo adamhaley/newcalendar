@@ -18,6 +18,10 @@ ctrls.controller('HeaderController', function($scope,$log, Announcements){
 	$scope.logout = function(){
 		window.location="/logout";
   	}
+
+  	$scope.login = function(){
+  		
+  	}
 });
 
 ctrls.controller('CalendarController', function($scope,$rootScope,$location,$modal,$http,$log,$cookies,$cookieStore,$timeout,$rootScope,$compile,$q){
