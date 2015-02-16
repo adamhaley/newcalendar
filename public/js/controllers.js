@@ -6,7 +6,15 @@ ctrls.controller('QuickBookController', function($scope){
 	};
 });
 
-ctrls.controller('HeaderController', function($scope,$log){
+ctrls.controller('HeaderController', function($scope,$log, Announcements){
+
+	Announcements.get()
+		.then(function(data){
+			$scope.announcements = data.announcements;
+		});
+	
+
+
 	$scope.logout = function(){
 		window.location="/logout";
   	}
