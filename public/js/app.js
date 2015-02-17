@@ -3,7 +3,8 @@ var app = angular.module("jjgym", [
 	'ngCookies',
 	'ui.calendar',
 	'ui.bootstrap',
-	'jjgym.controllers'
+	'jjgym.controllers',
+	'ngAnimate'
 	]).config(function($routeProvider){
 	$routeProvider.when('/calendar', {
 		templateUrl: 'calendar.html',
