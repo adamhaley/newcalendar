@@ -26,8 +26,7 @@ app.directive("textSlideshow",['$interval', function($interval,$timeout){
 					}else{
 						scope.i++;
 					}	
-					// $el = $(element).find('.text-item');
-					$el.fadeOut(600,function(){
+					$el.fadeOut(300,function(){
 							$(this).html(scope.data[scope.i]);
 						})
 						.delay(500)

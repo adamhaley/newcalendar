@@ -33,11 +33,6 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 	
   	$scope.events = [];
 
-	$scope.$on('event:add',function(){
-		// console.log('in event:add handler');
-		// console.log(arguments);
-	});
-  
 	/**
 	*Before event is rendered
 	*/
@@ -122,7 +117,6 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 			return;
 		}
 		var rawDate = date;
-		// $scope.rawDate = rawDate;
 		$scope.date = moment(date).format('dddd MMMM Do, YYYY');
 		$scope.hour = moment(date).format('h:mma');
 		$scope.hour = date;
@@ -144,12 +138,26 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 			$rootScope.timeStart = $scope.timeStart;
 			$rootScope.timeEnd = $scope.timeEnd;
 			
-
 			$scope.TimepickerCtrl = function ($scope, $rootScope) {
 				$scope.date = date;
 				$scope.rawDate = rawDate;
 				$scope.repeatEndDate = "";
 				$scope.optionValues = [];
+
+
+				callCheckGymAvailability = function(){
+					$scope.checkGymAvailability($scope.timeStart,$scope.timeEnd)
+						.then(function(res){
+							$scope.availability = res.data.available;
+							$scope.overlappingEvents = res.data.overlappingEvents;
+					 	});
+				}
+
+				callCheckGymAvailabilityRange = function(){
+					if($scope.repeatEndDate != ''){
+						$scope.checkGymAvailabilityRange(rawDate, $scope.repeatEndDate);
+					}
+				}
 
 				for(i=1;i<=20;i++){
 					$scope.optionValues.push(i);
@@ -163,11 +171,7 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 						$scope.timeEnd = moment($scope.timeStart).add('minutes',30).format();
 				  	}  
 				  	
-					$scope.checkGymAvailability($scope.timeStart,$scope.timeEnd)
-					.then(function(res){
-						$scope.availability = res.data.available;
-						$scope.overlappingEvents = res.data.overlappingEvents;
-				 	});
+					callCheckGymAvailability();
 
 					$rootScope.timeStart = $scope.timeStart;
 					$rootScope.timeEnd = $scope.timeEnd;
@@ -228,7 +232,7 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 					$rootScope.usage = $scope.usage;
 				});
 
-
+				
 
 				$scope.checkGymAvailability = function(timeStart,timeEnd,repeatingFlag){
 
@@ -281,11 +285,13 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 
 				};
 
-				$scope.checkGymAvailability($scope.timeStart,$scope.timeEnd)
-					.then(function(res){
-						$scope.availability = res.data.available;
-						$scope.overlappingEvents = res.data.overlappingEvents;
-				 	});
+				$scope.$watch('rep',function(newValue, oldValue){
+					if(newValue){
+						callCheckGymAvailabilityRange();
+					}else{
+						callCheckGymAvailability();
+					}
+				});
 			};
 			
 			$scope.ok = function (dates) {

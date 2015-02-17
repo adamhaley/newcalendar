@@ -22,7 +22,6 @@
       <div class="alert alert-block {{availability > 0 && 'alert-success' || 'alert-danger'}}">
         <div class="col-md-4">Gym Availability: </div>
         <div class="col-md-3">{{availability}}%</div>
-        <!-- <div class="col-md-5">{{timeStart | date: 'shortTime'}} - {{timeEnd | date: 'shortTime'}}</div> -->
         <br />
       </div>
     </div>
@@ -36,7 +35,7 @@
     <div class="row">
       Note: <input type="text" class="form-control" name="note" id="note"></input>
     </div>
-    <div class="row" ng-hide="availability <= 0">
+    <div class="row" ng-hide="availability <= 0  && !rep">
       Repeat Weekly: <input type="checkbox" name="rep" id="rep" ng-model="rep" />
     </div>
     
