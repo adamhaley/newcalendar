@@ -275,7 +275,6 @@ ctrls.controller('CalendarController', function($scope,$rootScope,$location,$mod
 							available = _.map(resArray, function(res){
 								return (res.data.available > 0)? res.data.available : 0;
 							});
-							
 							$scope.availability = _.min(available);
 						})
 						.then(function(res){
