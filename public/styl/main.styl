@@ -1,8 +1,26 @@
 @import 'bootstrap/index.styl'
 
-
 lesscss-percentage(n)
 	(n * 100)%
+
+/**
+*styles for directives
+*/
+import_tree('./directives')
+
+/**
+*directive styles overrides 
+*/
+.text-slideshow
+	padding 0
+	margin 0
+	make-md-column(10)
+	margin-left auto
+	margin-right auto
+
+/**
+*end styles for directives
+*/
 
 body
 	font-family verdana, arial, helvetica, sans-serif
@@ -59,11 +77,12 @@ input[type='submit']
 
 header
 	z-index 1000
-	height 20rem
+	height 15rem
 	margin-top 1rem
 	padding 1rem
-
-	// border 1px solid #ddd
+	
+.login-area
+	height 5rem
 
 body
 	background-color background1
@@ -214,6 +233,4 @@ body
 	background-color perc100
 	&:hover
 		background-color (perc100 + rgb(17, 17, 17, 1))
-		
-import_tree('./directives')
 
