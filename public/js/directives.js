@@ -1,42 +1,42 @@
-app.directive("textSlideshow",['$interval', function($interval,$timeout){
+app.directive("textSlideshow",['$interval', function($interval){
 	return {
 		scope: {
 			data: "=data",
 			interval: "=interval",
 		},
 		restrict: "C",
-		template: "<div ng-model=\"currentItem\" class=\"text-item\">{{currentItem}}</div>",
+		template: "<div ng-model=\"currentItem\" class=\"text-item\"></div>",
 		link: function(scope, element, attrs){	
 			function runInterval(){
-				scope.i = 0;
+				
 				delay = scope.interval * 1000;//seconds times 1000 to get ms
+				
 				scope.currentItem = scope.data[scope.i];
-			
+				scope.i = 0;
+				$el = $(element).find('.text-item')
+					.text(scope.data[scope.i]);
+				scope.i++;
+
+				//now start the interval
 				$interval(function(){
-					if(scope.i == scope.data.length){
+					if(scope.i == (scope.data.length-1)){
 						scope.i = 0;
 					}else{
 						scope.i++;
 					}	
-					$el = $(element).find('.text-item');
-					$el.
-					$el.animate({opacity: 0},200,function(){
-							
-							setTimeout(function(){scope.currentItem = scope.data[scope.i];$el.animate({opacity: 1},200);},100);
-						});
-
-					// $timeout(function(){scope.currentItem = scope.data[scope.i];scope.shown = true;},500);
-					
-					// console.log(scope.i);
-					// scope.data.push(scope.data.shift());					
-				},delay);
+					// $el = $(element).find('.text-item');
+					$el.fadeOut(600,function(){
+							$(this).html(scope.data[scope.i]);
+						})
+						.delay(500)
+						.fadeIn(300);
+						
+				}, delay);
 			}
 
 			started = false;
 			scope.$watch('data',function(newValue){
-				if(started){
-					return;
-				}else if(newValue == undefined){
+				if(started || newValue == undefined){
 					return;
 				}else{
 					runInterval();
