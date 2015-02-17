@@ -11,16 +11,7 @@ import_tree('./directives')
 /**
 *directive styles overrides 
 */
-.text-slideshow
-	// padding 0
-	// padding-left 1rem
-	// margin 0
-	make-md-column(10)
-	margin-left auto
-	margin-right auto
-	width 88%
-	// border 1px solid teal
-	height 4rem
+
 
 /**
 *end styles for directives
@@ -46,6 +37,20 @@ background1 = rgb(32, 32, 32, 1)
 background2 = rgb(128, 128, 128, 1)
 background3 = (background2 + rgb(17, 17, 17, 1))
 
+.text-slideshow
+	color #fff
+	make-md-column(12)
+	margin-left auto
+	margin-right auto
+	width 88%
+	// border 1px solid teal
+	height 4rem
+	a 
+		font-weight bold
+		color #fff
+		text-decoration perc0
+
+
 .btn-warning
 	background-color #ffcd00
 	
@@ -53,10 +58,14 @@ background3 = (background2 + rgb(17, 17, 17, 1))
 	background none
 	color #fff
 	
+.modal-backdrop
+	position fixed 
+	height 100%
+	
 #loader-screen
-	position absolute
-	top 0px
-	left 0px
+	position fixed
+	top 0
+	left 0
 	background-color #000
 	opacity .3
 	width 100%
