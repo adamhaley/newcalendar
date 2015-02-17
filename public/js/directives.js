@@ -14,7 +14,9 @@ app.directive("textSlideshow",['$interval', function($interval,$timeout){
 				scope.currentItem = scope.data[scope.i];
 				scope.i = 0;
 				$el = $(element).find('.text-item')
-					.text(scope.data[scope.i]);
+					.html(scope.data[scope.i])
+					.delay(100)
+					.fadeIn(300);
 				scope.i++;
 
 				//now start the interval
