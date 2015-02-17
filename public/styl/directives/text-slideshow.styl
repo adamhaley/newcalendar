@@ -1,12 +1,21 @@
-.text-slideshow
+.text-slideshow	
 	position relative
-	text-align left
-	
+
 	div
 		display none
 		&:first-child
+			position absolute
 			display block
+			left 0
 			opacity 1
 			color #fff
-			
-
+			/*ng-animate classes. not working with the directive yet*/
+			&.ng-enter
+				transition 0.5s linear all
+			&ng-enter-active
+				opacity 1
+			&.ng-leave
+				transition 0.5s linear all
+			&ng-leave-active
+				opacity 0
+			/*end ng-animate classes*/
