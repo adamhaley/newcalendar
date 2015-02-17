@@ -1,4 +1,4 @@
-app.directive("textSlideshow",['$interval', function($interval){
+app.directive("textSlideshow",['$interval', function($interval,$timeout){
 	return {
 		scope: {
 			data: "=data",

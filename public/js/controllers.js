@@ -6,7 +6,7 @@ ctrls.controller('QuickBookController', function($scope){
 	};
 });
 
-ctrls.controller('HeaderController', function($scope,$log, Announcements){
+ctrls.controller('HeaderController', function($scope,$log, $timeout, Announcements){
 
 	Announcements.get()
 		.then(function(data){
@@ -20,7 +20,7 @@ ctrls.controller('HeaderController', function($scope,$log, Announcements){
   	}
 
   	$scope.login = function(){
-  		
+
   	}
 });
 
