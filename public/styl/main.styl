@@ -12,9 +12,7 @@ import_tree('./directives')
 *directive styles overrides 
 */
 .text-slideshow
-	// padding 0
-	// padding-left 1rem
-	// margin 0
+	color #fff
 	make-md-column(10)
 	margin-left auto
 	margin-right auto
@@ -53,10 +51,14 @@ background3 = (background2 + rgb(17, 17, 17, 1))
 	background none
 	color #fff
 	
+.modal-backdrop
+	position fixed 
+	height 100%
+	
 #loader-screen
-	position absolute
-	top 0px
-	left 0px
+	position fixed
+	top 0
+	left 0
 	background-color #000
 	opacity .3
 	width 100%
