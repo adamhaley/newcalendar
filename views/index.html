@@ -22,8 +22,10 @@ JJGym Calendar
 <body>
 
 <header class="col-md-12" ng-controller="HeaderController">
-
-<div class="login-area col-md-12">
+<div class="logo col-md-6">
+  <img src="images/jjgym-logo.png" alt="">
+</div>
+<div class="login-area col-md-6">
 {{#flash.error}}
   <div class="alert row">Error: {{flash.error}}</div>
 {{/flash.error}}
@@ -53,7 +55,7 @@ JJGym Calendar
 </div>
 
 <!--text-slideshow directive: announcements is array of text values, interval is time in seconds to advance to next item-->
-<div class="row text-slideshow" data="announcements" interval="7"></div>
+<!-- <div class="row text-slideshow" data="announcements" interval="7"></div> -->
 
 
 </header>
