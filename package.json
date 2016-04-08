@@ -24,5 +24,8 @@
     "interval-query": "~0.3.0",
     "stylus": "~0.50.0",
     "stylus-import-tree": "~0.1.10"
+  },
+  "devDependencies": {
+    "dotenv": "^2.0.0"
   }
 }
