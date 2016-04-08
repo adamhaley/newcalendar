@@ -54,31 +54,7 @@ app.delete('/api/events/:id', routes.deleteEvent);
 app.get('/api/check-availability',routes.checkAvailability);
 
 app.get('/api/announcements',routes.getAnnouncements);
-//crud for user/events admin
-// var User = require('./models/user');
-// var Event = require('./models/event');
-// var Announcement = require('./models/announcement');
 
-// Event.orm.belongsTo(User.orm);
-// User.orm.hasMany(Event.orm, {as: 'Events'});
-
-// var opts = {
-//     formatResponse: function(res) {
-//     	console.log('in formatResponse');
-//     	console.log(res);
-//         return {
-//             timestamp: Date.now(),
-//             payload: result
-//         };
-//     }
-// };
-
-// require('express-crud')(app, opts);
-
-// app.crud('users', User);
-// app.crud('events', Event);
-// app.crud('announcements', Announcement);
-//end crud/REST for user/events admin
 
 app.post('/login', routes.login, function(req, res){
 	console.log('in login callback...');
