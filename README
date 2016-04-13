@@ -5,8 +5,9 @@ MEAN Stack app, scheduling calendar for Jack & Jeri's Gym
 Instructions:
 
 1)npm install
+2)cd public/ && bower install (to install client-side vendor packages cd ../ after that is done)
 2)create a mysql db and import jjgym_calendar_new.sql into it.
-3)place a .env file with your MySQL connex info for that db in the root dir (same dir as app.js)
+3)place a .env file with your MySQL connex info for that db in the app root dir 
 
 .env example:
 
@@ -16,10 +17,8 @@ DB_DATABASE=jjgym_calendar
 DB_USERNAME=root
 DB_PASSWORD=root
 
-4)grunt
-(optional) for css development.
-compiles stylus to css and re-compiles on changes
+4)node app.js
 
-5)node app.js
-
-
+5)(optional)grunt 
+for css development.
+compiles stylus to css, watches and re-compiles on changes
