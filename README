@@ -2,7 +2,7 @@ MEAN Stack app, scheduling calendar for Jack & Jeri's Gym
 
 "M" in this case is for MySQL 
 
-Instructions:
+Installation Instructions:
 
 1)npm install
 2)cd public/ && bower install (to install client-side vendor packages cd ../ after that is done)
@@ -22,3 +22,19 @@ DB_PASSWORD=root
 5)(optional)grunt 
 for css development.
 compiles stylus to css, watches and re-compiles on changes
+
+
+Usage Instructions:
+
+3 Demo user accounts are included. Login with one of the following passwords to test out using the calendar:
+test
+anotherpass
+training
+
+JJGym Calendar includes a space allocation feature (color-coded for convenience!) which allows you to book out space in 25% increments.
+When you attempt to sign out space, The UI checks max currently available space in the requested time range to prevent overbooking.
+You can add, remove time slots, and there is a "Repeat Weekly" feature as well.
+
+
+
+
