@@ -6,7 +6,7 @@ Installation Instructions:
 
 1)npm install
 2)cd public/ && bower install (to install client-side vendor packages cd ../ after that is done)
-2)create a mysql db and import jjgym_calendar_new.sql into it.
+2)create a mysql db and import jjgym_calendar.sql into it.
 3)place a .env file with your MySQL connex info for that db in the app root dir 
 
 .env example:
