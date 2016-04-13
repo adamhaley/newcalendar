@@ -26,6 +26,7 @@
     "stylus-import-tree": "~0.1.10"
   },
   "devDependencies": {
-    "dotenv": "^2.0.0"
+    "dotenv": "^2.0.0",
+    "grunt": "^1.0.1"
   }
 }
