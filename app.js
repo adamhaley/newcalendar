@@ -4,6 +4,15 @@
 require('dotenv').config();
 var express = require('express');
 var db = require('./db');
+var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session'); 
+var bodyParser = require('body-parser');
+var session = require('express-session');
+var favicon = require('serve-favicon');
+
+var app = express();
+
+
 
 var routes = require('./routes');
 // var user = require('./routes/user');
@@ -14,17 +23,20 @@ var flash = require('connect-flash');
 
 var app = express();
 
-app.configure(function() {
-	console.log(__dirname);
+var env = process.env.NODE_ENV || 'development';
+
+if(env == 'development'){
 	app.use(flash());
 	app.use(express.static(__dirname + '/public'));
-	app.use(express.cookieParser('4n0th3r'));
-	app.use(express.cookieSession());
-	app.use(express.bodyParser());
-	app.use(express.session({ secret: '4n0th3r',cookie: { maxAge: 60000, httpOnly: false }}));
-	app.use(app.router);
+	app.use(cookieParser('4n0th3r'));
+	app.use(cookieSession({
+		name: 'session',
+		keys: ['key1','key2']
+	}));
+	app.use(bodyParser());
+	app.use(session({ secret: '4n0th3r',cookie: { maxAge: 60000, httpOnly: false }}));
  
-});
+}
 
 // all environments
 app.set('port', process.env.PORT || 3000);
@@ -33,17 +45,17 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('hogan-express'));
 app.set('view engine', 'html');
 
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(express.methodOverride());
+// app.use(favicon());
+// app.use(express.logger('dev'));
+// app.use(express.json());
+// app.use(express.urlencoded());
+// app.use(express.methodOverride());
 
 
 // development only
-if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
-}
+// if ('development' == app.get('env')) {
+//   app.use(express.errorHandler());
+// }
 
 app.get('/', routes.index);
 app.get('/logout',routes.logout);
