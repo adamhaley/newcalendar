@@ -10,6 +10,9 @@ var config = {
   password: process.env.DB_PASSWORD
 };
 
+console.log('config is: ');
+console.log(config)
+
 db = {};
 /**
 *handle disconnection situations
