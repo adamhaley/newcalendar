@@ -24,6 +24,7 @@
     "mysql": "^2.16.0",
     "mysql2": "^1.6.1",
     "node-logger": "0.0.1",
+    "nodemon": "^3.1.7",
     "passport": "*",
     "passport-local": "*",
     "sequelize": "^4.38.0",

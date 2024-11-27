@@ -12,8 +12,6 @@ var favicon = require('serve-favicon');
 
 var app = express();
 
-
-
 var routes = require('./routes');
 // var user = require('./routes/user');
 
@@ -27,6 +25,8 @@ var env = process.env.NODE_ENV || 'development';
 
 if(env == 'development'){
 	app.use(flash());
+    console.log('GOING to include STATIC \n');
+    console.log(__dirname + '/public');
 	app.use(express.static(__dirname + '/public'));
 	app.use(cookieParser('4n0th3r'));
 	app.use(cookieSession({
